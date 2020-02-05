@@ -6,6 +6,7 @@ carreraCtrl.getCarreras = async(req, res) => {
     Carrera.find()
         .then((carreras) => {
             res.json(carreras);
+            console.log(carreras)
         })
         .catch((err) => {
             res.json(err);
@@ -13,7 +14,7 @@ carreraCtrl.getCarreras = async(req, res) => {
 }
 
 carreraCtrl.getCarrera = async(req, res) => {
-    await Carrera.finOne({ carrera: req.param.id })
+    await Carrera.finOne({ carrera: req.params.id })
         .then((carrera) => {
             res.json(carrera)
         })
@@ -23,12 +24,12 @@ carreraCtrl.getCarrera = async(req, res) => {
 }
 
 carreraCtrl.createCarrera = async(req, res) => {
-    const carrera = new Carrera({
+    const carrer = new Carrera({
 
         carrera: req.body.carrera
     })
 
-    await carrera.save()
+    await carrer.save()
         .then(() => {
             res.status(200);
             res.json({
@@ -36,7 +37,10 @@ carreraCtrl.createCarrera = async(req, res) => {
             })
         })
         .catch((err) => {
-            res.json(err)
+            console.log(err)
+            res.json({
+                'status': err
+            })
         })
 }
 
@@ -45,7 +49,7 @@ carreraCtrl.updateCarrera = (req, res) => {
     let carrera = {
         carrera: req.body.carrera
     }
-    Carrera.findOneAndUpdate({ carrera: req.param.id }, { $set: carrera })
+    Carrera.findOneAndUpdate({ carrera: req.params.id }, { $set: carrera }) //revisar
         .then((carrera) => {
             res.json(carrera)
         })
@@ -54,11 +58,13 @@ carreraCtrl.updateCarrera = (req, res) => {
         })
 }
 
-carreraCtrl.deleteCarrera = (req, res) => {
-    Carrera.findOneAndDelete({ carrera: req.param.id })
+carreraCtrl.deleteCarrera = async(req, res) => {
+    console.log(req.params)
+    let user = Carrera.findOneAndDelete({ carrera: req.params.id })
         .then(() => {
             res.json({
-                'status': true
+                'status': true,
+                'carrera':req.param.id
             })
         })
         .catch(() => {

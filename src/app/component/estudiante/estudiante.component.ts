@@ -3,7 +3,7 @@ import {FormGroup,FormControl, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EstudianteServiceService } from '../../services/estudiante-service.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+//import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { CarreraService } from '../../services/carrera.service';
 
 
@@ -14,26 +14,32 @@ import { CarreraService } from '../../services/carrera.service';
 })
 export class EstudianteComponent implements OnInit {
 
+
+ carreras:any
+
+
   constructor(
     private router:Router,
     private estudianteserviceservice:EstudianteServiceService,
-    public matdialog: MatDialog,
+    //public matdialog: MatDialog,
     private carreracervice: CarreraService,
     private formbuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-this.getcarreras()
 
-  }
+ this.carreracervice.getCarreras() 
+.subscribe( carrera =>  this.carreras = carrera)
 
-  carreras:any
-
-getcarreras(){
-  this.carreracervice.getCarreras().subscribe((carreras)=>{
-    this.carreras = carreras
-  })
 }
+
+
+
+
+ 
+
+
+
 
 turnos= [{value:"D"},{value:"N"}]
 aprobados=[{value:"Si"},{value:"No"}]

@@ -1,0 +1,16 @@
+<mat-toolbar>
+    <span class="toolbar">Editar Carrera</span>
+</mat-toolbar>
+
+
+<mat-card-content>
+    <form class="my-form" [formGroup]="CarreraForm">
+        <mat-form-field>
+            <input type="text" matInput formControlName="carrera" required id="carr">
+            <mat-label for="carr">Edita la carrera</mat-label>
+        </mat-form-field>
+    </form>
+</mat-card-content>
+
+<button mat-raised-button class="btn-accept left light-blue darken-4" (click)="Aceptar()">Aceptar</button>
+<button mat-raised-button class="btn-cancel right" (click)="Cancelar()">Cancelar</button>

@@ -1,17 +1,16 @@
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { NgModule } from '@angular/core';
 import { SidenavComponent } from './component/sidenav/sidenav.component'
 import { EstudianteComponent } from './component/estudiante/estudiante.component'
+import { LoginComponent } from './component/login/login.component'
+import { CarreraComponent } from './component/carrera/carrera.component';
+
+
+
+
 const routes: Routes = [
-  { path:'estudiante',  //cambiar con el de estudiante
-    component:SidenavComponent
-  },
-  {
-    path:'puta',//cambiar luego
-    component:EstudianteComponent
-  }
-  
+  { path:'',component: LoginComponent},
+  { path:'estudiante',component: EstudianteComponent},
+  { path:'carrera',component: CarreraComponent }
 ];
 
-export const RouteRoutes = RouterModule.forChild(routes);
+export const RouteRoutes = RouterModule.forRoot(routes);
