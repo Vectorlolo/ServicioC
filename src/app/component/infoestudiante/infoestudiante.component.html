@@ -1,0 +1,52 @@
+<mat-toolbar>
+    <span class="toolbar">Información estudiante</span>
+</mat-toolbar>
+
+
+
+
+
+
+
+
+<h3>Cédula</h3>
+<p>{{estudiante.ci_estudiante}}</p>
+<br>
+
+<h3>Nombre</h3>
+<p>{{estudiante.n_estudiante}}</p>
+
+<h3>Apellido</h3>
+<p>{{estudiante.a_estudiante}}</p>
+
+<h3>Semestre</h3>
+<p>{{estudiante.semestre}}</p>
+
+<h3>Turno</h3>
+<p>{{estudiante.turno}}</p>
+
+<h3>Carrera</h3>
+<p>{{estudiante.carrera}}</p>
+<br>
+
+<h3>Tutor Académico</h3>
+<p>{{estudiante.tutor}}</p>
+
+<h3>Tutor de Comunidad</h3>
+<p>{{estudiante.tutor_c}}</p>
+<br>
+
+<h3>Número de Expediente</h3>
+<p>{{estudiante.n_expediente}}</p>
+
+<h3>Nombre del Proyecto</h3>
+<p>{{estudiante.nom_proyecto}}</p>
+
+<h3>Dirección</h3>
+<p>{{estudiante.direccion}}</p>
+
+<h3>Aprobado</h3>
+<p>{{estudiante.aprobado}}</p>
+
+
+<button mat-raised-button class="btn-accept left light-blue darken-4" (click)="Aceptar()">Cerrar</button>

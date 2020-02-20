@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-borrardialog',
@@ -9,8 +9,10 @@ import { MatDialogRef } from '@angular/material';
 export class BorrardialogComponent implements OnInit {
 
   constructor(
-  public borrarDialog:MatDialogRef<BorrardialogComponent>
-  ) { }
+  public borrarDialog:MatDialogRef<BorrardialogComponent>  ) { }
+
+
+
 
 
 Aceptar(){
@@ -18,6 +20,7 @@ Aceptar(){
     }
 
     Cancelar(){
+    
       this.borrarDialog.close(false)
     }
 

@@ -6,6 +6,7 @@ estudianteCtrl.getEstudiantes = async(req, res) => {
     Estudiante.find()
         .then((estudiante) => {
             res.json(estudiante);
+            console.log(estudiante)
         })
         .catch((err) => {
             res.json(err);
@@ -37,10 +38,11 @@ estudianteCtrl.createEstudiante = async(req, res) => {
         direccion: req.body.direccion,
         aprobado: req.body.aprobado
     });
-
+    console.log("estudiante: " + estudiante)
     await estudiante.save()
         .then(() => {
             res.status(200);
+
             res.json({
                 'status': 'ok'
             })

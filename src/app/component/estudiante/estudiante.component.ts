@@ -75,7 +75,7 @@ aprobados=[{value:"Si"},{value:"No"}]
   get direccion() {return this.EstudianteForm.get('direccion')}
   get aprobado() {return this.EstudianteForm.get('aprobado')}
   
-
+/* 
 //Formulario para editar
   EstudianteEForm = new FormGroup({
     ci_estudiante : new FormControl('', [Validators.required,Validators.maxLength(8),Validators.pattern('^[0-9]{1,8}$')]),
@@ -108,7 +108,7 @@ aprobados=[{value:"Si"},{value:"No"}]
 
 
 
-
+ */
 
 
 
@@ -126,21 +126,6 @@ aprobados=[{value:"Si"},{value:"No"}]
 
 
 
-  tomarEstudiante(code){
-    this.estudianteserviceservice.getEstudiante(code).subscribe((estudiante:any)=>{
-      delete(estudiante._id)
-      delete(estudiante.__v)
-      this.EstudianteEForm.setValue(estudiante)
-    })
-  }
-
-  updateEstudiante(){
-    this.estudianteserviceservice.updateEstudiante(this.EstudianteForm.value).subscribe((estudiante:any)=>{
-      this.router.navigateByUrl('/estudiante',{skipLocationChange:true}).then(()=>{
-        this.router.navigate(['/estudiante'])
-      });
-    })
-  }
-
+ 
 
 }

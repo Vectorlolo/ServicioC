@@ -41,6 +41,9 @@ import { LoginComponent } from './component/login/login.component';
 import { CarreraComponent } from './component/carrera/carrera.component';
 import { BorrardialogComponent } from './component/borrardialog/borrardialog.component';
 import { EditarcarreraComponent } from './component/editarcarrera/editarcarrera.component';
+import { FindestudianteComponent } from './component/findestudiante/findestudiante.component';
+import { InfoestudianteComponent } from './component/infoestudiante/infoestudiante.component';
+import { EditarestudianteComponent } from './component/editarestudiante/editarestudiante.component';
 
 
 
@@ -55,7 +58,10 @@ import { EditarcarreraComponent } from './component/editarcarrera/editarcarrera.
     EstudianteComponent,
     CarreraComponent,
     BorrardialogComponent,
-    EditarcarreraComponent
+    EditarcarreraComponent,
+    FindestudianteComponent,
+    InfoestudianteComponent,
+    EditarestudianteComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +97,9 @@ import { EditarcarreraComponent } from './component/editarcarrera/editarcarrera.
   providers: [],
   entryComponents:[
     BorrardialogComponent,
-    EditarcarreraComponent
+    EditarcarreraComponent,
+    InfoestudianteComponent,
+    EditarestudianteComponent
   ],
   bootstrap: [AppComponent]
 })

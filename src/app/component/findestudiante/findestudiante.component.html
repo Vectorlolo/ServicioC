@@ -1,0 +1,96 @@
+<mat-toolbar>
+    <span class="toolbar">Buscar estudiante</span>
+</mat-toolbar>
+
+
+
+<div class="input-field container">
+    <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
+    <label for="filter">Busqueda avanzada</label>
+</div>
+
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="ci_estudiante">
+            <th mat-header-cell *matHeaderCellDef> C.I </th>
+            <td mat-cell *matCellDef="let estudiante">
+
+                <span>{{estudiante.ci_estudiante}}</span>
+
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="n_estudiante">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let estudiante">
+
+                <span>{{estudiante.n_estudiante}} </span>
+
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="a_estudiante">
+            <th mat-header-cell *matHeaderCellDef> Apellido </th>
+            <td mat-cell *matCellDef="let estudiante">
+
+                <span>{{estudiante.a_estudiante}}</span>
+
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="n_expediente">
+            <th mat-header-cell *matHeaderCellDef> #Expediente </th>
+            <td mat-cell *matCellDef="let estudiante">
+
+                <span>{{estudiante.n_expediente}} </span>
+
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="aprobado">
+            <th mat-header-cell *matHeaderCellDef> Aprobado </th>
+            <td mat-cell *matCellDef="let estudiante">
+
+                <span>{{estudiante.aprobado}} </span>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="boton">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let estudiante"> <button (click)="borrarEstudiante(estudiante.ci_estudiante) " mat-icon-button>
+          <mat-icon>delete</mat-icon>
+        </button> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="botonE">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell *matCellDef="let estudiante">
+
+                <button (click)="info=estudiante.ci_estudiante" (click)="tomarEstudiante(estudiante.ci_estudiante)" mat-icon-button>
+                   <mat-icon>edit</mat-icon>
+                </button>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="botonI">
+            <th mat-header-cell *matHeaderCellDef> Información </th>
+            <td mat-cell *matCellDef="let estudiante"> <button (click)="info=estudiante.ci_estudiante" (click)="Informacion()" mat-icon-button>
+          <mat-icon>delete</mat-icon>
+        </button> </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+</div>

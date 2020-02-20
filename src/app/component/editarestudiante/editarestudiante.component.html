@@ -1,18 +1,21 @@
 <mat-toolbar>
-    <span class="toolbar">Registro estudiante</span>
+    <span class="toolbar">Editar estudiante</span>
 </mat-toolbar>
 <mat-card-content>
-    <form class="my-form" [formGroup]="EstudianteForm" (ngSubmit)="createEstudiante()">
+    <form class="my-form" [formGroup]="EstudianteForm">
 
         <div class="row">
             <div class="input-field col s6">
                 <mat-form-field>
-
-                    <input type="text" matInput formControlName="ci_estudiante" required id="ci" class="validate">
-                    <mat-label for="ci">Cédula</mat-label>
+                    <!--   <mat-form-field class="example-full-width">
+                           <mat-label>Company (disabled)</mat-label>
+                           <input matInput disabled value="Google">
+                           </mat-form-field> -->
+                    <mat-label>Cédula</mat-label>
+                    <input matInput disabled [value]="data.info" >
                 </mat-form-field>
 
-                <div *ngIf="ci_estudiante.invalid && (ci_estudiante.dirty || ci_estudiante.touched )" class="red-text text-darken-4">
+                <!-- <div *ngIf="ci_estudiante.invalid && (ci_estudiante.dirty || ci_estudiante.touched )" class="red-text text-darken-4">
                     <div *ngIf="ci_estudiante.errors.required">
                         La cédula es requerida.
                     </div>
@@ -22,7 +25,7 @@
                     <div *ngIf="ci_estudiante.errors.pattern && !ci_estudiante.errors.maxlength">
                         La cédula no puede contener letras u otros caracteres. Ejemplo:"12345678"
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -83,11 +86,11 @@
                     </mat-option>
                 </mat-select>
                 <!--  <mat-select formControlName="turno" id="turno" class="validate">
-                    <mat-option *ngFor="let turno of turnos" [value]="turno.value">
-                        {{turno.value}}
-                    </mat-option>
-                </mat-select>
- -->
+                      <mat-option *ngFor="let turno of turnos" [value]="turno.value">
+                          {{turno.value}}
+                      </mat-option>
+                  </mat-select>
+   -->
                 <div *ngIf="turno.invalid && (turno.dirty || turno.touched)" class=" red-text  text-darken-4">
                     <div *ngIf="turno.errors.required">
                         El turno es requerido
@@ -103,12 +106,12 @@
                     </mat-option>
                 </mat-select>
                 <!--
-                <div *ngIf="carerra.invalid && (carerra.dirty || carerra.touched)" class=" red-text  text-darken-4">
-                    <div *ngIf="carerra.errors.required">
-                        El carerra es requerido
-                    </div>
-                </div>
-            -->
+                  <div *ngIf="carerra.invalid && (carerra.dirty || carerra.touched)" class=" red-text  text-darken-4">
+                      <div *ngIf="carerra.errors.required">
+                          El carerra es requerido
+                      </div>
+                  </div>
+              -->
             </div>
 
         </div>
@@ -196,22 +199,21 @@
                     </mat-option>
                 </mat-select>
                 <!--
-            <div *ngIf="aprobado.invalid && (aprobado.dirty || aprobado.touched)" class=" red-text  text-darken-4">
-                <div *ngIf="aprobado.errors.required">
-                    El status de aprobación del proyecto es requerido
-                </div>
-            </div>
--->
+              <div *ngIf="aprobado.invalid && (aprobado.dirty || aprobado.touched)" class=" red-text  text-darken-4">
+                  <div *ngIf="aprobado.errors.required">
+                      El status de aprobación del proyecto es requerido
+                  </div>
+              </div>
+  -->
             </div>
         </div>
 
 
         <!--  Aqui los demas div correspondientes a los demas input -->
 
-        <button class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!EstudianteForm.valid">Guardar
-<i class="material-icons right">send</i>
-</button>
-
     </form>
 
 </mat-card-content>
+
+<button mat-raised-button class="btn-accept left light-blue darken-4" (click)="Aceptar()">Aceptar</button>
+<button mat-raised-button class="btn-cancel right" (click)="Cancelar()">Cancelar</button>
