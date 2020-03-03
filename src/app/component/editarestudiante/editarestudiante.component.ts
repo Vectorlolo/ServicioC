@@ -4,7 +4,8 @@ import {FormGroup,FormControl, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { EstudianteServiceService } from '../../services/estudiante-service.service';
 import { CarreraService } from '../../services/carrera.service';
-
+import {DialogData} from '../findestudiante/findestudiante.component'
+import { from } from 'rxjs';
 @Component({
   selector: 'app-editarestudiante',
   templateUrl: './editarestudiante.component.html',

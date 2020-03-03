@@ -67,9 +67,12 @@ export class CarreraComponent implements OnInit {
   crearCarrera(){
      this.carreracervice.createCarrera(this.CarreraForm.value).subscribe((carrera)=>{
     console.log(carrera)
-      this.router.navigateByUrl('/carrera',{skipLocationChange:true}).then(()=>{
-        this.router.navigate(['/carrera'])
-      });
+    this.carreracervice.getCarreras().subscribe((carreras:any)=>{
+      delete(carreras.__v)
+      this.dataSource = new MatTableDataSource(carreras);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
     })
   }
 
@@ -92,10 +95,12 @@ await editarDialog.afterClosed().subscribe((result)=>{
  if(result){
 
  this.carreracervice.deleteCarrera(id).subscribe((msg)=>{
-      this.router.navigateByUrl('/carrera', {skipLocationChange: true}).then(()=>
-      {
-        this.router.navigate(['/carrera'])
-      });
+  this.carreracervice.getCarreras().subscribe((carreras:any)=>{
+    delete(carreras.__v)
+    this.dataSource = new MatTableDataSource(carreras);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  })
     })
 
       }
@@ -127,11 +132,12 @@ await editarDialog.afterClosed().subscribe((result)=>{
     console.log(result)
     if(result){
        this.carreracervice.deleteCarrera(id).subscribe((msg)=>{
-         this.router.navigateByUrl('/carrera', {skipLocationChange: true}).then(()=>
-      {
-        this.router.navigate(['/carrera'])
-        
-      }); 
+        this.carreracervice.getCarreras().subscribe((carreras:any)=>{
+          delete(carreras.__v)
+          this.dataSource = new MatTableDataSource(carreras);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        })
 
        })
 

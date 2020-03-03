@@ -1,8 +1,8 @@
 <mat-toolbar>
     <span class="toolbar">Registro estudiante</span>
 </mat-toolbar>
-<mat-card-content>
-    <form class="my-form" [formGroup]="EstudianteForm" (ngSubmit)="createEstudiante()">
+<!-- <mat-card-content>
+    <form class="form-group" [formGroup]="EstudianteForm" (ngSubmit)="createEstudiante()">
 
         <div class="row">
             <div class="input-field col s6">
@@ -82,12 +82,7 @@
                         {{turno.value}}
                     </mat-option>
                 </mat-select>
-                <!--  <mat-select formControlName="turno" id="turno" class="validate">
-                    <mat-option *ngFor="let turno of turnos" [value]="turno.value">
-                        {{turno.value}}
-                    </mat-option>
-                </mat-select>
- -->
+              
                 <div *ngIf="turno.invalid && (turno.dirty || turno.touched)" class=" red-text  text-darken-4">
                     <div *ngIf="turno.errors.required">
                         El turno es requerido
@@ -102,13 +97,7 @@
                         {{carrera.carrera}}
                     </mat-option>
                 </mat-select>
-                <!--
-                <div *ngIf="carerra.invalid && (carerra.dirty || carerra.touched)" class=" red-text  text-darken-4">
-                    <div *ngIf="carerra.errors.required">
-                        El carerra es requerido
-                    </div>
-                </div>
-            -->
+             
             </div>
 
         </div>
@@ -195,18 +184,17 @@
                         {{aprobado.value}}
                     </mat-option>
                 </mat-select>
-                <!--
+            
             <div *ngIf="aprobado.invalid && (aprobado.dirty || aprobado.touched)" class=" red-text  text-darken-4">
                 <div *ngIf="aprobado.errors.required">
                     El status de aprobación del proyecto es requerido
                 </div>
             </div>
--->
+
             </div>
         </div>
 
 
-        <!--  Aqui los demas div correspondientes a los demas input -->
 
         <button class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!EstudianteForm.valid">Guardar
 <i class="material-icons right">send</i>
@@ -215,3 +203,192 @@
     </form>
 
 </mat-card-content>
+ -->
+
+
+<mat-card-content>
+
+    <div class="container">
+     
+        <form class="form-group" [formGroup]="EstudianteForm" (ngSubmit)="createEstudiante()">
+        <div class="row">
+
+            <div class="form-group col-4">
+                <label for="ci">Cédula Estudiate</label>
+                <input  type="text"  formControlName="ci_estudiante" required id="ci" class="validate form-control">  
+                <div *ngIf="ci_estudiante.invalid && (ci_estudiante.dirty || ci_estudiante.touched )" class="red-text text-darken-4">
+                  <div *ngIf="ci_estudiante.errors.required">
+                      La cédula es requerida.
+                  </div>
+                  <div *ngIf="ci_estudiante.errors.maxlength">
+                      La cédula no puede tener mas de 8 digitos
+                  </div>
+                  <div *ngIf="ci_estudiante.errors.pattern && !ci_estudiante.errors.maxlength">
+                      La cédula no puede contener letras u otros caracteres. Ejemplo:"12345678"
+                  </div>
+              </div>
+               </div>
+          
+          
+               <div class="form-group col-4">
+                  <label for="nombre">Nombre</label>
+                  <input type="text"  formControlName="n_estudiante" required id="nombre" class="validate form-control">
+                  
+                <div *ngIf="n_estudiante.invalid && (n_estudiante.dirty || n_estudiante.touched)" class=" red-text  text-darken-4">
+                  <div *ngIf="n_estudiante.errors.required">
+                      El nombre es requerido
+                  </div>
+              </div>
+                 </div>
+          
+          
+                 
+               <div class="form-group col-4">
+                  <label for="apellido">Apellido</label>
+                  <input type="text"  formControlName="a_estudiante" required id="apellido" class="validate form-control">
+                  <div *ngIf="a_estudiante.invalid && (a_estudiante.dirty || a_estudiante.touched)" class=" red-text  text-darken-4">
+                      <div *ngIf="a_estudiante.errors.required">
+                          El apellido es requerido
+                      </div>
+                  </div>
+                 </div>
+          
+        </div>
+          
+        <div class="row">
+
+            <div class="form-group col-4">
+                <label for="semestre">Semestre</label>
+                <input type="text"  formControlName="semestre" id="semestre" class="validate form-control">
+                <div *ngIf="semestre.invalid && (semestre.dirty || semestre.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="semestre.errors.required">
+                        El semestre es requerido
+                    </div>
+                    <div *ngIf="semestre.errors.min">
+                        Los estudiantes no pueden inscribir Servicio Comunitario antes del 6 semestre
+                    </div>
+                    <div *ngIf="semestre.errors.max">
+                        No existen mas semestres (Hasta 10)
+                    </div>
+                
+                </div>
+               </div>
+        
+        
+            <div class="form-group col-4">
+              <label for="turno">Turno</label>
+              <select formControlName="turno" id="turno" class="validate form-control">
+                <option *ngFor="let turno of turnos" [value]="turno.value">{{turno.value}}</option>
+              </select>
+              <div *ngIf="turno.invalid && (turno.dirty || turno.touched)" class=" red-text  text-darken-4">
+                <div *ngIf="turno.errors.required">
+                    El turno es requerido
+                </div>
+            </div>
+            </div>
+        
+            <div class="form-group col-4">
+                <label for="carrera">Carrera</label>
+                <select formControlName="carrera" id="carrera" class="validate form-control">
+                  <option *ngFor="let carrera of carreras" [value]="carrera.carrera">{{carrera.carrera}}</option>
+                </select>
+                <div *ngIf="carrera.invalid && (carrera.dirty || carrera.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="carrera.errors.required">
+                        El carrera es requerido
+                    </div>
+                </div>
+              </div>
+        </div>
+               
+        <div class="row">
+            <div class="form-group col-4">
+                <label for="tutor">Tutor Académico</label>
+                <input type="text"  formControlName="tutor" id="tutor" class="validate form-control">
+                <div *ngIf="tutor.invalid && (tutor.dirty || tutor.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="tutor.errors.required">
+                        El tutor académico es requerido
+                    </div>
+        
+                </div>
+               </div>
+            
+        
+               <div class="form-group col-4">
+                <label for="tutor_c">Tutor de la Comunidad</label>
+                <input type="text"  formControlName="tutor_c" id="tutor_c" class="validate form-control">
+                <div *ngIf="tutor_c.invalid && (tutor_c.dirty || tutor_c.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="tutor_c.errors.required">
+                        El tutor de la comunidad es requerido
+                    </div>
+                </div>
+               </div>
+            
+        
+               
+               <div class="form-group col-4">
+                <label for="n_expediente">Número de Expediente</label>
+                <input type="text"  formControlName="n_expediente" id="n_expediente" class="validate form-control">
+                <div *ngIf="n_expediente.invalid && (n_expediente.dirty || n_expediente.touched)" class="red-text text-darken-4">
+                    <div *ngIf="n_expediente.errors.required">
+                        El número de expediente es requerido
+                    </div>
+                </div>
+               </div>
+        </div>
+              
+        
+        
+        <div class="row">
+            
+            <div class="form-group col-4 ">
+                <label for="nom_proyecto">Nombre del Proyecto</label>
+                <input type="text"  formControlName="nom_proyecto" id="nom_proyecto" class="validate form-control">
+                <div *ngIf="nom_proyecto.invalid && (nom_proyecto.dirty || nom_proyecto.touched)" class="red-text text-darken-4">
+                    <div *ngIf="nom_proyecto.errors.required">
+                        El nombre del proyecto es requerido
+                    </div>
+                </div>
+               </div>
+        
+        
+            <div class="form-group col-8">
+              <label for="direccion">Dirección</label>
+              <textarea  formControlName="direccion" id="direccion" rows="3" class="validate form-control"></textarea>
+              <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="red-text text-darken-4">
+                <div *ngIf="direccion.errors.required">
+                    La dirección es requerida
+                </div>
+            </div>
+            </div>
+
+        </div>
+                
+             
+        <div class="row">
+
+            <div class="form-group col-5">
+                <label for="aprobado">Aprobado</label>
+                <select formControlName="aprobado" id="aprobado" class="validate form-control">
+                  <option *ngFor="let aprobado of aprobados" [value]="aprobado.value">{{aprobado.value}}</option>
+                </select>
+                <div *ngIf="aprobado.invalid && (aprobado.dirty || aprobado.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="aprobado.errors.required">
+                        El status de aprobación del proyecto es requerido
+                    </div>
+                </div>
+              </div>
+             
+            <button class="btn waves-effect waves-light  light-blue darken-4 col-4" type="submit" [disabled]="!EstudianteForm.valid">Guardar
+                <i class="fa fa-floppy-o fa-2x " aria-hidden="true"></i>
+                </button>
+
+        </div>
+        
+            
+          </form>
+        
+        
+        
+        </div>
+</mat-card-content>
+

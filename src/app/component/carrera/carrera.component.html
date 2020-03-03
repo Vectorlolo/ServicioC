@@ -4,24 +4,35 @@
 
 
 <mat-card-content>
-    <form class="my-form" [formGroup]="CarreraForm" (ngSubmit)="crearCarrera()">
+    <div class="container">
+        <form class="form-group" [formGroup]="CarreraForm" (ngSubmit)="crearCarrera()">
 
-        <mat-form-field>
-            <input type="text" matInput formControlName="carrera" required id="carr" class="validate">
-            <mat-label for="carr">Carrera</mat-label>
-        </mat-form-field>
-
-
-        <button class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!CarreraForm.valid">Guardar
-  <i class="material-icons right">send</i>
-  </button>
-
-    </form>
+            <div class="form-group">
+                    <label for="carr">Carrera</label>
+        
+                    <input type="text"  formControlName="carrera" required id="carr" class="form-control validate">
+                 
+            </div>
+                   
+        
+        
+                <button class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!CarreraForm.valid">Guardar
+          <i class="fa fa-floppy-o fa-2x " aria-hidden="true"></i>
+          </button>
+        
+            </form>
+    </div>
+   
 
 </mat-card-content>
 
 
 <div>
+  
+
+
+
+
 
     <table mat-table [dataSource]="dataSource" matSort>
 

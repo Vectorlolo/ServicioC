@@ -101,13 +101,10 @@ async borrarEstudiante(id){
   
   await borrarDialog.afterClosed().subscribe((result)=>{
     if(result){
-      this.estudianteServiceService.deleteEstudiante(id).subscribe((msg)=>{
-        this.router.navigateByUrl('/festudiante', {skipLocationChange: true}).then(()=>
-        {
-          this.router.navigate(['/festudiante'])
-          
-        }); 
-  
+      this.estudianteServiceService.getEstudiantes().subscribe((estudiante:any)=>{
+        this.dataSource = new MatTableDataSource(estudiante);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
     }
   })
@@ -125,10 +122,11 @@ editar:any;
     
    await editarDialog.afterClosed().subscribe((msg)=>{
      if(msg){
-      this.router.navigateByUrl('/festudiante', {skipLocationChange: true}).then(()=>{
-        this.router.navigate(['/festudiante'])
-  
-       })
+      this.estudianteServiceService.getEstudiantes().subscribe((estudiante:any)=>{
+        this.dataSource = new MatTableDataSource(estudiante);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
      }
    })
 

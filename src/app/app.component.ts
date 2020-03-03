@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ServicioC';
+  links = [];
 
+  ngOnInit(){
+    this.links=[
+      {url:'/estudiante',nombre:'Estudiante'},
+      {url:'/carrera',nombre:'Carrera'},
+      {url:'/festudiante',nombre:'Festudiante'},
+    ]
+  }
 
-
-  
 
 }

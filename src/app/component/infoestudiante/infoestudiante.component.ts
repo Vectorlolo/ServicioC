@@ -2,6 +2,7 @@ import { Component, OnInit,Inject } from '@angular/core';
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material';
 import { EstudianteServiceService } from '../../services/estudiante-service.service';
 //import { async } from '@angular/core/testing';
+import {DialogData} from '../findestudiante/findestudiante.component'
 
 @Component({
   selector: 'app-infoestudiante',
