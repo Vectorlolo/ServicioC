@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
   links=[]
 
   //corregir servicio
@@ -15,6 +16,35 @@ export class SidenavComponent implements OnInit {
 
 
   ngOnInit() {
+    /* if(this.logincomponent.login){
+      this.links=[
+        {url:'/estudiante',nombre:'Estudiante'},
+        {url:'/carrera',nombre:'Carrera'},
+        {url:'/festudiante',nombre:'Festudiante'},
+      ]
+    }else{
+      this.links=[
+        {url:'/login',nombre:'Login'},
+      ] */
+    }
+
+
+    cerrar(){
+       localStorage.removeItem('usuario');
+      this.router.navigateByUrl('/login', {skipLocationChange: true}).then(()=>{
+        this.router.navigate(['/login'])
+  
+       })
+ }
+
+ iniciar(){
+  this.router.navigateByUrl('/login', {skipLocationChange: true}).then(()=>{
+    this.router.navigate(['/login'])
+
+   })
+ }
+
+
 /* 
     console.log(this.admin)
     if(this.admin == true){
@@ -36,6 +66,6 @@ export class SidenavComponent implements OnInit {
 
     } */
     
-  }
+  
 
 }

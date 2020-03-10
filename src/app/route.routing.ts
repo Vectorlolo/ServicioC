@@ -4,15 +4,17 @@ import { EstudianteComponent } from './component/estudiante/estudiante.component
 import { LoginComponent } from './component/login/login.component'
 import { CarreraComponent } from './component/carrera/carrera.component';
 import { FindestudianteComponent } from './component/findestudiante/findestudiante.component';
-
-
+import { AppComponent } from './app.component'
+import {AuthGuard} from '../guards/auth.guard'
 
 
 const routes: Routes = [
-  { path:'',component: LoginComponent},
-  { path:'estudiante',component: EstudianteComponent},
-  { path:'carrera',component: CarreraComponent },
-  { path:'festudiante',component:FindestudianteComponent}
+  { path:'',component: SidenavComponent },
+  { path:'estudiante',component: EstudianteComponent,canActivate:[AuthGuard]},
+  { path:'carrera',component: CarreraComponent,canActivate:[AuthGuard] },
+  { path:'festudiante',component:FindestudianteComponent,canActivate:[AuthGuard]},
+  { path: 'login', component: LoginComponent,  pathMatch: 'full'}
+
 ];
 
 export const RouteRoutes = RouterModule.forRoot(routes);

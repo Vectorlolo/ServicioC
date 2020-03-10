@@ -1,1 +1,62 @@
-<p>login works!</p>
+
+  
+  
+  <!-- <form class="form">
+    <input    placeholder="Username">
+    <input   placeholder="Password">
+    <button type="submit" (click)="auth(username,password)">Login</button>
+  </form> -->
+  <mat-card-content>
+
+    <div class="container  mx-auto"   >
+      <h2>Iniciar sesión</h2>
+        <input class="form-control col-3 " placeholder="Username" [(ngModel)]="username" #ctrl="ngModel" required> <br>
+        <input class="form-control col-3" placeholder="Password" [(ngModel)]="password" #ctrl="ngModel" required>
+        <button class="btn btn-primary mx-auto " (click)="auth(username,password)">Login</button>
+      </div>
+        
+
+  </mat-card-content>
+
+
+
+
+
+
+<!-- <div>
+  <p>Value: {{ password }}</p>
+  <p>Value: {{ username }}</p>
+  <p>Valid: {{ ctrl.valid }}</p>
+
+  <input [(ngModel)]="name" #ctrl="ngModel" required>
+
+  <p>Value: {{ name }}</p>
+  <p>Valid: {{ ctrl.valid }}</p>
+  
+  <button (click)="setValue()">Set value</button>
+</div>
+
+ -->
+
+
+
+
+
+<!-- 
+
+
+
+<div *ngFor="let usuario of usuarios">
+
+
+
+
+ USUARIO:{{usuario.user}}
+ <br>
+Contraseña:{{usuario.password}}
+
+
+</div>
+
+
+ -->

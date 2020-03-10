@@ -1,0 +1,9 @@
+html,body{
+margin:0;
+padding: 0;
+}
+.main{
+    background-image: url('../../../assets/img/descarga.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+}

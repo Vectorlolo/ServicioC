@@ -44,6 +44,8 @@ import { EditarcarreraComponent } from './component/editarcarrera/editarcarrera.
 import { FindestudianteComponent } from './component/findestudiante/findestudiante.component';
 import { InfoestudianteComponent } from './component/infoestudiante/infoestudiante.component';
 import { EditarestudianteComponent } from './component/editarestudiante/editarestudiante.component';
+import { NavComponent } from './component/nav/nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
@@ -61,7 +63,8 @@ import { EditarestudianteComponent } from './component/editarestudiante/editares
     EditarcarreraComponent,
     FindestudianteComponent,
     InfoestudianteComponent,
-    EditarestudianteComponent
+    EditarestudianteComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +92,8 @@ import { EditarestudianteComponent } from './component/editarestudiante/editares
     MatTreeModule,
     MatProgressBarModule,
     MatStepperModule,
-    FormsModule
+    FormsModule,
+    LayoutModule
  
     
 

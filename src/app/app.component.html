@@ -1,11 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">ServicioC</a>
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Inicio</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <a class="navbar-brand" href="#">Inicio</a>
+      <ul class="navbar-nav mr-auto mr-auto mt-2 mt-lg-0">
         <li class="nav-item active" *ngFor="let link of links">
           <a class="nav-link" routerLink="{{link.url}}">{{ link.nombre }}</a>
         </li>
@@ -13,4 +14,30 @@
       </ul>
     </div>
   </nav>
+  <router-outlet></router-outlet>
+   -->
+
+
+
+  <app-nav></app-nav>
+  
+
+
+<!-- <mat-sidenav-container>
+<mat-sidenav #sidenav mode="side" [(opened)]="opened">sidenav
+  <li class="nav-item active" *ngFor="let link of links">
+    <a class="nav-link" routerLink="{{link.url}}">{{ link.nombre }}</a>
+  </li>
+  
+</mat-sidenav>
+<mat-sidenav-content>
+  <button class="btn btn-primary" (click)="opened=!opened">-</button>
+  <button (click)="sidenav.open()" >Open</button>
+  <button (click)="sidenav.close()" >Close</button>
+
+</mat-sidenav-content>
+</mat-sidenav-container>
+
 <router-outlet></router-outlet>
+
+ -->
