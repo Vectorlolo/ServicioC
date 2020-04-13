@@ -1,0 +1,155 @@
+<mat-toolbar>
+    <span class="toolbar">Crear Periodo</span>
+</mat-toolbar>
+
+<mat-card-content>
+
+<div class="container">
+
+
+<div class="row">
+    <form class="form-group " [formGroup]="periodosForm" (ngSubmit)="createPeriodo()">
+        <div class="row">
+
+
+            <div class="form-group col-3">
+                <label for="periodo">Periodo</label>
+                El periodo debe de tener numeros romanos ejemplo:III
+                <input formControlName="periodo" id="periodo" type="text" class="validate  form-control">
+                <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="periodo.errors.required">
+                        El Periodo es requerido.
+                    </div>
+                    
+                </div>
+            </div>
+
+
+
+            <div class="form-group col-5">
+                <mat-form-field>
+                    <mat-label>Inicio de Periodo</mat-label>
+                    <input formControlName="inicio" [min]="minDate" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                <div *ngIf="inicio.invalid && (inicio.dirty || inicio.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="inicio.errors.required">
+                        El inicio de periodo es requerido.        
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            
+
+
+            <div class="form-group col-5">
+                <mat-form-field>
+                    <mat-label>Final de Periodo</mat-label>
+                    <input formControlName="final" [min]="minDate" matInput [matDatepicker]="picker2">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                <div *ngIf="final.invalid && (final.dirty || final.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="final.errors.required">
+                        El final de periodo es requerido.        
+                    </div>
+                    
+                </div>
+            </div>
+              
+
+        </div>
+
+        
+
+
+
+  
+        <button (click)="opened = mymodal" class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!periodosForm.valid">Guardar
+            <i class="material-icons right">send</i>
+          </button>
+    </form>
+</div>
+
+</div>
+
+
+</mat-card-content>
+
+<table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="periodo">
+        <th mat-header-cell *matHeaderCellDef> Periodo </th>
+        <td mat-cell *matCellDef="let periodo">
+
+            <span>{{periodo.periodo}}</span>
+
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="inicio">
+        <th mat-header-cell *matHeaderCellDef> Inicio periodo </th>
+        <td mat-cell *matCellDef="let periodo">
+
+            <span>{{periodo.inicio}}</span>
+
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="final">
+        <th mat-header-cell *matHeaderCellDef> Final Periodo </th>
+        <td mat-cell *matCellDef="let periodo">
+
+            <span>{{periodo.final}}</span>
+
+        </td>
+    </ng-container>
+
+  
+
+    <ng-container matColumnDef="boton">
+        <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+        <td mat-cell *matCellDef="let periodo">
+            <div>
+                <button (click)="deletePeriodo(periodo._id) " mat-icon-button>
+
+  <mat-icon>delete</mat-icon>
+</button>
+            </div>
+        </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef="botonE">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let periodo">
+            <button (click)="info=periodo._id" (click)="editarPeriodo() " mat-icon-button>
+  <mat-icon>edit</mat-icon>
+</button> </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+
+
+
+
+
+
+<ng-template #mymodal let-modal>
+
+<div class="modal-body text-center">
+<h3>Periodo creado exitosamente</h3>
+</div>
+
+</ng-template>

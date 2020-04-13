@@ -10,8 +10,19 @@
   background: inherit;
 }
 
-.mat-toolbar.mat-primary {
+.mat-toolbar {
   position: sticky;
   top: 0;
   z-index: 1;
+  background-color:white;
+  color: black;
+
+}
+
+.right {
+  position: absolute;
+  right: 0px;
+  width: 2cm;
+  height: 2cm;
+  padding: 10px;
 }

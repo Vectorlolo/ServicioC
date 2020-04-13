@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { EstudianteServiceService } from '../../services/estudiante-service.service';
 //import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { CarreraService } from '../../services/carrera.service';
+import {NgbModal,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -15,7 +16,9 @@ import { CarreraService } from '../../services/carrera.service';
 export class EstudianteComponent implements OnInit {
 
 
- carreras:any
+ 
+  
+ //carreras:any
 
 
   constructor(
@@ -23,14 +26,15 @@ export class EstudianteComponent implements OnInit {
     private estudianteserviceservice:EstudianteServiceService,
     //public matdialog: MatDialog,
     private carreracervice: CarreraService,
-    private formbuilder: FormBuilder
+    private formbuilder: FormBuilder,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
 
- this.carreracervice.getCarreras() 
+ /* this.carreracervice.getCarreras() 
 .subscribe( carrera =>  this.carreras = carrera)
-
+ */
 }
 
 
@@ -39,41 +43,24 @@ export class EstudianteComponent implements OnInit {
  
 
 
-
-
-turnos= [{value:"D"},{value:"N"}]
-aprobados=[{value:"Si"},{value:"No"}]
+tipoo= [{name:"Tiempo completo",value:"TV"},{name:"Tiempo medio",value:"MC"},{name:"Tiempo  nose",value:"DE"},{name:"Tiempo esclavo",value:"XD"}]
 
 
 
-  EstudianteForm = new FormGroup({
-    ci_estudiante : new FormControl('', [Validators.required,Validators.maxLength(8),Validators.pattern('^[0-9]{1,8}$')]),
-    n_estudiante: new FormControl('',[Validators.required]),
-    a_estudiante: new FormControl('',[Validators.required]),
-    semestre: new FormControl('',[Validators.required,Validators.min(6),Validators.max(10)]),
-    turno: new FormControl('',[Validators.required]),
-    carrera: new FormControl('',[Validators.required]),
-    tutor: new FormControl('',[Validators.required]),
-    tutor_c: new FormControl('',[Validators.required]),
-    n_expediente: new FormControl('',[Validators.required]),
-    nom_proyecto: new FormControl('',[Validators.required]),
-    direccion: new FormControl('',[Validators.required]),
-    aprobado: new FormControl('',[Validators.required])
+
+  ProfesorForm = new FormGroup({
+    ci_profesor : new FormControl('', [Validators.required,Validators.maxLength(8),Validators.pattern('^[0-9]{1,8}$')]),
+    n_profesor: new FormControl('',[Validators.required]),
+    a_profesor: new FormControl('',[Validators.required]),
+    tipo: new FormControl('',[Validators.required]),
   })
 
 
-  get ci_estudiante() {return this.EstudianteForm.get('ci_estudiante')}
-  get n_estudiante() {return this.EstudianteForm.get('n_estudiante')}
-  get a_estudiante() {return this.EstudianteForm.get('a_estudiante')}
-  get semestre() {return this.EstudianteForm.get('semestre')}
-  get turno() {return this.EstudianteForm.get('turno')}
-  get carrera() {return this.EstudianteForm.get('carrera')}
-  get tutor() {return this.EstudianteForm.get('tutor')}
-  get tutor_c() {return this.EstudianteForm.get('tutor_c')}
-  get n_expediente() {return this.EstudianteForm.get('n_expediente')}
-  get nom_proyecto() {return this.EstudianteForm.get('nom_proyecto')}
-  get direccion() {return this.EstudianteForm.get('direccion')}
-  get aprobado() {return this.EstudianteForm.get('aprobado')}
+  get ci_profesor() {return this.ProfesorForm.get('ci_profesor')}
+  get n_profesor() {return this.ProfesorForm.get('n_profesor')}
+  get a_profesor() {return this.ProfesorForm.get('a_profesor')}
+  get tipo() {return this.ProfesorForm.get('tipo')}
+  
   
 /* 
 //Formulario para editar
@@ -82,7 +69,7 @@ aprobados=[{value:"Si"},{value:"No"}]
     n_estudiante: new FormControl('',[Validators.required]),
     a_estudiante: new FormControl('',[Validators.required]),
     semestre: new FormControl('',[Validators.required,Validators.min(6),Validators.max(10)]),
-    turno: new FormControl('',[Validators.required]),
+    estado: new FormControl('',[Validators.required]),
     carrera: new FormControl('',[Validators.required]),
     tutor: new FormControl('',[Validators.required]),
     tutor_c: new FormControl('',[Validators.required]),
@@ -92,18 +79,18 @@ aprobados=[{value:"Si"},{value:"No"}]
     aprobado: new FormControl('',[Validators.required])
   })
 
-  get ci_estudianteE() {return this.EstudianteForm.get('ci_estudiante')}
-  get n_estudianteE() {return this.EstudianteForm.get('n_estudiante')}
-  get a_estudianteE() {return this.EstudianteForm.get('a_estudiante')}
-  get semestreE() {return this.EstudianteForm.get('semestre')}
-  get turnoE() {return this.EstudianteForm.get('turno')}
-  get carreraE() {return this.EstudianteForm.get('carrera')}
-  get tutorE() {return this.EstudianteForm.get('tutor')}
-  get tutor_cE() {return this.EstudianteForm.get('tutor_c')}
-  get n_expedienteE() {return this.EstudianteForm.get('n_expediente')}
-  get nom_proyectoE() {return this.EstudianteForm.get('nom_proyecto')}
-  get direccionE() {return this.EstudianteForm.get('direccion')}
-  get aprobadoE() {return this.EstudianteForm.get('aprobado')}
+  get ci_estudianteE() {return this.ProfesorForm.get('ci_estudiante')}
+  get n_estudianteE() {return this.ProfesorForm.get('n_estudiante')}
+  get a_estudianteE() {return this.ProfesorForm.get('a_estudiante')}
+  get semestreE() {return this.ProfesorForm.get('semestre')}
+  get turnoE() {return this.ProfesorForm.get('turno')}
+  get carreraE() {return this.ProfesorForm.get('carrera')}
+  get tutorE() {return this.ProfesorForm.get('tutor')}
+  get tutor_cE() {return this.ProfesorForm.get('tutor_c')}
+  get n_expedienteE() {return this.ProfesorForm.get('n_expediente')}
+  get nom_proyectoE() {return this.ProfesorForm.get('nom_proyecto')}
+  get direccionE() {return this.ProfesorForm.get('direccion')}
+  get aprobadoE() {return this.ProfesorForm.get('aprobado')}
   
 
 
@@ -111,21 +98,28 @@ aprobados=[{value:"Si"},{value:"No"}]
  */
 
 
+modalReference: NgbModalRef;
+opened:any
+closeResult: string;
+
+open(content) {
+  this.modalReference =  this.modalService.open(content)
+  
+        setTimeout(function(){ this.modalReference.close() }, 1000); //hacer que esta mierda funcione!!!!
+      }
 
 
-
-
-
-  createEstudiante(){
-    this.estudianteserviceservice.createEstudiante(this.EstudianteForm.value).subscribe((estudiante)=>{
-      this.router.navigateByUrl('/estudiante',{skipLocationChange:true}).then(()=>{
-        this.router.navigate(['/estudiante'])
+  createProfesor(){
+    this.estudianteserviceservice.createProfesor(this.ProfesorForm.value).subscribe((estudiante)=>{
+      this.open(this.opened)
+      this.router.navigateByUrl('/festudiante',{skipLocationChange:true}).then(()=>{
+        this.router.navigate(['/festudiante'])
       });
     })
   }
 
 
-
+  
  
 
 }

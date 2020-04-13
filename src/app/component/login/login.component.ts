@@ -43,8 +43,10 @@ get password(){return this.UserForm.get('password')}
 
 
 
-auth(username,password){
-  this.userService.authUser(username,password)
+ auth(username,password){
+    this.userService.authUser(username,password)
+  
+
 }
 
 

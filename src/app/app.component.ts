@@ -12,7 +12,7 @@ export class AppComponent {
 
   //login = this.userService.login
   datoUsuario = JSON.parse(localStorage.getItem('usuario'));
-
+esfalse=false
 opened = false;
   
    ngOnInit(){
@@ -21,7 +21,13 @@ opened = false;
       {url:'/carrera',nombre:'Carrera'},
       {url:'/festudiante',nombre:'Festudiante'},
     ]
+console.log(this.datoUsuario)
+if(this.datoUsuario == null ||this.datoUsuario == undefined  ||this.datoUsuario == ''){
+ this.esfalse=false
+}else{
+  this.esfalse=true
 
+}
     /* console.log(this.login)
     if(this.datoUsuario.role == 'ADMIN_ROLE'){
        this.links=[

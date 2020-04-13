@@ -1,0 +1,237 @@
+<mat-toolbar>
+    <span class="toolbar">Crear Materia</span>
+</mat-toolbar>
+
+<mat-card-content>
+
+    <div class="container">
+        
+            <div class="row">
+                <form class="form-group " [formGroup]="materiasForm" (ngSubmit)="createMateria()">
+                    <div class="row">
+                        <div class="form-group col-4">
+
+
+
+                            <input formControlName="codigo_materia" id="codigo" type="text" required class="validate  form-control">
+                            <label for="codigo">Codigo</label>
+                            <div *ngIf="codigo_materia.invalid && (codigo_materia.dirty || codigo_materia.touched)" class=" red-text  text-darken-4">
+                                <div *ngIf="codigo_materia.errors.required">
+                                    El codigo es requerido.
+                                </div>
+                                <div *ngIf="codigo_materia.errors.maxlength">
+                                    El codigo no puede tener mas de 9 digitos
+                                </div>
+                                <div *ngIf="codigo_materia.errors.pattern">
+                                    El codigo de materia debe ser formato "ABC-12345"
+                                </div>
+                            </div>
+                        </div>
+        
+        
+                        <div class="form-group col-4">
+                            <input formControlName="nombre_mat" id="nombre" type="text" class="validate  form-control">
+                            <label for="nombre">Materia</label>
+                            <div *ngIf="nombre_mat.invalid && (nombre_mat.dirty || nombre_mat.touched)" class=" red-text  text-darken-4">
+                                <div *ngIf="nombre_mat.errors.required">
+                                    El Nombre de la materia es requerido.
+                                </div>
+                            </div>
+                        </div>
+        
+        
+        
+                    </div>
+        
+        
+                    <div class="row">
+                        <div class="form-group col-3">
+                            <input formControlName="horas_teo" id="hora_t" type="number" min="0" max="4" class="validate  form-control" value=0>
+                            <label for="hora_t">Horas de Teoria</label>
+                            <div *ngIf="horas_teo.invalid && (horas_teo.dirty || horas_teo.touched)" class=" red-text  text-darken-4">
+                                <div *ngIf="horas_teo.errors.min">
+                                    No puedes ingresar horas negativas
+                                </div>
+                                <div *ngIf="horas_teo.errors.max">
+                                    Excediste las horas maximas
+                                </div>
+                            </div>
+                        </div>
+        
+        
+                        <div class="form-group col-3">
+                            <input formControlName="horas_pra" id="hora_p" type="number" class="validate  form-control" value=0>
+                            <label for="hora_p">Horas de Practica</label>
+                            <div *ngIf="horas_pra.invalid && (horas_pra.dirty || horas_pra.touched)" class=" red-text  text-darken-4">
+                                <div *ngIf="horas_pra.errors.min">
+                                    No puedes ingresar horas negativas
+                                </div>
+                                <div *ngIf="horas_pra.errors.max">
+                                    Excediste las horas maximas
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                        <div class="form-group col-3">
+                            <input formControlName="horas_lab" id="hora_l" type="number" class="validate  form-control" value=0>
+                            <label for="hora_l">Horas de laboratorio</label>
+                            <div *ngIf="horas_lab.invalid && (horas_lab.dirty || horas_lab.touched)" class=" red-text  text-darken-4">
+                                <div *ngIf="horas_lab.errors.min">
+                                    No puedes ingresar horas negativas
+                                </div>
+                                <div *ngIf="horas_lab.errors.max">
+                                    Excediste las horas maximas
+                                </div>
+                            </div>
+                        </div>
+        
+        
+                       <!--  <div class="form-group col-3">
+                            <label for="carrera">Carrera</label>
+                            <select formControlName="carrera" id="carrera" class="validate form-control">
+                              <option *ngFor="let carrera of carreras" [value]="carrera.codigo_c">{{carrera.carrera}}</option>
+                            </select>
+                            <div *ngIf="carrera.invalid && (carrera.dirty || carrera.touched)" class=" red-text  text-darken-4">
+                                <div *ngIf="carrera.errors.required">
+                                    El carrera es requerido
+                                </div>
+                            </div>
+                          </div> -->
+
+                          <div class="form-group col-3" >
+                              <mat-form-field>
+                            <mat-label>Carrera</mat-label>
+                            <mat-select [formControl]="carrera" multiple>
+                              <mat-option *ngFor="let carrera of carreras" [value]="carrera.codigo_c">{{carrera.carrera}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          </div>
+                          
+
+                    </div>
+
+                    
+        
+        
+        
+                    <button (click)="opened = mymodal" class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!materiasForm.valid">Guardar
+            <i class="material-icons right">send</i>
+          </button>
+                </form>
+            </div>
+        
+        
+        </div>
+
+
+
+       
+
+</mat-card-content>
+
+
+
+
+  
+
+
+
+
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="codigo_materia">
+            <th mat-header-cell *matHeaderCellDef> Código Carrera </th>
+            <td mat-cell *matCellDef="let materia">
+
+                <span>{{materia.codigo_materia}}</span>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre_mat">
+            <th mat-header-cell *matHeaderCellDef> materia </th>
+            <td mat-cell *matCellDef="let materia">
+
+                <span>{{materia.nombre_mat}}</span>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="horas_teo">
+            <th mat-header-cell *matHeaderCellDef> Horas teoricas </th>
+            <td mat-cell *matCellDef="let materia">
+
+                <span>{{materia.horas_teo}}</span>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="horas_pra">
+            <th mat-header-cell *matHeaderCellDef> Horas practicas </th>
+            <td mat-cell *matCellDef="let materia">
+
+                <span>{{materia.horas_pra}}</span>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="horas_lab">
+            <th mat-header-cell *matHeaderCellDef> Horas laboratorio </th>
+            <td mat-cell *matCellDef="let materia">
+
+                <span>{{materia.horas_lab}}</span>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="carrera">
+            <th mat-header-cell *matHeaderCellDef> Carrera </th>
+            <td mat-cell *matCellDef="let materia">
+
+                <span>{{materia.carrera}}</span>
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="boton">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let materia">
+                <div>
+                    <button (click)="deleteMateria(materia.codigo_materia) " mat-icon-button>
+
+      <mat-icon>delete</mat-icon>
+    </button>
+                </div>
+            </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="botonE">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell *matCellDef="let materia">
+                <button (click)="info=materia.codigo_materia" (click)="editarMateria(carrera.codigo_materia) " mat-icon-button>
+      <mat-icon>edit</mat-icon>
+    </button> </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+
+
+
+
+
+   
+<ng-template #mymodal let-modal>
+
+  <div class="modal-body text-center">
+    <h3>Materia creado exitosamente</h3>
+  </div>
+ 
+</ng-template>

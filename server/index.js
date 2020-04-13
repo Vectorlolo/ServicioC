@@ -15,11 +15,14 @@ app.use(cors({origin:'http://localhost:4200'}))
 
 
 //Rutas
-app.use('/api/estudiante', require('./routes/estudiante.routes')); //colocar ruta
+app.use('/api/profesor', require('./routes/profesor.routes')); //colocar ruta
 app.use('/api/carrera', require('./routes/carrera.routes'))
 app.use('/api/usuario', require('./routes/user.routes'))
-//inicio server
+app.use('/api/materia', require('./routes/materia.routes'))
+app.use('/api/periodo',require('./routes/periodo.routes'))
 
+
+//inicio server
 app.listen(app.get('port'), () => {
     console.log("Server en el puerto ", app.get('port'));
 });

@@ -25,7 +25,7 @@ createCarrera(data){
 
 //Actualizar
 updateCarrera(data){
-  return this.http.put(`http://localhost:3000/api/carrera/${data.carrera}`,data)
+  return this.http.put(`http://localhost:3000/api/carrera/${data.codigo_c}`,data)
 }
 
 //Eliminar

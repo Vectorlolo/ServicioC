@@ -1,0 +1,97 @@
+<div class="container">
+        
+    <div class="row">
+        <form class="form-group " [formGroup]="materiasForm" >
+            <div class="row">
+                <div class="form-group col-4">
+
+
+                    <label for="codigo">Codigo</label>
+                    <input formControlName="codigo_materia" disabled [value]="data.info" id="codigo" type="text" required class="validate  form-control">
+                    
+                </div>
+
+
+                <div class="form-group col-4">
+                    <label for="nombre">Materia</label>
+                    <input formControlName="nombre_mat" id="nombre" type="text" class="validate  form-control">
+                    <div *ngIf="nombre_mat.invalid && (nombre_mat.dirty || nombre_mat.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="nombre_mat.errors.required">
+                            El Nombre de la materia es requerido.
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-3">
+                    <input formControlName="horas_teo" id="hora_t" type="number" min="0" max="4" class="validate  form-control" value=0>
+                    <label for="hora_t">Horas de Teoria</label>
+                    <div *ngIf="horas_teo.invalid && (horas_teo.dirty || horas_teo.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="horas_teo.errors.min">
+                            No puedes ingresar horas negativas
+                        </div>
+                        <div *ngIf="horas_teo.errors.max">
+                            Excediste las horas maximas
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-3">
+                    <input formControlName="horas_pra" id="hora_p" type="number" class="validate  form-control" value=0>
+                    <label for="hora_p">Horas de Practica</label>
+                    <div *ngIf="horas_pra.invalid && (horas_pra.dirty || horas_pra.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="horas_pra.errors.min">
+                            No puedes ingresar horas negativas
+                        </div>
+                        <div *ngIf="horas_pra.errors.max">
+                            Excediste las horas maximas
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group col-3">
+                    <input formControlName="horas_lab" id="hora_l" type="number" class="validate  form-control" value=0>
+                    <label for="hora_l">Horas de laboratorio</label>
+                    <div *ngIf="horas_lab.invalid && (horas_lab.dirty || horas_lab.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="horas_lab.errors.min">
+                            No puedes ingresar horas negativas
+                        </div>
+                        <div *ngIf="horas_lab.errors.max">
+                            Excediste las horas maximas
+                        </div>
+                    </div>
+                </div>
+
+
+
+                  <div class="form-group col-3" >
+                      <mat-form-field>
+                    <mat-label>Carrera</mat-label>
+                    <mat-select [formControl]="carrera" multiple>
+                      <mat-option *ngFor="let carrera of carreras" [value]="carrera.codigo_c">{{carrera.carrera}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+                  
+
+            </div>
+
+            
+
+
+
+      
+<button mat-raised-button class="btn-accept left light-blue darken-4" (click)="Aceptar()">Aceptar</button>
+<button mat-raised-button class="btn-cancel right" (click)="Cancelar()">Cancelar</button>
+        </form>
+    </div>
+
+
+</div>

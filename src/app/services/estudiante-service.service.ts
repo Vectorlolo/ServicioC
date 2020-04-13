@@ -9,28 +9,28 @@ export class EstudianteServiceService {
     private http:HttpClient
   ) { }
   //Estudiantes
-  getEstudiantes(){
-    return this.http.get('http://localhost:3000/api/estudiante')
+  getProfesores(){
+    return this.http.get('http://localhost:3000/api/profesor')
   }
 
   //Estudiate
-  getEstudiante(id){
-    return this.http.get(`http://localhost:3000/api/estudiante/${id}`)
+  getProfesor(id){
+    return this.http.get(`http://localhost:3000/api/profesor/${id}`)
   }
 
   //Crear
-  createEstudiante(data){
-    return this.http.post('http://localhost:3000/api/estudiante/create',data)
+  createProfesor(data){
+    return this.http.post('http://localhost:3000/api/profesor/create',data)
   }
 
   //Actualizar
-  updateEstudiante(data){
-    return this.http.put(`http://localhost:3000/api/estudiante/${data.ci_estudiante}`,data)
+  updateProfesor(data){
+    return this.http.put(`http://localhost:3000/api/profesor/${data.ci_profesor}`,data)
   }
 
   //Eliminar
-  deleteEstudiante(id){
-    return this.http.delete(`http://localhost:3000/api/estudiante/${id}`)
+  deleteProfesor(id){
+    return this.http.delete(`http://localhost:3000/api/profesor/${id}`)
   }
 
 }

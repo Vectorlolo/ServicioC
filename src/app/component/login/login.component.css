@@ -1,9 +1,15 @@
-html,body{
-margin:0;
-padding: 0;
+/* #user {
+    width: 3cm;
+    height: 3cm;  
+} */
+body {
+        background-image: url("../../../assets/img/descarga.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
 }
-.main{
-    background-image: url('../../../assets/img/descarga.jpg');
-background-size: cover;
-background-repeat: no-repeat;
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }

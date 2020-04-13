@@ -13,6 +13,8 @@ export class SidenavComponent implements OnInit {
 
   //corregir servicio
   admin = true  //this.loginService.admin 
+  datoUsuario:any
+  esfalse:any
 
 
   ngOnInit() {
@@ -26,6 +28,16 @@ export class SidenavComponent implements OnInit {
       this.links=[
         {url:'/login',nombre:'Login'},
       ] */
+
+
+      this.datoUsuario = JSON.parse(localStorage.getItem('usuario'));
+
+      if(this.datoUsuario == null ||this.datoUsuario == undefined  ||this.datoUsuario == ''){
+       this.esfalse= null
+      }else{
+        this.esfalse= this.datoUsuario.user
+      
+      }
     }
 
 

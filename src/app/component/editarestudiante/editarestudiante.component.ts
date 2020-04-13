@@ -28,61 +28,47 @@ carreras:any
 /////////////////////////            //////////////////
 //colocar en los form s las opciones correspondientes llamar al carreras service, etc
 /////////////////////////            //////////////////
-this.carreraService.getCarreras().subscribe(carreras => this.carreras = carreras)
+//this.carreraService.getCarreras().subscribe(carreras => this.carreras = carreras)
 
 
 
-    this.estudianteServiceService.getEstudiante(this.data.info).subscribe((estudiante:any)=>{
-      delete(estudiante.__v)
-      delete(estudiante._id)
-      this.EstudianteForm.setValue(estudiante)
+    this.estudianteServiceService.getProfesor(this.data.info).subscribe((profesor:any)=>{
+      delete(profesor.__v)
+      delete(profesor._id)
+      console.log(profesor)
+      this.ProfesorForm.setValue(profesor)
     })
 
   }
 
 
 
-  turnos= [{value:"D"},{value:"N"}]
-  aprobados=[{value:"Si"},{value:"No"}]
-  
+  tipoo= [{name:"Tiempo completo",value:"TV"},{name:"Tiempo medio",value:"MC"},{name:"Tiempo  nose",value:"DE"},{name:"Tiempo esclavo",value:"XD"}]
+
   
 
 
-  EstudianteForm = new FormGroup({
-    ci_estudiante : new FormControl('', [Validators.required,Validators.maxLength(8),Validators.pattern('^[0-9]{1,8}$')]),
-    n_estudiante: new FormControl('',[Validators.required]),
-    a_estudiante: new FormControl('',[Validators.required]),
-    semestre: new FormControl('',[Validators.required,Validators.min(6),Validators.max(10)]),
-    turno: new FormControl('',[Validators.required]),
-    carrera: new FormControl('',[Validators.required]),
-    tutor: new FormControl('',[Validators.required]),
-    tutor_c: new FormControl('',[Validators.required]),
-    n_expediente: new FormControl('',[Validators.required]),
-    nom_proyecto: new FormControl('',[Validators.required]),
-    direccion: new FormControl('',[Validators.required]),
-    aprobado: new FormControl('',[Validators.required])
+  ProfesorForm = new FormGroup({
+    ci_profesor : new FormControl('', [Validators.required,Validators.maxLength(8),Validators.pattern('^[0-9]{1,8}$')]),
+    n_profesor: new FormControl('',[Validators.required]),
+    a_profesor: new FormControl('',[Validators.required]),
+    tipo: new FormControl('',[Validators.required]),
+    estado: new FormControl({value:true,disabled:true})
+
   })
 
 
-  get ci_estudiante() {return this.EstudianteForm.get('ci_estudiante')}
-  get n_estudiante() {return this.EstudianteForm.get('n_estudiante')}
-  get a_estudiante() {return this.EstudianteForm.get('a_estudiante')}
-  get semestre() {return this.EstudianteForm.get('semestre')}
-  get turno() {return this.EstudianteForm.get('turno')}
-  get carrera() {return this.EstudianteForm.get('carrera')}
-  get tutor() {return this.EstudianteForm.get('tutor')}
-  get tutor_c() {return this.EstudianteForm.get('tutor_c')}
-  get n_expediente() {return this.EstudianteForm.get('n_expediente')}
-  get nom_proyecto() {return this.EstudianteForm.get('nom_proyecto')}
-  get direccion() {return this.EstudianteForm.get('direccion')}
-  get aprobado() {return this.EstudianteForm.get('aprobado')}
-
-
+  get ci_profesor() {return this.ProfesorForm.get('ci_profesor')}
+  get n_profesor() {return this.ProfesorForm.get('n_profesor')}
+  get a_profesor() {return this.ProfesorForm.get('a_profesor')}
+  get tipo() {return this.ProfesorForm.get('tipo')}
+  
+  
   Aceptar(){
 
 
 /*   updateEstudiante(){
-    this.estudianteServiceService.updateEstudiante(this.EstudianteForm.value).subscribe((estudiante:any)=>{
+    this.estudianteServiceService.updateEstudiante(this.Profesor.value).subscribe((estudiante:any)=>{
       this.router.navigateByUrl('/festudiante',{skipLocationChange:true}).then(()=>{
         this.router.navigate(['/festudiante'])
       });
@@ -90,8 +76,8 @@ this.carreraService.getCarreras().subscribe(carreras => this.carreras = carreras
   } */
 
 
-    this.estudianteServiceService.updateEstudiante(this.EstudianteForm.value).subscribe((estudiante:any)=>{
-    console.log(this.EstudianteForm.value)
+    this.estudianteServiceService.updateProfesor(this.ProfesorForm.value).subscribe((profesor:any)=>{
+    console.log(profesor)
     
   })
 

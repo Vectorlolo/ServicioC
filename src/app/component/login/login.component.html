@@ -1,22 +1,43 @@
 
-  
+  <body>
+    
+
+<div class="container">
+
+    <div class="row justify-content-center align-items-center" style="height:100vh">
+      <div  class="col-4">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="text-center">Iniciar sesión</h2>
+            <img id="user" class="center" alt="userImagen" width="120" height="140" src="../../../assets/img/user.png"><br>
+
+<!--             <i id="user" class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i><br>
+ -->            <input class="form-control " placeholder="Username" [(ngModel)]="username" #ctrl="ngModel" required> <br>
+            <input class="form-control " type="password" placeholder="Password" [(ngModel)]="password" #ctrl="ngModel" required> <br>
+            <button class="btn btn-primary  " (click)="auth(username,password) ">Login</button>
+          </div>            
+        </div>
+      
+      </div>
+    </div>
+    
+    </div>
+
+
+
+  </body>
   
   <!-- <form class="form">
     <input    placeholder="Username">
     <input   placeholder="Password">
     <button type="submit" (click)="auth(username,password)">Login</button>
   </form> -->
-  <mat-card-content>
 
-    <div class="container  mx-auto"   >
-      <h2>Iniciar sesión</h2>
-        <input class="form-control col-3 " placeholder="Username" [(ngModel)]="username" #ctrl="ngModel" required> <br>
-        <input class="form-control col-3" placeholder="Password" [(ngModel)]="password" #ctrl="ngModel" required>
-        <button class="btn btn-primary mx-auto " (click)="auth(username,password)">Login</button>
-      </div>
+
+  
         
 
-  </mat-card-content>
+  
 
 
 

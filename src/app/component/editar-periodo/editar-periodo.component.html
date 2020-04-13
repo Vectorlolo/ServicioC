@@ -1,0 +1,82 @@
+<div class="container">
+        
+    <div class="row">
+        <form class="form-group " [formGroup]="periodosForm" >
+            <div class="row">
+
+
+                <div class="form-group col-3">
+                    <label for="periodo">Periodo</label>
+                    <input formControlName="periodo" id="periodo" type="text" class="validate  form-control">
+                    <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="periodo.errors.required">
+                            El Periodo es requerido.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-5">
+                    <mat-form-field>
+                        <mat-label>Inicio de Periodo</mat-label>
+                        <input formControlName="inicio" [min]="minDate" matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    <div *ngIf="inicio.invalid && (inicio.dirty || inicio.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="inicio.errors.required">
+                            El inicio de periodo es requerido.        
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <!-- <div class="form-group col-4">
+                    <mat-form-field>
+                        <mat-label>Inicio de Periodo</mat-label>
+                        <input formControlName="inicio" [min]="minDate"  matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    <div *ngIf="inicio.invalid && (inicio.dirty || inicio.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="inicio.errors.required">
+                            El inicio de periodo es requerido.        
+                        </div>
+                        
+                    </div>
+                </div> -->
+
+
+                <div class="form-group col-5">
+                    <mat-form-field>
+                        <mat-label>Final de Periodo</mat-label>
+                        <input formControlName="final" [min]="minDate" matInput [matDatepicker]="picker2">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                    <div *ngIf="final.invalid && (final.dirty || final.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="final.errors.required">
+                            El final de periodo es requerido.        
+                        </div>
+                        
+                    </div>
+                </div>
+                  
+
+            </div>
+
+            
+
+
+
+      
+<button mat-raised-button class="btn-accept left light-blue darken-4" (click)="Aceptar()">Aceptar</button>
+<button mat-raised-button class="btn-cancel right" (click)="Cancelar()">Cancelar</button>
+        </form>
+    </div>
+
+
+</div>

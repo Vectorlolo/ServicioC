@@ -3,14 +3,53 @@
 </mat-toolbar>
 
 
-<mat-card-content>
+<!-- <mat-card-content>
     <form class="my-form" [formGroup]="CarreraForm">
         <mat-form-field>
+
+
             <input type="text" matInput formControlName="carrera" required id="carr">
             <mat-label for="carr">Edita la carrera</mat-label>
         </mat-form-field>
     </form>
 </mat-card-content>
+
+ -->
+
+ <form class="form-group" [formGroup]="CarreraForm" (ngSubmit)="crearCarrera()">
+
+    <div class="form-group">
+
+    
+
+        <label for="codigo">Código Carrera</label>
+        <input type="text"  formControlName="codigo_c" required id="codigo"  disabled [value]="data.info" class="form-control validate">
+
+        <label for="carr">Carrera</label>
+        <input type="text"  formControlName="carrera" required id="carr" class="form-control validate">
+        <div *ngIf="carrera.invalid && (carrera.dirty )" class=" red-text  text-darken-4">
+            <div *ngIf="carrera.errors.required">
+                El nombre de la carrera es requerido
+            </div>
+        </div>
+        
+        
+        <label for="turno">Turno</label>
+<!--                     <input type="text"  formControlName="turno" required id="turno" class="form-control validate">
+-->                    <select formControlName="turno" id="turno" class="validate form-control">
+            <option *ngFor="let turno of turnos" [value]="turno.value">{{turno.value}}</option>
+        </select>
+        <div *ngIf="turno.invalid && (turno.dirty )" class=" red-text  text-darken-4">
+            <div *ngIf="turno.errors.required">
+                El nombre de la turno es requerido
+            </div>
+        </div>
+         
+    </div>  
+
+
+    </form>
+
 
 <button mat-raised-button class="btn-accept left light-blue darken-4" (click)="Aceptar()">Aceptar</button>
 <button mat-raised-button class="btn-cancel right" (click)="Cancelar()">Cancelar</button>

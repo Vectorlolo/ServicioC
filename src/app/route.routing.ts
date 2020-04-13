@@ -6,15 +6,20 @@ import { CarreraComponent } from './component/carrera/carrera.component';
 import { FindestudianteComponent } from './component/findestudiante/findestudiante.component';
 import { AppComponent } from './app.component'
 import {AuthGuard} from '../guards/auth.guard'
+import { MateriaComponent } from './component/materia/materia.component'
+import { ConstanciaComponent } from './component/constancia/constancia.component';
+import { PeriodoComponent } from './component/periodo/periodo.component';
 
 
 const routes: Routes = [
-  { path:'',component: SidenavComponent },
+  { path:'',component: LoginComponent,pathMatch: 'full' },
   { path:'estudiante',component: EstudianteComponent,canActivate:[AuthGuard]},
   { path:'carrera',component: CarreraComponent,canActivate:[AuthGuard] },
   { path:'festudiante',component:FindestudianteComponent,canActivate:[AuthGuard]},
-  { path: 'login', component: LoginComponent,  pathMatch: 'full'}
-
+  { path: 'inicio', component: SidenavComponent,  canActivate:[AuthGuard]},
+  { path:'materia',component:MateriaComponent ,canActivate:[AuthGuard]},
+  { path:'constancia',component:ConstanciaComponent,canActivate:[AuthGuard]},
+  {path:'periodo',component:PeriodoComponent,canActivate:[AuthGuard]}
 ];
 
 export const RouteRoutes = RouterModule.forRoot(routes);

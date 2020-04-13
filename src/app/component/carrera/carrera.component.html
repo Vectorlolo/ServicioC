@@ -8,10 +8,41 @@
         <form class="form-group" [formGroup]="CarreraForm" (ngSubmit)="crearCarrera()">
 
             <div class="form-group">
+
+                    <label for="codigo">Código Carrera</label>
+                    <input type="text"  formControlName="codigo_c" required id="codigo" class="form-control validate">
+                    <div *ngIf="codigo_c.invalid && (codigo_c.dirty || codigo_c.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="codigo_c.errors.required">
+                            El Código de la Carrera es requerido
+                        </div>
+                        <div *ngIf="codigo_c.errors.max">
+                            El código no lleva mas de 4 digitos
+                        </div>
+                        <div *ngIf="codigo_c.errors.pattern">
+                            El formato del codigo es de cuatro dígitos numericos ej: 1234
+                        </div>
+                    </div>
+
                     <label for="carr">Carrera</label>
-        
                     <input type="text"  formControlName="carrera" required id="carr" class="form-control validate">
-                 
+                    <div *ngIf="carrera.invalid && (carrera.dirty || carrera.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="carrera.errors.required">
+                            El nombre de la carrera es requerido
+                        </div>
+                    </div>
+                    
+                    
+                    <label for="turno">Turno</label>
+<!--                     <input type="text"  formControlName="turno" required id="turno" class="form-control validate">
+ -->                    <select formControlName="turno" id="turno" class="validate form-control">
+                        <option *ngFor="let turno of turnos" [value]="turno.value">{{turno.value}}</option>
+                    </select>
+                    <div *ngIf="turno.invalid && (turno.dirty || turno.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="turno.errors.required">
+                            El nombre de la turno es requerido
+                        </div>
+                    </div>
+                    
             </div>
                    
         
@@ -27,7 +58,7 @@
 </mat-card-content>
 
 
-<div>
+<div class="container">
   
 
 
@@ -35,6 +66,15 @@
 
 
     <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="codigo_c">
+            <th mat-header-cell *matHeaderCellDef> Código Carrera </th>
+            <td mat-cell *matCellDef="let carrera">
+
+                <span>{{carrera.codigo_c}}</span>
+
+            </td>
+        </ng-container>
 
         <ng-container matColumnDef="carrera">
             <th mat-header-cell *matHeaderCellDef> Carrera </th>
@@ -45,12 +85,21 @@
             </td>
         </ng-container>
 
+        <ng-container matColumnDef="turno">
+            <th mat-header-cell *matHeaderCellDef> Turno </th>
+            <td mat-cell *matCellDef="let carrera">
+
+                <span>{{carrera.turno}}</span>
+
+            </td>
+        </ng-container>
+
 
         <ng-container matColumnDef="boton">
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
             <td mat-cell *matCellDef="let carrera">
                 <div>
-                    <button (click)="eliminarCarrera(carrera.carrera) " mat-icon-button>
+                    <button (click)="eliminarCarrera(carrera.codigo_c) " mat-icon-button>
 
       <mat-icon>delete</mat-icon>
     </button>
@@ -62,7 +111,7 @@
         <ng-container matColumnDef="botonE">
             <th mat-header-cell *matHeaderCellDef> Editar </th>
             <td mat-cell *matCellDef="let carrera">
-                <button (click)="editarCarrera(carrera.carrera) " mat-icon-button>
+                <button (click)="info=carrera.codigo_c" (click)="editarCarrera(carrera.codigo_c) " mat-icon-button>
       <mat-icon>edit</mat-icon>
     </button> </td>
         </ng-container>

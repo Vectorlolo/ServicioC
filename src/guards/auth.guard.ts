@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate , OnInit{
   datoUsuario:any
    auth(){
      this.datoUsuario = JSON.parse(localStorage.getItem('usuario'));
-     if(this.datoUsuario.user == 'admin' ){//el esta reconociendo el datousuario como objeto , tienes 
+     if(this.datoUsuario.role == 'ADMIN_ROLE' ){//el esta reconociendo el datousuario como objeto , tienes 
         //que decirle que es un objeto para que no de false
       return true
     }else{

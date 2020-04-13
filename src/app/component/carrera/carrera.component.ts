@@ -4,12 +4,16 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 //import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { CarreraService } from '../../services/carrera.service';
-import { MatTableDataSource, throwToolbarMixedModesError, MatDialog } from '@angular/material';
+import { MatTableDataSource, throwToolbarMixedModesError ,MAT_DIALOG_DATA, MatDialog, MatTextareaAutosize } from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { MatDialogRef } from '@angular/material'; //revisar si sirve
 import { BorrardialogComponent } from '../borrardialog/borrardialog.component'
 import { EditarcarreraComponent } from '../editarcarrera/editarcarrera.component';
+
+export interface DialogData {
+  info:any;
+}
 
 @Component({
   selector: 'app-carrera',
@@ -42,9 +46,10 @@ export class CarreraComponent implements OnInit {
   
   }
 
- displayedColumns: string[] = ['carrera','boton','botonE'];
+ displayedColumns: string[] = ['codigo_c','carrera','turno','boton','botonE'];
   dataSource
 
+  turnos= [{value:"D"},{value:"N"}]
 
  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -57,10 +62,14 @@ export class CarreraComponent implements OnInit {
 
 
   CarreraForm = new FormGroup({
-    carrera : new FormControl('', [Validators.required])
+    codigo_c: new FormControl('',[Validators.required,Validators.maxLength(9),Validators.pattern('[0-9]{4}$')]),
+    carrera : new FormControl('', [Validators.required]),
+    turno: new FormControl('',[Validators.required]),
   })
 
+  get codigo_c() {return this.CarreraForm.get('codigo_c')}
   get carrera() {return this.CarreraForm.get('carrera')}
+  get turno() {return this.CarreraForm.get('turno')}
 
 
 
@@ -83,25 +92,27 @@ CarreraEForm = new FormGroup({
 
   get carreraE() {return this.CarreraForm.get('carrera')}
 
+  info:any;
 
-async editarCarrera(id){
+
+async editarCarrera(){
  const editarDialog = this.dialog.open(EditarcarreraComponent,{
   width: '600px',
-  height: '280px'
+  height: '480px',
+  data:{info:this.info}
  })
 
 await editarDialog.afterClosed().subscribe((result)=>{
   
  if(result){
 
- this.carreracervice.deleteCarrera(id).subscribe((msg)=>{
   this.carreracervice.getCarreras().subscribe((carreras:any)=>{
     delete(carreras.__v)
     this.dataSource = new MatTableDataSource(carreras);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   })
-    })
+    
 
       }
       })
@@ -126,10 +137,10 @@ await editarDialog.afterClosed().subscribe((result)=>{
     height: '135px'
   })
 
-  console.log(id);
+  
 
   await borrarDialog.afterClosed().subscribe((result)=>{
-    console.log(result)
+    console.log(result )
     if(result){
        this.carreracervice.deleteCarrera(id).subscribe((msg)=>{
         this.carreracervice.getCarreras().subscribe((carreras:any)=>{

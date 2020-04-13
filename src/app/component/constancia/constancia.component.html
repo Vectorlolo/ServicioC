@@ -1,0 +1,72 @@
+<mat-card-content>
+
+    <div class="container">
+     
+        <form class="form-group" [formGroup]="constanciaForm" >
+
+          
+        <div class="row">
+
+        
+            <div class=" col s6">
+              <label for="carrera">Carrera</label>
+              <select (click)="haymateria()" formControlName="carrera" id="carrera" class="validate form-control">
+                <option *ngFor="let carrera of carreras"  [value]="carrera.codigo_c">{{carrera.carrera}}</option>
+              </select>
+              <div *ngIf="carrera.invalid && (carrera.dirty || carrera.touched)" class=" red-text  text-darken-4">
+                <div *ngIf="carrera.errors.required">
+                    La carrera es requerida
+                </div>
+            </div>
+            
+
+            
+            </div>
+
+
+            <div class="col s6">
+<div *ngIf="carreraSelect == false">
+                
+                    <label for="materia">Materia</label>
+                    <select formControlName="materia" disabled id="materia" class="validate form-control">
+                      <option *ngFor="let materia of materias2" [value]="materia.codigo_materia">{{materia.nombre_mat}}</option>
+                    </select>
+                    <div *ngIf="materia.invalid && (materia.dirty || materia.touched)" class=" red-text  text-darken-4">
+                      <div *ngIf="materia.errors.required">
+                          El materia es requerido
+                      </div>
+                  </div>
+                  </div>
+
+
+
+
+                  <div *ngIf="carreraSelect == true">
+                    <label for="materia">Materia</label>
+                    <select formControlName="materia"  id="materia" class="validate form-control">
+                      <option *ngFor="let materia of materias2" [value]="materia.codigo_materia">{{materia.nombre_mat}}</option>
+                    </select>
+                    <div *ngIf="materia.invalid && (materia.dirty || materia.touched)" class=" red-text  text-darken-4">
+                      <div *ngIf="materia.errors.required">
+                          La materia es requerida
+                      </div>
+                  </div>
+            </div>
+            </div>
+
+            
+        
+          
+
+        </div>
+        
+            
+          </form>
+        
+            </div>
+ 
+
+</mat-card-content>
+
+
+

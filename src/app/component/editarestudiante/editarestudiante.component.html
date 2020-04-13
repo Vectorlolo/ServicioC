@@ -1,19 +1,21 @@
 <mat-toolbar>
-    <span class="toolbar">Editar estudiante</span>
+    <span class="toolbar">Editar Profesor</span>
 </mat-toolbar>
 <mat-card-content>
-    <form class="my-form" [formGroup]="EstudianteForm">
+    <form class="form-group" [formGroup]="ProfesorForm">
 
-        <div class="row">
-            <div class="input-field col s6">
-                <mat-form-field>
+        <div class="form-group">
+            <div class="col s6">
+            
                     <!--   <mat-form-field class="example-full-width">
                            <mat-label>Company (disabled)</mat-label>
                            <input matInput disabled value="Google">
-                           </mat-form-field> -->
-                    <mat-label>Cédula</mat-label>
-                    <input matInput disabled [value]="data.info" >
-                </mat-form-field>
+                            -->
+                    
+
+                    <label for="ci_profesor">Cédula</label>
+                    <input  type="text" id="ci_profesor" formControlName="ci_profesor" required disabled [value]="data.info" class="form-control validate" >
+                
 
                 <!-- <div *ngIf="ci_estudiante.invalid && (ci_estudiante.dirty || ci_estudiante.touched )" class="red-text text-darken-4">
                     <div *ngIf="ci_estudiante.errors.required">
@@ -27,38 +29,37 @@
                     </div>
                 </div> -->
             </div>
-        </div>
+        
 
-        <div class="row">
-            <div class="input-field col s6">
-                <mat-form-field>
-                    <input type="text" matInput formControlName="n_estudiante" required id="nombre" class="validate">
-                    <mat-label for="nombre">Nombre</mat-label>
-                </mat-form-field>
+        
+            <div class=" col s6">
+                
+                     <label for="n_profesor">Nombre</label>                
+                    <input id="n_profesor" type="text"  formControlName="n_profesor" required  class="form-control validate">
 
-                <div *ngIf="n_estudiante.invalid && (n_estudiante.dirty || n_estudiante.touched)" class=" red-text  text-darken-4">
-                    <div *ngIf="n_estudiante.errors.required">
+                <div *ngIf="n_profesor.invalid && (n_profesor.dirty )" class=" red-text  text-darken-4">
+                    <div *ngIf="n_profesor.errors.required">
                         El nombre es requerido
                     </div>
                 </div>
 
             </div>
 
-            <div class="input-field col s6">
-                <mat-form-field>
-                    <input type="text" matInput formControlName="a_estudiante" required id="apellido" class="validate">
-                    <mat-label for="apellido">Apellido</mat-label>
-                </mat-form-field>
+            <div class=" col s6">
+                
+                    <label for="a_profesor">Apellido</label>
+                    <input type="text"  formControlName="a_profesor" required id="a_profesor" class="form-control validate">
+                
 
-                <div *ngIf="a_estudiante.invalid && (a_estudiante.dirty || a_estudiante.touched)" class=" red-text  text-darken-4">
-                    <div *ngIf="a_estudiante.errors.required">
+                <div *ngIf="a_profesor.invalid && (a_profesor.dirty || a_profesor.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="a_profesor.errors.required">
                         El apellido es requerido
                     </div>
                 </div>
             </div>
-        </div>
+        
 
-        <div class="row">
+      <!--   <div class="form-group">
             <div class="input-field col s4">
                 <mat-form-field>
                     <input type="text" matInput formControlName="semestre" id="semestre" class="validate">
@@ -77,21 +78,28 @@
                     </div>
                 </div>
             </div>
+ -->
+ <div class="form-group col-4">
+    <label for="tipo">Tipo de 'tiempo'</label>
+    <select formControlName="tipo" id="tipo" class="validate form-control">
+      <option *ngFor="let tipo of tipoo" [value]="tipo.value">{{tipo.name}}</option>
+    </select>
+    <div *ngIf="tipo.invalid && (tipo.dirty || tipo.touched)" class=" red-text  text-darken-4">
+      <div *ngIf="tipo.errors.required">
+          El tipo es requerido
+      </div>
+  </div>
+  </div>
+            
 
-            <div class="input-field col s4">
-                <p>Turno</p>
-                <mat-select formControlName="turno" id="turno" class="validate">
-                    <mat-option *ngFor="let turno of turnos" [value]="turno.value">
-                        {{turno.value}}
-                    </mat-option>
-                </mat-select>
+            </div>
                 <!--  <mat-select formControlName="turno" id="turno" class="validate">
                       <mat-option *ngFor="let turno of turnos" [value]="turno.value">
                           {{turno.value}}
                       </mat-option>
                   </mat-select>
    -->
-                <div *ngIf="turno.invalid && (turno.dirty || turno.touched)" class=" red-text  text-darken-4">
+            <!--     <div *ngIf="turno.invalid && (turno.dirty || turno.touched)" class=" red-text  text-darken-4">
                     <div *ngIf="turno.errors.required">
                         El turno es requerido
                     </div>
@@ -104,7 +112,7 @@
                     <mat-option *ngFor="let carrera of carreras" [value]="carrera.carrera">
                         {{carrera.carrera}}
                     </mat-option>
-                </mat-select>
+                </mat-select> -->
                 <!--
                   <div *ngIf="carerra.invalid && (carerra.dirty || carerra.touched)" class=" red-text  text-darken-4">
                       <div *ngIf="carerra.errors.required">
@@ -112,12 +120,12 @@
                       </div>
                   </div>
               -->
-            </div>
+          <!--   </div>
 
-        </div>
+        </div> -->
 
-
-        <div class="row">
+<!-- 
+        <div class="form-group">
             <div class="input-field col s6">
                 <mat-form-field>
                     <input type="text" matInput formControlName="tutor" id="tutor" class="validate">
@@ -198,16 +206,10 @@
                         {{aprobado.value}}
                     </mat-option>
                 </mat-select>
-                <!--
-              <div *ngIf="aprobado.invalid && (aprobado.dirty || aprobado.touched)" class=" red-text  text-darken-4">
-                  <div *ngIf="aprobado.errors.required">
-                      El status de aprobación del proyecto es requerido
-                  </div>
-              </div>
-  -->
+           
             </div>
         </div>
-
+ -->
 
         <!--  Aqui los demas div correspondientes a los demas input -->
 

@@ -1,5 +1,6 @@
 <mat-toolbar>
-    <span class="toolbar">Buscar estudiante</span>
+    <span class="toolbar">Buscar Profesor</span>
+    <button class="btn btn-primary " id="boton" (click)="crear()">Crear Profesor</button>
 </mat-toolbar>
 
 
@@ -10,82 +11,82 @@
 </div>
 
 
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+<div class="mat-elevation-z8 col-12">
+    <table mat-table [dataSource]="dataSource" matSort >
 
-        <ng-container matColumnDef="ci_estudiante">
+        <ng-container class="col-2" matColumnDef="ci_profesor">
             <th mat-header-cell *matHeaderCellDef> C.I </th>
-            <td mat-cell *matCellDef="let estudiante">
+            <td mat-cell *matCellDef="let profesor">
 
-                <span>{{estudiante.ci_estudiante}}</span>
+                <span>{{profesor.ci_profesor}}</span>
 
             </td>
         </ng-container>
 
 
-        <ng-container matColumnDef="n_estudiante">
+        <ng-container class="col-2" matColumnDef="n_profesor">
             <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let estudiante">
+            <td mat-cell *matCellDef="let profesor">
 
-                <span>{{estudiante.n_estudiante}} </span>
+                <span>{{profesor.n_profesor}} </span>
 
             </td>
         </ng-container>
 
 
-        <ng-container matColumnDef="a_estudiante">
+        <ng-container class="col-2" matColumnDef="a_profesor">
             <th mat-header-cell *matHeaderCellDef> Apellido </th>
-            <td mat-cell *matCellDef="let estudiante">
+            <td mat-cell *matCellDef="let profesor">
 
-                <span>{{estudiante.a_estudiante}}</span>
-
-            </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="n_expediente">
-            <th mat-header-cell *matHeaderCellDef> #Expediente </th>
-            <td mat-cell *matCellDef="let estudiante">
-
-                <span>{{estudiante.n_expediente}} </span>
+                <span>{{profesor.a_profesor}}</span>
 
             </td>
         </ng-container>
 
 
-        <ng-container matColumnDef="aprobado">
+        <ng-container class="col-2" matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef> Tipo de esclavo </th>
+            <td mat-cell *matCellDef="let profesor">
+
+                <span>{{profesor.tipo}} </span>
+
+            </td>
+        </ng-container>
+
+
+   <!--      <ng-container matColumnDef="aprobado">
             <th mat-header-cell *matHeaderCellDef> Aprobado </th>
-            <td mat-cell *matCellDef="let estudiante">
+            <td mat-cell *matCellDef="let profesor">
 
-                <span>{{estudiante.aprobado}} </span>
+                <span>{{profesor.aprobado}} </span>
 
             </td>
-        </ng-container>
+        </ng-container> -->
 
-        <ng-container matColumnDef="boton">
+        <ng-container class="col-2" matColumnDef="boton">
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-            <td mat-cell *matCellDef="let estudiante"> <button (click)="borrarEstudiante(estudiante.ci_estudiante) " mat-icon-button>
+            <td mat-cell *matCellDef="let profesor"> <button (click)="borrarProfesor(profesor.ci_profesor) " mat-icon-button>
           <mat-icon>delete</mat-icon>
         </button> </td>
         </ng-container>
 
-        <ng-container matColumnDef="botonE">
+        <ng-container class="col-2" matColumnDef="botonE">
             <th mat-header-cell *matHeaderCellDef> Editar </th>
-            <td mat-cell *matCellDef="let estudiante">
+            <td mat-cell *matCellDef="let profesor">
 
-                <button (click)="info=estudiante.ci_estudiante" (click)="tomarEstudiante(estudiante.ci_estudiante)" mat-icon-button>
+                <button (click)="info=profesor.ci_profesor" (click)="tomarProfesor(profesor.ci_profesor)" mat-icon-button>
                    <mat-icon>edit</mat-icon>
                 </button>
 
             </td>
         </ng-container>
 
-        <ng-container matColumnDef="botonI">
+       <!--  <ng-container matColumnDef="botonI">
             <th mat-header-cell *matHeaderCellDef> Información </th>
             <td mat-cell *matCellDef="let estudiante"> <button (click)="info=estudiante.ci_estudiante" (click)="Informacion()" mat-icon-button>
           <mat-icon>delete</mat-icon>
         </button> </td>
-        </ng-container>
+        </ng-container> -->
 
 
 
@@ -94,3 +95,6 @@
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
 </div>
+
+
+

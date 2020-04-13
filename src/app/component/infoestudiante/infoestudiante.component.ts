@@ -23,7 +23,7 @@ estudiante:any
 
 ngOnInit() {
 
-   this.estudianteServiceService.getEstudiante(this.data.info).subscribe((estudiante:any)=>{
+   this.estudianteServiceService.getProfesor(this.data.info).subscribe((estudiante:any)=>{
     this.estudiante = estudiante;
     })
   }

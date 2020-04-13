@@ -24,8 +24,8 @@ elman:boolean
       if(usuario.password === password){
         
         localStorage.setItem('usuario', JSON.stringify(usuario));
-        this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>{
-          this.router.navigate(['/'])
+        this.router.navigateByUrl('/inicio', {skipLocationChange: true}).then(()=>{
+          this.router.navigate(['/inicio'])
           return true
          })
       }else{

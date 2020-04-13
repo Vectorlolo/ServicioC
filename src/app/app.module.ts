@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 //Angular material
@@ -28,7 +29,9 @@ import {MatDialogModule,
     MatDividerModule,
     MatTreeModule,
     MatProgressBarModule,
-    MatStepperModule } from '@angular/material/'
+    MatStepperModule,
+    MatNativeDateModule,
+  MatDatepickerModule } from '@angular/material/'
 
 
 
@@ -46,6 +49,11 @@ import { InfoestudianteComponent } from './component/infoestudiante/infoestudian
 import { EditarestudianteComponent } from './component/editarestudiante/editarestudiante.component';
 import { NavComponent } from './component/nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MateriaComponent } from './component/materia/materia.component';
+import { EditarMateriaComponent } from './component/editar-materia/editar-materia.component';
+import { ConstanciaComponent } from './component/constancia/constancia.component';
+import { PeriodoComponent } from './component/periodo/periodo.component';
+import { EditarPeriodoComponent } from './component/editar-periodo/editar-periodo.component';
 
 
 
@@ -64,7 +72,12 @@ import { LayoutModule } from '@angular/cdk/layout';
     FindestudianteComponent,
     InfoestudianteComponent,
     EditarestudianteComponent,
-    NavComponent
+    NavComponent,
+    MateriaComponent,
+    EditarMateriaComponent,
+    ConstanciaComponent,
+    PeriodoComponent,
+    EditarPeriodoComponent
   ],
   imports: [
     BrowserModule,
@@ -93,8 +106,10 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatProgressBarModule,
     MatStepperModule,
     FormsModule,
-    LayoutModule
- 
+    LayoutModule,
+    NgbModule,
+    MatDatepickerModule,
+    MatNativeDateModule
     
 
   ],
@@ -103,7 +118,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     BorrardialogComponent,
     EditarcarreraComponent,
     InfoestudianteComponent,
-    EditarestudianteComponent
+    EditarestudianteComponent,
+    EditarMateriaComponent,
+    EditarPeriodoComponent
   ],
   bootstrap: [AppComponent]
 })

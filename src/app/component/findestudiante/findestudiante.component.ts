@@ -30,19 +30,22 @@ export class FindestudianteComponent implements OnInit {
     public estudianteServiceService:EstudianteServiceService,
     public dialog:MatDialog
     ) { }
+    profesorees= []
 
   ngOnInit() {
-    this.estudianteServiceService.getEstudiantes().subscribe((estudiante:any)=>{
-      this.dataSource = new MatTableDataSource(estudiante);
+    this.estudianteServiceService.getProfesores().subscribe((profesor:any)=>{
+      this.dataSource = new MatTableDataSource(profesor);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.profesorees.push(profesor)
+
     })
 
 
   
   }
 
-  displayedColumns: string[] = ['ci_estudiante','n_estudiante','a_estudiante','n_expediente','aprobado','boton','botonE','botonI'];
+  displayedColumns: string[] = ['ci_profesor','n_profesor','a_profesor','tipo','boton','botonE'];
   dataSource
 
 
@@ -92,7 +95,7 @@ export class FindestudianteComponent implements OnInit {
 
 info:any
 
-async borrarEstudiante(id){
+async borrarProfesor(id){
 
   const borrarDialog = this.dialog.open(BorrardialogComponent,{
     width:'300px',
@@ -101,7 +104,7 @@ async borrarEstudiante(id){
   
   await borrarDialog.afterClosed().subscribe((result)=>{
     if(result){
-      this.estudianteServiceService.getEstudiantes().subscribe((estudiante:any)=>{
+      this.estudianteServiceService.deleteProfesor(id).subscribe((estudiante:any)=>{
         this.dataSource = new MatTableDataSource(estudiante);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -112,7 +115,7 @@ async borrarEstudiante(id){
 
 editar:any;
 
-  async tomarEstudiante(code){
+  async tomarProfesor(code){
     const editarDialog = this.dialog.open(EditarestudianteComponent,{
       width:'1000px',
       height:'700px',
@@ -122,13 +125,16 @@ editar:any;
     
    await editarDialog.afterClosed().subscribe((msg)=>{
      if(msg){
-      this.estudianteServiceService.getEstudiantes().subscribe((estudiante:any)=>{
+      this.estudianteServiceService.getProfesores().subscribe((estudiante:any)=>{
         this.dataSource = new MatTableDataSource(estudiante);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       })
      }
    })
+
+
+  
 
     /* this.estudianteServiceService.getEstudiante(code).subscribe((estudiante:any)=>{
       delete(estudiante._id)
@@ -137,9 +143,15 @@ editar:any;
     }) */
   }
 
+  crear(){
+      this.router.navigateByUrl('/estudiante',{skipLocationChange:true}).then(()=>{
+        this.router.navigate(['/estudiante'])
+      });
+  }
 
 
-  async Informacion(){
+
+/*   async Informacion(){
     const infoDialog = this.dialog.open(InfoestudianteComponent,{
       width:'1000px',
       height:'700px',
@@ -155,7 +167,7 @@ editar:any;
     })
 
   }
-
+ */
 
 
 
