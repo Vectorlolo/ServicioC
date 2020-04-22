@@ -2,6 +2,10 @@
     <span class="toolbar">Crear Carrera</span>
 </mat-toolbar>
 
+<div class="input-field container">
+    <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
+    <label for="filter">Busqueda avanzada</label>
+</div>
 
 <mat-card-content>
     <div class="container">

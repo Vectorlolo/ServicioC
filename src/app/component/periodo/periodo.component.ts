@@ -43,6 +43,13 @@ export class PeriodoComponent implements OnInit {
       this.dataSource.sort = this.sort;
     })
   }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  }
+
   minDate = new Date(2007, 0, 1);//para el datapiker
 
 periodoM:[]

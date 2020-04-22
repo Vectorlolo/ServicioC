@@ -9,7 +9,8 @@ import {AuthGuard} from '../guards/auth.guard'
 import { MateriaComponent } from './component/materia/materia.component'
 import { ConstanciaComponent } from './component/constancia/constancia.component';
 import { PeriodoComponent } from './component/periodo/periodo.component';
-
+import { EditarPeriodoComponent } from './component/editar-periodo/editar-periodo.component';
+import { EditarconstanciaComponent } from './component/editarconstancia/editarconstancia.component'
 
 const routes: Routes = [
   { path:'',component: LoginComponent,pathMatch: 'full' },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'inicio', component: SidenavComponent,  canActivate:[AuthGuard]},
   { path:'materia',component:MateriaComponent ,canActivate:[AuthGuard]},
   { path:'constancia',component:ConstanciaComponent,canActivate:[AuthGuard]},
-  {path:'periodo',component:PeriodoComponent,canActivate:[AuthGuard]}
+  {path:'periodo',component:PeriodoComponent,canActivate:[AuthGuard]},
+  {path:'editarconstancia',component:EditarconstanciaComponent,canActivate:[AuthGuard]}
 ];
 
 export const RouteRoutes = RouterModule.forRoot(routes);

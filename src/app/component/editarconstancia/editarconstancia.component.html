@@ -2,11 +2,11 @@
 
     <div class="container">
      
-        <form class="form-group" [formGroup]="constanciaForm"  (ngSubmit)="Prueba()">
+        <form class="form-group" [formGroup]="constanciaForm"  (ngSubmit)="Agregar()">
 
           <div  class="row">  
 
-            <div class=" col s3">
+            <!-- <div class=" col s3">
             <label for="profesor">Cédula Profesor</label>
             <select formControlName="profesor" id="profesor" class="validate form-control">
               <option *ngFor="let profesor of profesores"  [value]="profesor.ci_profesor">{{profesor.ci_profesor}}</option>
@@ -17,7 +17,7 @@
               </div>
           </div>
               
-          </div>
+          </div> -->
 
           
 
@@ -106,7 +106,7 @@
         </div>    
 
 
-        <button class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!constanciaForm.valid">Guardar
+        <button class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!constanciaForm.valid">Agregar Labor
           <i class="fa fa-floppy-o fa-2x " aria-hidden="true"></i>
           </button>
 
@@ -118,92 +118,95 @@
 
 </mat-card-content>
 
-<div class="input-field container">
-  <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
-  <label for="filter">Busqueda avanzada</label>
-</div>
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="container">
   
 
-
-
-
-
-  <table mat-table [dataSource]="dataSource" matSort>
-
-      <ng-container matColumnDef="ci_profesor">
-          <th mat-header-cell *matHeaderCellDef> Cédula </th>
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+       <!--  <ng-container matColumnDef="ci_profesor">
+            <th mat-header-cell *matHeaderCellDef> Cédula </th>
+            <td mat-cell *matCellDef="let constancia">
+  
+                <span>{{constancia.ci_profesor}}</span>
+  
+            </td>
+        </ng-container> -->
+  
+        <ng-container matColumnDef="periodo">
+            <th mat-header-cell *matHeaderCellDef> Periodo </th>
+            <td mat-cell *matCellDef="let constancia">
+  
+                <span>{{constancia.periodo}}</span>
+  
+            </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="carrera">
+            <th mat-header-cell *matHeaderCellDef> Carrera </th>
+            <td mat-cell *matCellDef="let constancia">
+  
+                <span>{{constancia.carrera}}</span>
+  
+            </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="materia">
+          <th mat-header-cell *matHeaderCellDef> Materia </th>
           <td mat-cell *matCellDef="let constancia">
-
-              <span>{{constancia.ci_profesor}}</span>
-
+  
+              <span>{{constancia.materia}}</span>
+  
           </td>
       </ng-container>
-
-      <ng-container matColumnDef="periodo">
-          <th mat-header-cell *matHeaderCellDef> Periodo </th>
-          <td mat-cell *matCellDef="let constancia">
-
-              <span>{{constancia.labor[0].periodo}}</span>
-
-          </td>
-      </ng-container>
-
-      <ng-container matColumnDef="carrera">
-          <th mat-header-cell *matHeaderCellDef> Carrera </th>
-          <td mat-cell *matCellDef="let constancia">
-
-              <span>{{constancia.labor[0].carrera}}</span>
-
-          </td>
-      </ng-container>
-
-      <ng-container matColumnDef="materia">
-        <th mat-header-cell *matHeaderCellDef> Materia </th>
+  
+      <ng-container matColumnDef="horasT">
+        <th mat-header-cell *matHeaderCellDef> Horas Semestre </th>
         <td mat-cell *matCellDef="let constancia">
-
-            <span>{{constancia.labor[0].materia}}</span>
-
+  
+            <span>{{constancia.horasT}}</span>
+  
         </td>
     </ng-container>
-
-    <ng-container matColumnDef="horasT">
-      <th mat-header-cell *matHeaderCellDef> Horas Semestre </th>
-      <td mat-cell *matCellDef="let constancia">
-
-          <span>{{constancia.labor[0].horasT}}</span>
-
-      </td>
-  </ng-container>
-
-
-      <ng-container matColumnDef="boton">
-          <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-          <td mat-cell *matCellDef="let constancia">
-              <div>
-                  <button (click)="eliminarConstancia(constancia.ci_profesor) " mat-icon-button>
-
-    <mat-icon>delete</mat-icon>
-  </button>
-              </div>
-          </td>
-
-      </ng-container>
-
-      <ng-container matColumnDef="botonE">
-          <th mat-header-cell *matHeaderCellDef> Editar </th>
-          <td mat-cell *matCellDef="let constancia">
-              <button (click)="info=constancia.codigo_c" (click)="editarConstancia() " mat-icon-button>
-    <mat-icon>edit</mat-icon>
-  </button> </td>
-      </ng-container>
-
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-
-
-</div>
+  
+  
+        <ng-container matColumnDef="boton">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let constancia">
+                <div>
+                    <button (click)="eliminarConstancia(constancia.ci_profesor) " mat-icon-button>
+  
+      <mat-icon>delete</mat-icon>
+    </button>
+                </div>
+            </td>
+  
+        </ng-container>
+  
+        <ng-container matColumnDef="botonE">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell *matCellDef="let constancia">
+                <button (click)="info=constancia.codigo_c" (click)="editarconstancia(constancia.codigo_c) " mat-icon-button>
+      <mat-icon>edit</mat-icon>
+    </button> </td>
+        </ng-container>
+  
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+  
+  
+  </div>

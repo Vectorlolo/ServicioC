@@ -4,6 +4,11 @@
 
 <mat-card-content>
 
+    <div class="input-field container">
+        <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
+        <label for="filter">Busqueda avanzada</label>
+    </div>
+
 <div class="container">
 
 
@@ -29,7 +34,7 @@
             <div class="form-group col-5">
                 <mat-form-field>
                     <mat-label>Inicio de Periodo</mat-label>
-                    <input formControlName="inicio" [min]="minDate" matInput [matDatepicker]="picker">
+                    <input formControlName="inicio" [min]="minDate" [matDatepickerFilter]="myFilter" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -51,7 +56,7 @@
             <div class="form-group col-5">
                 <mat-form-field>
                     <mat-label>Final de Periodo</mat-label>
-                    <input formControlName="final" [min]="minDate" matInput [matDatepicker]="picker2">
+                    <input formControlName="final" [min]="minDate" [matDatepickerFilter]="myFilter" matInput [matDatepicker]="picker2">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                   </mat-form-field>

@@ -21,7 +21,7 @@ this.links=[
     {url:'/festudiante',nombre:'Profesor'},
     {url:'/materia',nombre:'Materia'},
     {url:'/periodo',nombre:'Periodo'},
-    {url:'/constancia',nombre:'Constancia'}
+    {url:'/constancia',nombre:'Constancia'},
   ]
 
   this.datoUsuario = JSON.parse(localStorage.getItem('usuario'));

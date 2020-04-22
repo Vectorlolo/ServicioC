@@ -20,7 +20,7 @@ app.use('/api/carrera', require('./routes/carrera.routes'))
 app.use('/api/usuario', require('./routes/user.routes'))
 app.use('/api/materia', require('./routes/materia.routes'))
 app.use('/api/periodo',require('./routes/periodo.routes'))
-
+app.use('/api/constancia',require('./routes/constancia.routes'))
 
 //inicio server
 app.listen(app.get('port'), () => {

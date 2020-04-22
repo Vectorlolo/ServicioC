@@ -8,22 +8,17 @@ import { ConstanciaService } from '../../services/constancia.service'
 import { MatTableDataSource, throwToolbarMixedModesError ,MAT_DIALOG_DATA, MatDialog, MatTextareaAutosize } from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
-import { Router } from '@angular/router';
-
-
-
 @Component({
-  selector: 'app-constancia',
-  templateUrl: './constancia.component.html',
-  styleUrls: ['./constancia.component.css']
+  selector: 'app-editarconstancia',
+  templateUrl: './editarconstancia.component.html',
+  styleUrls: ['./editarconstancia.component.css']
 })
-export class ConstanciaComponent implements OnInit {
+export class EditarconstanciaComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
-    private router:Router,
     private carreraService:CarreraService,
     private materiaService:MateriaService,
     private peridoService:PeriodoService,
@@ -31,51 +26,44 @@ export class ConstanciaComponent implements OnInit {
     private constanciaService:ConstanciaService
     ) { }
 
-
     materias:[]
     profesores:[]
     carreras:any
+    constanciadesactualizada:any
   ngOnInit() {
-    this.constanciaService.getConstancias().subscribe((constancias:any)=>{
-      this.dataSource = new MatTableDataSource(constancias);
+//debes de encontrar la manera de enviar la cedula del docente para que sirva con todos los que existen 
+this.constanciaService.getConstancia(1).subscribe((constancia:any)=>{
+  console.log(constancia)
+this.constanciadesactualizada = constancia
+  this.dataSource = new MatTableDataSource(constancia.labor);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    })
 
-    this.profesorService.getProfesores().subscribe((profesores:any)=>{
-this.profesores = profesores
-
-    })
-    this.peridoService.getPeridos().subscribe((periodos:any)=>{
-      delete(periodos.__v)
-      this.periodoM = periodos
-      this.PeriodoMo()
-    })
-
-this.carreraService.getCarreras().subscribe((carreras:any)=>{
-  delete(carreras.__v)
-  delete(carreras._id)
-  this.carreras = carreras
 })
 
-this.materiaService.getMaterias().subscribe((materias:any)=>{
-  delete(materias.__v)
-  delete(materias._id)
-  this.materias = materias
-})
-
+    
+          this.peridoService.getPeridos().subscribe((periodos:any)=>{
+            delete(periodos.__v)
+            this.periodoM = periodos
+            this.PeriodoMo()
+          })
+      
+      this.carreraService.getCarreras().subscribe((carreras:any)=>{
+        delete(carreras.__v)
+        delete(carreras._id)
+        this.carreras = carreras
+      })
+      
+      this.materiaService.getMaterias().subscribe((materias:any)=>{
+        delete(materias.__v)
+        delete(materias._id)
+        this.materias = materias
+      })
   }
 
-  displayedColumns: string[] = ['ci_profesor','periodo','carrera','materia','horasT','boton','botonE'];
+  displayedColumns: string[] = ['periodo','carrera','materia','horasT','boton','botonE'];
   dataSource
 
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
   periodoM:[]
   periodoM2:any
@@ -96,32 +84,29 @@ this.materiaService.getMaterias().subscribe((materias:any)=>{
       this.periodoM[i].inicio
     } */
     })
-    await console.log(this.periodoM2)
    
   }
 
 
   constanciaForm = new FormGroup({
-    profesor: new FormControl('',[Validators.required]),
     periodo: new FormControl('',[Validators.required]),
     carrera: new FormControl('',[Validators.required]),
     materia: new FormControl('',[Validators.required]),
   })
-  get profesor() {return this.constanciaForm.get('profesor')}
   get periodo() {return this.constanciaForm.get('periodo')}
   get carrera() {return this.constanciaForm.get('carrera')}
   get materia() {return this.constanciaForm.get('materia')}
   
-  
 
-//hacer un segundo formulario con dos datos ci y la combinacion de todos
+
+
 //se combinaran cuando le de al boton de guardar 
 consForm = new FormGroup({
   ci_profesor: new FormControl('',[Validators.required]),
   labor: new FormControl('',[Validators.required])
   })
   //puedes hacer que el labor sea un objeto con toda la informacion 
-//'horas_teo','horas_pra','horas_lab'
+
 
   ci_profesor:string
   labor:[]
@@ -133,7 +118,7 @@ consForm = new FormGroup({
 async constancia(){
   this.codigoMateria = this.constanciaForm.value.materia
   this.codigoCarrera = this.constanciaForm.value.carrera
-  this.ci_profesor = this.constanciaForm.value.profesor
+  this.ci_profesor = "1"
   
 
   
@@ -159,17 +144,17 @@ this.carrera_real = carreras3[0]
 
 
   this.consForm.value.ci_profesor = this.ci_profesor
-  this.consForm.value.labor = [{
+   this.constanciadesactualizada.labor.push({
     periodo:this.constanciaForm.value.periodo,
     carrera:this.carrera_real.carrera,
     materia:this.materia_real.nombre_mat,
     horasT:this.horasT
-  }]
-  await console.log(this.consForm.value)
+  })
+  this.consForm.value.labor = this.constanciadesactualizada.labor
+  console.log(this.constanciadesactualizada)
+  await console.log(this.consForm.value.labor)
 
 }
-
-
 
 codigo:any
 
@@ -222,29 +207,22 @@ if(this.true==true){
 
 
 
-
-
-
-Prueba(){
+Agregar(){
   this.constancia()
-this.constanciaService.createConstancia(this.consForm.value).subscribe((ok)=>{
-  this.constanciaService.getConstancias().subscribe((constancias:any)=>{
-    this.dataSource = new MatTableDataSource(constancias);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  })
+  this.constanciaService.updateConstancia(this.consForm.value).subscribe((ok)=>{
+console.log(this.consForm.value)
+this.constanciaService.getConstancia(1).subscribe((constancia:any)=>{
+  console.log(constancia)
+this.constanciadesactualizada = constancia
+  this.dataSource = new MatTableDataSource(constancia.labor);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
 })
+  })
+
 }
 
-eliminarConstancia(id){
-  this.constanciaService.deleteConstancia(id).subscribe((borrdo)=>{
-    console.log(borrdo)
-  })
-}
-editarConstancia(id){
-  this.router.navigateByUrl('/editarconstancia',{skipLocationChange:true}).then(()=>{
-    this.router.navigate(['/editarconstancia'])
-  });
-}
+
 
 }

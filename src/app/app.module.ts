@@ -54,6 +54,7 @@ import { EditarMateriaComponent } from './component/editar-materia/editar-materi
 import { ConstanciaComponent } from './component/constancia/constancia.component';
 import { PeriodoComponent } from './component/periodo/periodo.component';
 import { EditarPeriodoComponent } from './component/editar-periodo/editar-periodo.component';
+import { EditarconstanciaComponent } from './component/editarconstancia/editarconstancia.component';
 
 
 
@@ -77,7 +78,8 @@ import { EditarPeriodoComponent } from './component/editar-periodo/editar-period
     EditarMateriaComponent,
     ConstanciaComponent,
     PeriodoComponent,
-    EditarPeriodoComponent
+    EditarPeriodoComponent,
+    EditarconstanciaComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +122,8 @@ import { EditarPeriodoComponent } from './component/editar-periodo/editar-period
     InfoestudianteComponent,
     EditarestudianteComponent,
     EditarMateriaComponent,
-    EditarPeriodoComponent
+    EditarPeriodoComponent,
+    EditarconstanciaComponent
   ],
   bootstrap: [AppComponent]
 })
