@@ -7,7 +7,7 @@ userCtrl.getUsuarios = (req,res)=>{
     User.find()
     .then((usuarios)=>{
         res.json(usuarios)
-        console.log(usuarios)
+        //console.log(usuarios)
 
     })
     .catch((err)=>{

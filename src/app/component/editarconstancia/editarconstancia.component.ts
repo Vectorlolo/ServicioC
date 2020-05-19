@@ -8,6 +8,14 @@ import { ConstanciaService } from '../../services/constancia.service'
 import { MatTableDataSource, throwToolbarMixedModesError ,MAT_DIALOG_DATA, MatDialog, MatTextareaAutosize } from '@angular/material';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import { BorrardialogComponent } from '../borrardialog/borrardialog.component'
+import { EditardialogComponent } from '../editardialog/editardialog.component'
+import { EditarlaborComponent } from '../editarlabor/editarlabor.component'
+
+export interface DialogData {
+  info:any;
+}
+
 @Component({
   selector: 'app-editarconstancia',
   templateUrl: './editarconstancia.component.html',
@@ -23,22 +31,36 @@ export class EditarconstanciaComponent implements OnInit {
     private materiaService:MateriaService,
     private peridoService:PeriodoService,
     private profesorService:EstudianteServiceService,
-    private constanciaService:ConstanciaService
+    private constanciaService:ConstanciaService,
+    public dialog:MatDialog
+
     ) { }
 
     materias:[]
     profesores:[]
     carreras:any
     constanciadesactualizada:any
+    Ci_profe
+    nombre:string
+    apellido:string
   ngOnInit() {
+
+   //Hacerlo con el localStorange
+   this.Ci_profe = JSON.parse(localStorage.getItem('ci'));
+  
+
 //debes de encontrar la manera de enviar la cedula del docente para que sirva con todos los que existen 
-this.constanciaService.getConstancia(1).subscribe((constancia:any)=>{
+this.constanciaService.getConstancia(this.Ci_profe).subscribe((constancia:any)=>{
   console.log(constancia)
 this.constanciadesactualizada = constancia
   this.dataSource = new MatTableDataSource(constancia.labor);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 
+})
+this.profesorService.getProfesor(this.Ci_profe).subscribe((profesor:any)=>{
+  this.nombre = profesor.n_profesor
+  this.apellido = profesor.a_profesor
 })
 
     
@@ -118,7 +140,7 @@ consForm = new FormGroup({
 async constancia(){
   this.codigoMateria = this.constanciaForm.value.materia
   this.codigoCarrera = this.constanciaForm.value.carrera
-  this.ci_profesor = "1"
+  //this.ci_profesor = this.Ci_profe
   
 
   
@@ -143,16 +165,16 @@ this.carrera_real = carreras3[0]
 
 
 
-  this.consForm.value.ci_profesor = this.ci_profesor
+  this.consForm.value.ci_profesor = this.Ci_profe
    this.constanciadesactualizada.labor.push({
     periodo:this.constanciaForm.value.periodo,
     carrera:this.carrera_real.carrera,
     materia:this.materia_real.nombre_mat,
-    horasT:this.horasT
+    horasT:this.horasT    
   })
   this.consForm.value.labor = this.constanciadesactualizada.labor
   console.log(this.constanciadesactualizada)
-  await console.log(this.consForm.value.labor)
+  await console.log(this.consForm.value)
 
 }
 
@@ -211,7 +233,7 @@ Agregar(){
   this.constancia()
   this.constanciaService.updateConstancia(this.consForm.value).subscribe((ok)=>{
 console.log(this.consForm.value)
-this.constanciaService.getConstancia(1).subscribe((constancia:any)=>{
+this.constanciaService.getConstancia(this.Ci_profe).subscribe((constancia:any)=>{
   console.log(constancia)
 this.constanciadesactualizada = constancia
   this.dataSource = new MatTableDataSource(constancia.labor);
@@ -220,6 +242,67 @@ this.constanciadesactualizada = constancia
 
 })
   })
+
+}
+
+
+ArrayLabor:[]
+async eliminarConstancia(id){
+
+  const borrarDialog = this.dialog.open(BorrardialogComponent,{
+    width:'300px',
+    height:'135px'
+  })  
+  
+  await borrarDialog.afterClosed().subscribe((result)=>{
+    if(result){
+     this.ArrayLabor =  this.constanciadesactualizada.labor
+      this.ArrayLabor.splice(id,1,)
+      console.log(id)
+      this.consForm.value.ci_profesor = this.Ci_profe
+      this.consForm.value.labor = this.ArrayLabor
+      console.log(this.ArrayLabor)
+
+      this.constanciaService.updateConstancia(this.consForm.value).subscribe((ok)=>{
+        console.log(this.consForm.value)
+        this.constanciaService.getConstancia(this.Ci_profe).subscribe((constancia:any)=>{
+        this.constanciadesactualizada = constancia
+          this.dataSource = new MatTableDataSource(constancia.labor);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+        
+        })
+          })
+    }
+  })
+}
+
+
+info:any;
+
+
+async editarConstancia(id){
+  const editarDialog = this.dialog.open(EditarlaborComponent,{
+    width:'600px',
+    height:'500px',
+    data:{info:this.info}
+  })
+
+  await editarDialog.afterClosed().subscribe((result)=>{
+  
+    if(result){
+      this.constanciaService.getConstancia(this.Ci_profe).subscribe((constancia:any)=>{
+        console.log(constancia)
+      this.constanciadesactualizada = constancia
+        this.dataSource = new MatTableDataSource(constancia.labor);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+      
+      })
+   
+    }
+         })
+
 
 }
 

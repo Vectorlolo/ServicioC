@@ -1,0 +1,92 @@
+<form class="form-group" [formGroup]="constanciaForm"  >
+
+    <div  class="row">  
+
+      <!-- <div class=" col s3">
+      <label for="profesor">Cédula Profesor</label>
+      <select formControlName="profesor" id="profesor" class="validate form-control">
+        <option *ngFor="let profesor of profesores"  [value]="profesor.ci_profesor">{{profesor.ci_profesor}}</option>
+      </select>
+      <div *ngIf="profesor.invalid && (profesor.dirty || profesor.touched)" class=" red-text  text-darken-4">
+        <div *ngIf="profesor.errors.required">
+            La periodo es requerida
+        </div>
+    </div>
+        
+    </div> -->
+
+    
+
+    <div class=" col s3">
+      <label for="periodo">Periodo</label>
+      <select formControlName="periodo" id="periodo"   class="validate form-control">
+        <option *ngFor="let periodo of periodoM2"  [value]="periodo.periodo + periodo.inicio">{{periodo.periodo}}          {{periodo.inicio}}</option>
+      </select>
+      <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
+        <div *ngIf="periodo.errors.required">
+            La periodo es requerida
+        </div>
+    </div>
+        
+    </div>
+    <!-- <div class=" col s3">
+      <label for="periodo">Fecha</label>
+      <select formControlName="periodo" id="periodo" class="validate form-control">
+        <option *ngFor="let periodo of periodoM2"  [value]="periodo.inicio">{{periodo.inicio}}</option>
+      </select>
+      <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
+        <div *ngIf="periodo.errors.required">
+            La periodo es requerida
+        </div>
+    </div>
+        
+    </div> -->
+
+  </div>
+  
+  
+  <div class="row">
+    <div class=" col s3">
+      <label for="carrera">Carrera</label>
+      <select (click)="haymateria()" formControlName="carrera" id="carrera" class="validate form-control">
+        <option *ngFor="let carrera of carreras"  [value]="carrera.codigo_c">{{carrera.carrera}}</option>
+      </select>
+      <div *ngIf="carrera.invalid && (carrera.dirty || carrera.touched)" class=" red-text  text-darken-4">
+        <div *ngIf="carrera.errors.required">
+            La carrera es requerida
+        </div>
+    </div>
+    </div>
+
+
+    <div class="col s3">
+          
+            <label for="materia">Materia</label>
+            <select formControlName="materia"  id="materia" class="validate form-control">
+              <option *ngFor="let materia of materias2" [value]="materia.codigo_materia">{{materia.nombre_mat}}</option>
+            </select>
+            <!-- <label for="horasT">{{materia.horas_teo + materia.horas_pra + materia.horas_lab}}</label>
+            <input type="text" name="horasT" id="horasT" class="form-control validate"> -->
+            <div *ngIf="materia.invalid && (materia.dirty || materia.touched)" class=" red-text  text-darken-4">
+              <div *ngIf="materia.errors.required">
+                  La materia es requerida
+              </div>
+          </div>
+        
+    </div>
+
+<!-- <div class="col s3">
+<label for="materia">Horas Semestre</label>
+<select formControlName="materia"  disabled id="materia" class=" form-control">
+<option *ngFor="let materia of materias2" [value]="materia.horas_teo + materia.horas_pra + materia.horas_lab "></option>
+</select>
+</div> -->
+
+  </div>    
+
+
+  <button mat-raised-button class="btn-accept left light-blue darken-4" (click)="Aceptar()">Aceptar</button>
+  <button mat-raised-button class="btn-cancel right" (click)="Cancelar()">Cancelar</button>
+
+
+    </form>

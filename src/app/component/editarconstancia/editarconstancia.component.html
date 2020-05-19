@@ -1,3 +1,7 @@
+<mat-toolbar>
+  <span class="toolbar">Constancia Profesor: {{nombre}} {{apellido}}  {{Ci_profe}} </span>
+</mat-toolbar>
+
 <mat-card-content>
 
     <div class="container">
@@ -146,9 +150,9 @@
   
         <ng-container matColumnDef="periodo">
             <th mat-header-cell *matHeaderCellDef> Periodo </th>
-            <td mat-cell *matCellDef="let constancia">
+            <td mat-cell *matCellDef="let constancia; let i = index">
   
-                <span>{{constancia.periodo}}</span>
+                <span>{{constancia.periodo}} </span>
   
             </td>
         </ng-container>
@@ -185,7 +189,7 @@
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
             <td mat-cell *matCellDef="let constancia">
                 <div>
-                    <button (click)="eliminarConstancia(constancia.ci_profesor) " mat-icon-button>
+                    <button (click)="eliminarConstancia(dataSource.filteredData.indexOf(constancia)) " mat-icon-button>
   
       <mat-icon>delete</mat-icon>
     </button>
@@ -197,7 +201,7 @@
         <ng-container matColumnDef="botonE">
             <th mat-header-cell *matHeaderCellDef> Editar </th>
             <td mat-cell *matCellDef="let constancia">
-                <button (click)="info=constancia.codigo_c" (click)="editarconstancia(constancia.codigo_c) " mat-icon-button>
+                <button (click)="info=dataSource.filteredData.indexOf(constancia)" (click)="editarConstancia(constancia) " mat-icon-button>
       <mat-icon>edit</mat-icon>
     </button> </td>
         </ng-container>

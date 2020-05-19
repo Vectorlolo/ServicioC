@@ -5,7 +5,7 @@ const periodoCtrl = {};
 periodoCtrl.getPeriodos = (req,res) =>{
     Periodo.find({estado:true})
     .then((periodos)=>{
-        console.log(periodos)
+        //console.log(periodos)
 
         res.json(periodos),
         res.status(200)

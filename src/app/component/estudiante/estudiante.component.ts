@@ -105,7 +105,10 @@ closeResult: string;
 open(content) {
   this.modalReference =  this.modalService.open(content)
   
-        setTimeout(function(){ this.modalReference.close() }, 1000); //hacer que esta mierda funcione!!!!
+    //setTimeout(function(){ this.modalReference.close() }, 1000); //hacer que esta mierda funcione!!!!
+
+        setInterval(() => this.modalReference.close(),1000 )
+
       }
 
 

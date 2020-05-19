@@ -6,7 +6,7 @@ carreraCtrl.getCarreras = async(req, res) => {
     Carrera.find({ estado: true })
         .then((carreras) => {
             res.json(carreras);
-            console.log(carreras)
+            //console.log(carreras)
         })
         .catch((err) => {
             res.json(err);

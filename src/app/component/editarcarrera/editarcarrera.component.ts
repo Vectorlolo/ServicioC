@@ -2,7 +2,6 @@ import { Component, OnInit,Input,Inject} from '@angular/core';
 import { CarreraService } from '../../services/carrera.service';
 import { MatDialogRef ,MAT_DIALOG_DATA } from '@angular/material';
 import {DialogData} from '../carrera/carrera.component'
-
 import {FormGroup,FormControl, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 

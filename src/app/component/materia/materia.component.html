@@ -206,7 +206,7 @@
                 <div>
                     <button (click)="deleteMateria(materia.codigo_materia) " mat-icon-button>
 
-      <mat-icon>delete</mat-icon>
+                        <i class="fa fa-trash fa-2x " aria-hidden="true"></i>
     </button>
                 </div>
             </td>
@@ -217,7 +217,7 @@
             <th mat-header-cell *matHeaderCellDef> Editar </th>
             <td mat-cell *matCellDef="let materia">
                 <button (click)="info=materia.codigo_materia" (click)="editarMateria(carrera.codigo_materia) " mat-icon-button>
-      <mat-icon>edit</mat-icon>
+                    <i class="fa fa-pencil fa-2x " aria-hidden="true"></i>
     </button> </td>
         </ng-container>
 

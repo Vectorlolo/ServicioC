@@ -1,12 +1,14 @@
 const Constancia = require('../models/constancia');
+const Profesor = require('../models/profesor')
 
 constanciaCtrl = {};
 
 constanciaCtrl.getConstancias = (req,res) =>{
-    Constancia.find()
+    Constancia.find({})
     .then((constancias)=>{
         res.json(constancias),
         res.status(200)
+        console.log(constancias)
     })
     .catch((err)=>{
         res.json(err)

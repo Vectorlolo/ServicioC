@@ -6,7 +6,7 @@ profesorCtrl.getProfesores = async(req, res) => {
     Profesor.find()
         .then((profesores) => {
             res.json(profesores);
-            console.log(profesores)
+           // console.log(profesores)
         })
         .catch((err) => {
             res.json(err);
