@@ -124,7 +124,7 @@
             <div>
                 <button (click)="deletePeriodo(periodo._id) " mat-icon-button>
 
-  <mat-icon>delete</mat-icon>
+                    <i class="fa fa-trash fa-2x " aria-hidden="true"></i>
 </button>
             </div>
         </td>
@@ -135,7 +135,7 @@
         <th mat-header-cell *matHeaderCellDef> Editar </th>
         <td mat-cell *matCellDef="let periodo">
             <button (click)="info=periodo._id" (click)="editarPeriodo() " mat-icon-button>
-  <mat-icon>edit</mat-icon>
+                <i class="fa fa-pencil fa-2x " aria-hidden="true"></i>
 </button> </td>
     </ng-container>
 

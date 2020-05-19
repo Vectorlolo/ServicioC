@@ -9,7 +9,13 @@ import { MatTableDataSource, throwToolbarMixedModesError ,MAT_DIALOG_DATA, MatDi
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import { Router } from '@angular/router';
+import {NgbModal,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { BorrardialogComponent } from '../borrardialog/borrardialog.component'
+import { EditardialogComponent } from '../editardialog/editardialog.component'
 
+export interface DialogData {
+  info:any;
+}
 
 
 @Component({
@@ -28,19 +34,32 @@ export class ConstanciaComponent implements OnInit {
     private materiaService:MateriaService,
     private peridoService:PeriodoService,
     private profesorService:EstudianteServiceService,
-    private constanciaService:ConstanciaService
+    private constanciaService:ConstanciaService,
+    private modalService: NgbModal,
+    public dialog:MatDialog
+
     ) { }
+
+    
 
 
     materias:[]
     profesores:[]
     carreras:any
   ngOnInit() {
+
     this.constanciaService.getConstancias().subscribe((constancias:any)=>{
       this.dataSource = new MatTableDataSource(constancias);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+
+    /*  this.profesorService.getProfesores().subscribe((profesor:any)=>{
+      this.dataSource = new MatTableDataSource(profesor);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    }) */
 
     this.profesorService.getProfesores().subscribe((profesores:any)=>{
 this.profesores = profesores
@@ -65,10 +84,12 @@ this.materiaService.getMaterias().subscribe((materias:any)=>{
 })
 
   }
-
-  displayedColumns: string[] = ['ci_profesor','periodo','carrera','materia','horasT','boton','botonE'];
+  
+ displayedColumns: string[] = ['ci_profesor','periodo','carrera','materia','horasT','boton','botonE'];
   dataSource
 
+  //Antes
+ // displayedColumns: string[] = ['ci_profesor','n_profesor','a_profesor','boton','botonE'];
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -96,7 +117,7 @@ this.materiaService.getMaterias().subscribe((materias:any)=>{
       this.periodoM[i].inicio
     } */
     })
-    await console.log(this.periodoM2)
+   // await console.log(this.periodoM2)
    
   }
 
@@ -164,7 +185,7 @@ this.carrera_real = carreras3[0]
     carrera:this.carrera_real.carrera,
     materia:this.materia_real.nombre_mat,
     horasT:this.horasT
-  }]
+    }]
   await console.log(this.consForm.value)
 
 }
@@ -222,29 +243,117 @@ if(this.true==true){
 
 
 
+modalReference: NgbModalRef;
+opened:any
+closeResult: string;
 
+open(content) {
+  this.modalReference =  this.modalService.open(content)
+  
+    //setTimeout(function(){ this.modalReference.close() }, 1000); //hacer que esta mierda funcione!!!!
+
+        setInterval(() => this.modalReference.close(),2500 )
+
+      }
+
+//Para mostrar el nombre en la ventana modal de "Creado exitosamente"
+nombre_modal:any
+nombreprof(){
+  let profe_name = this.profesores.filter((nombre:any)=>{
+    return nombre.ci_profesor == this.constanciaForm.value.profesor
+  })
+this.nombre_modal = profe_name[0]
+}
 
 
 Prueba(){
   this.constancia()
 this.constanciaService.createConstancia(this.consForm.value).subscribe((ok)=>{
-  this.constanciaService.getConstancias().subscribe((constancias:any)=>{
-    this.dataSource = new MatTableDataSource(constancias);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  })
+  this.open(this.opened)
+    this.constanciaService.getConstancias().subscribe((constancias:any)=>{
+      this.dataSource = new MatTableDataSource(constancias);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+//Antes
+/* this.profesorService.getProfesores().subscribe((profesor:any)=>{
+  this.dataSource = new MatTableDataSource(profesor);
+  this.dataSource.paginator = this.paginator;
+  this.dataSource.sort = this.sort;
+
+}) */
 })
 }
 
-eliminarConstancia(id){
-  this.constanciaService.deleteConstancia(id).subscribe((borrdo)=>{
-    console.log(borrdo)
+async eliminarConstancia(id){
+
+  const borrarDialog = this.dialog.open(BorrardialogComponent,{
+    width:'300px',
+    height:'135px'
+  })  
+  
+  await borrarDialog.afterClosed().subscribe((result)=>{
+    if(result){
+      this.constanciaService.deleteConstancia(id).subscribe((borrdo)=>{
+
+  this.constanciaService.getConstancias().subscribe((constancias:any)=>{
+      this.dataSource = new MatTableDataSource(constancias);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+    /* this.profesorService.getProfesores().subscribe((profesor:any)=>{
+        this.dataSource = new MatTableDataSource(profesor);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      
+      }) */
+          console.log(borrdo)
+      })
+      
+    }
   })
+ 
+  
+
+
 }
-editarConstancia(id){
-  this.router.navigateByUrl('/editarconstancia',{skipLocationChange:true}).then(()=>{
+
+
+
+
+info:any;
+
+
+async editarConstancia(id){
+
+  const editarDialog = this.dialog.open(EditardialogComponent,{
+    width:'300px',
+    height:'180px',
+    data:{info:this.info}
+   })
+
+//El resultado puede retornar una cedula o un false
+await editarDialog.afterClosed().subscribe((result)=>{
+  if(result == false){
+    this.router.navigateByUrl('/constancia',{skipLocationChange:true}).then(()=>{
+      this.router.navigate(['/constancia'])
+    });
+ }else{
+   localStorage.setItem('ci', JSON.stringify(this.info));
+
+
+ this.router.navigateByUrl('/editarconstancia',{skipLocationChange:true}).then(()=>{
     this.router.navigate(['/editarconstancia'])
   });
+ }
+   
+ 
+})
+
+  
+
+
+
 }
 
 }
