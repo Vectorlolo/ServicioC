@@ -1,17 +1,25 @@
+
 <mat-toolbar>
-    <span class="toolbar">Crear Materia</span>
+    <span class="toolbar"> Materia</span>
 </mat-toolbar>
 
-<div class="input-field container">
-    <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
-    <label for="filter">Busqueda avanzada</label>
-</div>
+
+<mat-expansion-panel >
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Crear Materia
+        </mat-panel-title>
+        <mat-panel-description>
+           Click Para Registrar Una Materia
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
 
 <mat-card-content>
 
     <div class="container">
         
-            <div class="row">
                 <form class="form-group " [formGroup]="materiasForm" (ngSubmit)="createMateria()">
                     <div class="row">
                         <div class="form-group col-4">
@@ -124,7 +132,6 @@
             <i class="material-icons right">send</i>
           </button>
                 </form>
-            </div>
         
         
         </div>
@@ -135,8 +142,15 @@
 
 </mat-card-content>
 
+</mat-expansion-panel>
 
 
+
+<div class="input-field container">
+    <label for="filter">Busqueda Materia:</label>
+
+    <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
+</div>
 
   
 
@@ -204,7 +218,7 @@
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
             <td mat-cell *matCellDef="let materia">
                 <div>
-                    <button (click)="deleteMateria(materia.codigo_materia) " mat-icon-button>
+                    <button (click)="deleteMateria(materia.codigo_materia) "  (click)="bitaco=materia.nombre_mat" mat-icon-button>
 
                         <i class="fa fa-trash fa-2x " aria-hidden="true"></i>
     </button>
@@ -216,7 +230,7 @@
         <ng-container matColumnDef="botonE">
             <th mat-header-cell *matHeaderCellDef> Editar </th>
             <td mat-cell *matCellDef="let materia">
-                <button (click)="info=materia.codigo_materia" (click)="editarMateria(carrera.codigo_materia) " mat-icon-button>
+                <button (click)="info=materia.codigo_materia" (click)="editarMateria(carrera.codigo_materia) " (click)="bitaco=materia.codigo_materia" mat-icon-button>
                     <i class="fa fa-pencil fa-2x " aria-hidden="true"></i>
     </button> </td>
         </ng-container>

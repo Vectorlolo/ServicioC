@@ -22,6 +22,8 @@ this.links=[
     {url:'/materia',nombre:'Materia'},
     {url:'/periodo',nombre:'Periodo'},
     {url:'/constancia',nombre:'Constancia'},
+    {url:'/bitacora',nombre:'Bitacora'}
+    
   ]
 
   this.datoUsuario = JSON.parse(localStorage.getItem('usuario'));

@@ -13,6 +13,11 @@ import {NgbModal,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { BorrardialogComponent } from '../borrardialog/borrardialog.component'
 import { EditardialogComponent } from '../editardialog/editardialog.component'
 
+
+//bitacora
+import { BitacoraService } from '../../services/bitacora.service'
+import { __await } from 'tslib';
+
 export interface DialogData {
   info:any;
 }
@@ -36,7 +41,10 @@ export class ConstanciaComponent implements OnInit {
     private profesorService:EstudianteServiceService,
     private constanciaService:ConstanciaService,
     private modalService: NgbModal,
-    public dialog:MatDialog
+    public dialog:MatDialog,
+    //bitacora
+private bitacoraService:BitacoraService
+
 
     ) { }
 
@@ -46,7 +54,14 @@ export class ConstanciaComponent implements OnInit {
     materias:[]
     profesores:[]
     carreras:any
+
+    //bitacora
+usuarioOK
   ngOnInit() {
+
+ //bitacora
+ this.usuarioOK = JSON.parse(localStorage.getItem('usuario'));
+
 
     this.constanciaService.getConstancias().subscribe((constancias:any)=>{
       this.dataSource = new MatTableDataSource(constancias);
@@ -68,7 +83,8 @@ this.profesores = profesores
     this.peridoService.getPeridos().subscribe((periodos:any)=>{
       delete(periodos.__v)
       this.periodoM = periodos
-      this.PeriodoMo()
+    /*   
+      this.PeriodoMo() */
     })
 
 this.carreraService.getCarreras().subscribe((carreras:any)=>{
@@ -97,8 +113,8 @@ this.materiaService.getMaterias().subscribe((materias:any)=>{
       this.dataSource.paginator.firstPage();
     }
   }
-
-  periodoM:[]
+periodoM:[]
+  /* 
   periodoM2:any
   async PeriodoMo(){
      this.periodoM2 = this.periodoM.filter((periodo:any)=>{
@@ -106,22 +122,22 @@ this.materiaService.getMaterias().subscribe((materias:any)=>{
       periodo.final =  periodo.final.substring(0, 10)
       
   return periodo
-      /* for(let i =0;i<=this.periodoM.length;i++ ){
+      for(let i =0;i<=this.periodoM.length;i++ ){
         periodo.inicio.substring(0, 10)
         
       }
       for(let fin of periodo.final ){
         fin.substring(0, 10)
-      } */
-      /* for(let i =0;i<=this.periodoM.length;i++){
+      }
+      for(let i =0;i<=this.periodoM.length;i++){
       this.periodoM[i].inicio
-    } */
+    }
     })
-   // await console.log(this.periodoM2)
+    await console.log(this.periodoM2)
    
   }
 
-
+ */
   constanciaForm = new FormGroup({
     profesor: new FormControl('',[Validators.required]),
     periodo: new FormControl('',[Validators.required]),
@@ -151,7 +167,23 @@ consForm = new FormGroup({
   codigoCarrera:string
   carrera_real:any
   horasT:string
+  semana:Number
+  periodo0
+  indice
+
+  /*  Periodo(){
+   this.peridoService.getPeriodo(this.constanciaForm.value.periodo).subscribe((periodo:any)=>{
+    this.periodo0 = periodo
+    this.semana= periodo.semana
+    console.log(this.semana)
+
+ })  
+//.substring(0, 10)
+} */
+
+
 async constancia(){
+ // console.log(this.periodo0)
   this.codigoMateria = this.constanciaForm.value.materia
   this.codigoCarrera = this.constanciaForm.value.carrera
   this.ci_profesor = this.constanciaForm.value.profesor
@@ -177,18 +209,25 @@ this.horasT = this.materia_real.horas_teo + this.materia_real.horas_pra + this.m
 
 this.carrera_real = carreras3[0]
 
+this.periodo0 = this.constanciaForm.value.periodo
+this.indice = this.periodo0.indexOf( ":" ); 
+this.semana = this.periodo0.slice(this.indice+1,this.periodo0.length)
+this.periodo0 = this.periodo0.slice(0,this.indice)
 
+//this.periodo0.periodo +' ' + this.periodo0.inicio, this.constanciaForm.value.periodo                .slice(3, -2)
 
-  this.consForm.value.ci_profesor = this.ci_profesor
-  this.consForm.value.labor = [{
-    periodo:this.constanciaForm.value.periodo,
+   this.consForm.value.ci_profesor = this.ci_profesor
+   this.consForm.value.labor = [{
+    periodo:this.periodo0,
     carrera:this.carrera_real.carrera,
     materia:this.materia_real.nombre_mat,
-    horasT:this.horasT
+    horasT:this.horasT,
+    horasS:Number(this.horasT) * Math.round(Number(this.semana))
     }]
-  await console.log(this.consForm.value)
+     console.log(this.consForm.value)
 
 }
+
 
 
 
@@ -266,15 +305,24 @@ this.nombre_modal = profe_name[0]
 }
 
 
-Prueba(){
-  this.constancia()
-this.constanciaService.createConstancia(this.consForm.value).subscribe((ok)=>{
-  this.open(this.opened)
+  Prueba(){
+
+
+ this.constancia()
+
+
+this.constanciaService.createConstancia(this.consForm.value).subscribe((ok:any)=>{
+  if(ok.status== true){
+this.open(this.opened)
     this.constanciaService.getConstancias().subscribe((constancias:any)=>{
       this.dataSource = new MatTableDataSource(constancias);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+
+    this.BitacoraCrea()
+  }
+  
 //Antes
 /* this.profesorService.getProfesores().subscribe((profesor:any)=>{
   this.dataSource = new MatTableDataSource(profesor);
@@ -309,7 +357,7 @@ async eliminarConstancia(id){
       }) */
           console.log(borrdo)
       })
-      
+      this.BitacoraElimina()
     }
   })
  
@@ -350,10 +398,33 @@ await editarDialog.afterClosed().subscribe((result)=>{
  
 })
 
-  
+}
 
 
+//Bitacora
+bitaco
 
+bitacoraForm = new FormGroup({
+  usuario: new FormControl('',[Validators.required]),
+  accion: new FormControl('',[Validators.required]),
+  fecha: new FormControl('',[Validators.required]),
+})
+
+
+BitacoraCrea(){
+  this.bitacoraForm.value.usuario = this.usuarioOK.user
+  this.bitacoraForm.value.accion = 'Creo Constancia para profesor: ' + this.consForm.value.ci_profesor
+  this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+    console.log(bitacora)
+  })
+}
+
+BitacoraElimina(){
+  this.bitacoraForm.value.usuario = this.usuarioOK.user
+  this.bitacoraForm.value.accion = 'Elimino Constancia: ' + this.bitaco
+  this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+    console.log(bitacora)
+  })
 }
 
 }

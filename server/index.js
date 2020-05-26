@@ -21,8 +21,43 @@ app.use('/api/usuario', require('./routes/user.routes'))
 app.use('/api/materia', require('./routes/materia.routes'))
 app.use('/api/periodo',require('./routes/periodo.routes'))
 app.use('/api/constancia',require('./routes/constancia.routes'))
+app.use('/api/bitacora',require('./routes/bitacora.routes'))
 
 //inicio server
 app.listen(app.get('port'), () => {
     console.log("Server en el puerto ", app.get('port'));
 });
+
+
+
+
+
+
+///////////////////////////////////////////////////////
+//////////////////////Generar Pdf//////////////////////
+///////////////////////////////////////////////////////
+// Define font files
+/* var fonts = {
+    Roboto: {
+      normal: 'fonts/Roboto-Regular.ttf',
+      bold: 'fonts/Roboto-Medium.ttf',
+      italics: 'fonts/Roboto-Italic.ttf',
+      bolditalics: 'fonts/Roboto-MediumItalic.ttf'
+    }
+  };
+  
+  var PdfPrinter = require('pdfmake');
+  var printer = new PdfPrinter(fonts);
+  var fs = require('fs');
+  
+  var docDefinition = {
+    // ...
+  };
+  
+  var options = {
+    // ...
+  }
+  
+  var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
+  pdfDoc.pipe(fs.createWriteStream('document.pdf'));
+  pdfDoc.end(); */

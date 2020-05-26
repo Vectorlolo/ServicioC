@@ -8,6 +8,10 @@ import { CarreraService } from '../../services/carrera.service';
 import {NgbModal,NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 
+//bitacora
+import { BitacoraService } from '../../services/bitacora.service'
+
+
 @Component({
   selector: 'app-estudiante',
   templateUrl: './estudiante.component.html',
@@ -28,9 +32,17 @@ export class EstudianteComponent implements OnInit {
     private carreracervice: CarreraService,
     private formbuilder: FormBuilder,
     private modalService: NgbModal,
+
+    //bitacora
+private bitacoraService:BitacoraService
   ) { }
 
+
+  //bitacora
+usuarioOK
   ngOnInit() {
+    //bitacora
+ this.usuarioOK = JSON.parse(localStorage.getItem('usuario'));
 
  /* this.carreracervice.getCarreras() 
 .subscribe( carrera =>  this.carreras = carrera)
@@ -113,16 +125,35 @@ open(content) {
 
 
   createProfesor(){
-    this.estudianteserviceservice.createProfesor(this.ProfesorForm.value).subscribe((estudiante)=>{
-      this.open(this.opened)
+    this.estudianteserviceservice.createProfesor(this.ProfesorForm.value).subscribe((estudiante:any)=>{
+      if(estudiante.status== true){
+         this.open(this.opened)
+         this.BitacoraCrea()
       this.router.navigateByUrl('/festudiante',{skipLocationChange:true}).then(()=>{
         this.router.navigate(['/festudiante'])
       });
+      }
+     
     })
   }
 
 
-  
- 
+  //Bitacora
+
+  bitaco
+
+  bitacoraForm = new FormGroup({
+    usuario: new FormControl('',[Validators.required]),
+    accion: new FormControl('',[Validators.required]),
+    fecha: new FormControl('',[Validators.required]),
+  })
+
+  BitacoraCrea(){
+    this.bitacoraForm.value.usuario = this.usuarioOK.user
+    this.bitacoraForm.value.accion = 'Creo Profesor: ' + this.ProfesorForm.value.ci_profesor
+    this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+      console.log(bitacora)
+    })
+  }
 
 }

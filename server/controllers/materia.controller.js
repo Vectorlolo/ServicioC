@@ -3,7 +3,7 @@ const Materia = require('../models/materia');
 materiaCtrl = {};
 
 materiaCtrl.getMaterias = (req,res) =>{
-    Materia.find({ estado: true })
+    Materia.find()
     .then((materias)=>{
         res.json(materias),
         res.status(200)
@@ -33,13 +33,12 @@ materiaCtrl.createMateria = async(req,res) =>{
         horas_pra: req.body.horas_pra,
         horas_lab: req.body.horas_lab,
         carrera:req.body.carrera,
-        estado:req.body.estado
     })
 
     await materia.save()
     .then(()=>{
         console.log(materia)
-        res.json({status:'ok'})
+        res.json({status:true})
         res.status(200)
     })
     .catch((err)=>{
@@ -55,7 +54,6 @@ materiaCtrl.updateMateria = (req,res)=>{
         horas_pra: req.body.horas_pra,
         horas_lab: req.body.horas_lab,
         carrera:req.body.carrera,
-        estado:true
     }
 
     Materia.findOneAndUpdate({codigo_materia:req.params.id},{$set:materia})
@@ -69,16 +67,9 @@ materiaCtrl.updateMateria = (req,res)=>{
 }
 
 materiaCtrl.deleteMateria = (req,res)=>{
-    let id = req.params.id
-
-    let cambiarEstado={
-        estado:false
-    }
-
-    Materia.findOneAndUpdate(id,cambiarEstado,{new:true})
-    .then((materia)=>{
-        res.json(materia)
-        res.status(200)
+    Materia.findOneAndDelete({codigo_materia:req.params.id})
+    .then((ok)=>{
+        res.json({status:'ok'})
     })
     .catch((err)=>{
         res.json(err)

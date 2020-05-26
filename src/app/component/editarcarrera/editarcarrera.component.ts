@@ -35,9 +35,7 @@ export class EditarcarreraComponent implements OnInit {
   CarreraForm = new FormGroup({
     codigo_c: new FormControl('',[Validators.required,Validators.maxLength(9),Validators.pattern('[0-9]{4}$')]),
     carrera : new FormControl('', [Validators.required]),
-    turno: new FormControl('',[Validators.required]),
-    estado: new FormControl({value:true,disabled:true})
-
+    turno: new FormControl('',[Validators.required])
   })
 
   get codigo_c() {return this.CarreraForm.get('codigo_c')}

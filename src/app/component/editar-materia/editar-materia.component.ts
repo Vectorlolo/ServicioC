@@ -37,9 +37,8 @@ export class EditarMateriaComponent implements OnInit {
     horas_teo: new FormControl('',[Validators.min(0),Validators.max(4),Validators.required]),
     horas_pra: new FormControl('',[Validators.min(0),Validators.max(4),Validators.required]),
     horas_lab: new FormControl('',[Validators.min(0),Validators.max(4),Validators.required]),
-    carrera: new FormControl('',[Validators.required]),
-    estado: new FormControl({value:true,disabled:true})
-  });
+    carrera: new FormControl('',[Validators.required])
+    });
 
   get codigo_materia() {return this.materiasForm.get('codigo_materia')}
   get nombre_mat() {return this.materiasForm.get('nombre_mat')}

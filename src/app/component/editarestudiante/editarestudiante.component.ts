@@ -52,9 +52,7 @@ carreras:any
     ci_profesor : new FormControl('', [Validators.required,Validators.maxLength(8),Validators.pattern('^[0-9]{1,8}$')]),
     n_profesor: new FormControl('',[Validators.required]),
     a_profesor: new FormControl('',[Validators.required]),
-    tipo: new FormControl('',[Validators.required]),
-    estado: new FormControl({value:true,disabled:true})
-
+    tipo: new FormControl('',[Validators.required])
   })
 
 

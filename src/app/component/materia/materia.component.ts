@@ -14,6 +14,10 @@ import { BorrardialogComponent } from '../borrardialog/borrardialog.component'
 import { EditarMateriaComponent } from '../editar-materia/editar-materia.component'
 
 
+//bitacora
+import { BitacoraService } from '../../services/bitacora.service'
+
+
 export interface DialogData {
   info:any;
 }
@@ -35,11 +39,21 @@ export class MateriaComponent implements OnInit {
     private formbuilder: FormBuilder,
     private modalService: NgbModal,
     public dialog: MatDialog,
+
+    //bitacora
+private bitacoraService:BitacoraService
+
     ) { }
 
     carreras:any
-
+//bitacora
+usuarioOK
   ngOnInit() {
+
+
+ //bitacora
+ this.usuarioOK = JSON.parse(localStorage.getItem('usuario'));
+
 
     this.materiaService.getMaterias().subscribe((materias:any)=>{
       console.log(materias)
@@ -89,13 +103,16 @@ export class MateriaComponent implements OnInit {
   open(content) {
     this.modalReference =  this.modalService.open(content)
     
-          setTimeout(function(){ this.modalReference.close() }, 1000); //hacer que esta mierda funcione!!!!
+         // setTimeout(function(){ this.modalReference.close() }, 1000); //hacer que esta mierda funcione!!!!
+         setInterval(() => this.modalReference.close(),1000 )
+
         }
   
   
     createMateria(){
-      this.materiaService.createMateria(this.materiasForm.value).subscribe((materia)=>{
-        this.open(this.opened)
+      this.materiaService.createMateria(this.materiasForm.value).subscribe((materia:any)=>{
+        if(materia.status ==true){
+          this.open(this.opened)
         this.materiaService.getMaterias().subscribe((materias:any)=>{
           console.log(materias)
           delete(materias.__V)
@@ -103,6 +120,10 @@ export class MateriaComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         })
+        this.BitacoraCrea()
+
+        }
+        
       })
     }
 
@@ -124,6 +145,7 @@ export class MateriaComponent implements OnInit {
             this.dataSource.sort = this.sort;
           })
          })
+         this.BitacoraElimina()
       }
     })
 
@@ -152,12 +174,44 @@ export class MateriaComponent implements OnInit {
           this.dataSource.sort = this.sort;
         })
           
-      
+        this.BitacoraEdita()
             }
             })
     }
+
+
+
+    //Bitacora
+bitaco
+
+bitacoraForm = new FormGroup({
+  usuario: new FormControl('',[Validators.required]),
+  accion: new FormControl('',[Validators.required]),
+  fecha: new FormControl('',[Validators.required]),
+})
   
- 
+BitacoraCrea(){
+  this.bitacoraForm.value.usuario = this.usuarioOK.user
+  this.bitacoraForm.value.accion = 'Creo Materia: ' + this.materiasForm.value.nombre_mat
+  this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+    console.log(bitacora)
+  })
+}
+
+BitacoraElimina(){
+  this.bitacoraForm.value.usuario = this.usuarioOK.user
+  this.bitacoraForm.value.accion = 'Elimino Materia: ' + this.bitaco
+  this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+    console.log(bitacora)
+  })
+}
+BitacoraEdita(){
+  this.bitacoraForm.value.usuario = this.usuarioOK.user
+  this.bitacoraForm.value.accion = 'Edito Materia: ' + this.bitaco
+  this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+    console.log(bitacora)
+  })
+}
 
 
 }

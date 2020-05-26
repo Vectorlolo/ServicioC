@@ -9,7 +9,6 @@ MateriaShema = new Schema({
     horas_pra: { type: Number, required: true },
     horas_lab: { type: Number, required: true },
     carrera:{type:Array},
-    estado:{type:Boolean, default:true}
 })
 
 module.exports = mongoose.model('Materia',MateriaShema)

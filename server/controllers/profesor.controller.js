@@ -28,16 +28,15 @@ profesorCtrl.createProfesor = async(req, res) => {
         ci_profesor: req.body.ci_profesor,
         n_profesor: req.body.n_profesor,
         a_profesor: req.body.a_profesor,
-        tipo: req.body.tipo,
-        estado:req.body.estado
-    });
+        tipo: req.body.tipo
+        });
     console.log("profeosor: " + profesor)
     await profesor.save()
         .then(() => {
             res.status(200);
 
             res.json({
-                'status': 'ok'
+                'status': true
             })
         })
         .catch((err) => {
@@ -52,8 +51,7 @@ profesorCtrl.updateProfesor = async(req, res) => {
         ci_profesor: req.body.ci_profesor,
         n_profesor: req.body.n_profesor,
         a_profesor: req.body.a_profesor,
-        tipo: req.body.tipo,
-        estado:true
+        tipo: req.body.tipo
     }
 
     Profesor.findOneAndUpdate({ ci_profesor: req.params.id }, { $set: profesor })
@@ -66,21 +64,14 @@ profesorCtrl.updateProfesor = async(req, res) => {
 }
 
 profesorCtrl.deleteProfesor = async(req, res) => {
-    let id = req.params.id
-let cambiarEstado={
-    estado:false
-}
-
-    Profesor.findOneAndUpdate(id,cambiarEstado,{new:true})
-        .then(() => {
-            res.json({
-                'status': true,
-                'profesor':req.params.id
-            })
-        })
-        .catch((err) => {
-            res.json({ 'status': false })
-        })
+ 
+    Profesor.findOneAndDelete({ci_profesor: req.params.id})
+    .then((ok)=>{
+        res.json({status:'ok'})
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
 }
 
 module.exports = profesorCtrl

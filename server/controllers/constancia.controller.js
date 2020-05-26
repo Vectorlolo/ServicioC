@@ -33,7 +33,7 @@ constanciaCtrl.createConstancia = async(req,res)=>{
     })
     await constancia.save()
     .then(()=>{
-        res.json({status:'ok'})
+        res.json({status:true})
         res.status(200)
     })
     .catch((err)=>{
@@ -48,7 +48,7 @@ constanciaCtrl.updateConstancia = (req,res) =>{
     }
     Constancia.findOneAndUpdate({ci_profesor:req.params.id},{$set:constancia})
     .then((constancia)=>{
-        res.json(constancia)
+        res.json({status:true})
         res.status(200)
     })
     .catch((err)=>{

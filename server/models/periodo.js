@@ -8,7 +8,7 @@ const PeriodoSchema = new Schema({
     periodo:{type:String,required:true},
     inicio: {type:String,required:true},
     final:{type:String,required:true},
-    estado:{type:Boolean,default:true}
+    semana:{type:Number,required:true}
 
 });
 

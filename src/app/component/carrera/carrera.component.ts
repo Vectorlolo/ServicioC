@@ -11,6 +11,10 @@ import { MatDialogRef } from '@angular/material'; //revisar si sirve
 import { BorrardialogComponent } from '../borrardialog/borrardialog.component'
 import { EditarcarreraComponent } from '../editarcarrera/editarcarrera.component';
 
+
+//bitacora
+import { BitacoraService } from '../../services/bitacora.service'
+
 export interface DialogData {
   info:any;
 }
@@ -32,11 +36,19 @@ export class CarreraComponent implements OnInit {
     private carreracervice: CarreraService,
     private formbuilder: FormBuilder,
 
+//bitacora
+private bitacoraService:BitacoraService
+
   ) { }
 
 
-
+//bitacora
+usuarioOK
   ngOnInit() {
+
+ //bitacora
+ this.usuarioOK = JSON.parse(localStorage.getItem('usuario'));
+
   this.carreracervice.getCarreras().subscribe((carreras:any)=>{
       delete(carreras.__v)
       this.dataSource = new MatTableDataSource(carreras);
@@ -74,14 +86,19 @@ export class CarreraComponent implements OnInit {
 
 
   crearCarrera(){
-     this.carreracervice.createCarrera(this.CarreraForm.value).subscribe((carrera)=>{
-    console.log(carrera)
-    this.carreracervice.getCarreras().subscribe((carreras:any)=>{
-      delete(carreras.__v)
-      this.dataSource = new MatTableDataSource(carreras);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
+     this.carreracervice.createCarrera(this.CarreraForm.value).subscribe((carrera:any)=>{
+
+    console.log(carrera.status)
+    if(carrera.status== true){
+      this.carreracervice.getCarreras().subscribe((carreras:any)=>{
+        delete(carreras.__v)
+        this.dataSource = new MatTableDataSource(carreras);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+     this.BitacoraCrea()
+    }
+    
     })
   }
 
@@ -112,7 +129,7 @@ await editarDialog.afterClosed().subscribe((result)=>{
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   })
-    
+  this.BitacoraEdita()
 
       }
       })
@@ -149,6 +166,7 @@ await editarDialog.afterClosed().subscribe((result)=>{
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
         })
+        this.BitacoraElimina()
 
        })
 
@@ -157,6 +175,46 @@ await editarDialog.afterClosed().subscribe((result)=>{
   })
 
  }
+
+ 
+
+//Bitacora
+bitaco
+
+bitacoraForm = new FormGroup({
+  usuario: new FormControl('',[Validators.required]),
+  accion: new FormControl('',[Validators.required]),
+  fecha: new FormControl('',[Validators.required]),
+})
+/* get usuario() {return this.bitacoraForm.get('usuario')}
+get accion() {return this.bitacoraForm.get('accion')}
+get fecha() {return this.bitacoraForm.get('fecha')} */
+
+BitacoraCrea(){
+  this.bitacoraForm.value.usuario = this.usuarioOK.user
+  this.bitacoraForm.value.accion = 'Creo Carrera: ' + this.CarreraForm.value.carrera
+  this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+    console.log(bitacora)
+  })
+}
+
+BitacoraElimina(){
+  this.bitacoraForm.value.usuario = this.usuarioOK.user
+  this.bitacoraForm.value.accion = 'Elimino Carrera: ' + this.bitaco
+  this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+    console.log(bitacora)
+  })
+}
+BitacoraEdita(){
+  this.bitacoraForm.value.usuario = this.usuarioOK.user
+  this.bitacoraForm.value.accion = 'Edito Carrera: ' + this.bitaco
+  this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+    console.log(bitacora)
+  })
+}
+
+
+
   
 
 

@@ -8,12 +8,23 @@ import { CarreraService } from '../../services/carrera.service';
 import { MateriaService } from '../../services/materia.service';
 import { PeriodoService } from '../../services/periodo.service';
 
+
+
+
+
+
 @Component({
   selector: 'app-editarlabor',
   templateUrl: './editarlabor.component.html',
   styleUrls: ['./editarlabor.component.css']
 })
 export class EditarlaborComponent implements OnInit {
+
+
+
+
+
+
 
   constructor(
     private constanciaService:ConstanciaService,
@@ -43,6 +54,8 @@ this.constanciadesactualizada = constancia
 delete(constancia.__v)
 delete(constancia._id)
 this.constanciaForm.setValue(constancia.labor[this.data.info])
+this.c = constancia.labor[this.data.info].carrera
+this.m = constancia.labor[this.data.info].materia
 console.log(this.constanciaForm.value)
 })
 
@@ -50,7 +63,6 @@ console.log(this.constanciaForm.value)
 this.peridoService.getPeridos().subscribe((periodos:any)=>{
   delete(periodos.__v)
   this.periodoM = periodos
-  this.PeriodoMo()
 })
 
 this.carreraService.getCarreras().subscribe((carreras:any)=>{
@@ -67,30 +79,31 @@ this.materiaService.getMaterias().subscribe((materias:any)=>{
 
 
 }
-
+c
+m
 
 //FUNCION PARA QUE FUNCIONENE LOS PERIODOS
 periodoM:[]
-  periodoM2:any
+  /* periodoM2:any
   async PeriodoMo(){
      this.periodoM2 = this.periodoM.filter((periodo:any)=>{
       periodo.inicio = periodo.inicio.substring(0, 10)
       periodo.final =  periodo.final.substring(0, 10)
       
   return periodo
-      /* for(let i =0;i<=this.periodoM.length;i++ ){
+      for(let i =0;i<=this.periodoM.length;i++ ){
         periodo.inicio.substring(0, 10)
         
       }
       for(let fin of periodo.final ){
         fin.substring(0, 10)
-      } */
-      /* for(let i =0;i<=this.periodoM.length;i++){
+      }
+      for(let i =0;i<=this.periodoM.length;i++){
       this.periodoM[i].inicio
-    } */
+    }
     })
    
-  }
+  } */
 
 //FUNCION PARA QUE FUNCIONEN LAS MATERIAS
 codigo:any
@@ -152,6 +165,7 @@ constanciaForm = new FormGroup({
   carrera: new FormControl('',[Validators.required]),
   materia: new FormControl('',[Validators.required]),
   horasT: new FormControl({disabled:true}),
+  horasS:new FormControl({disabled:true})
 })
 get periodo() {return this.constanciaForm.get('periodo')}
 get carrera() {return this.constanciaForm.get('carrera')}
@@ -174,6 +188,9 @@ consForm = new FormGroup({
   codigoCarrera:string
   carrera_real:any
   horasT:string
+  semana:Number
+  periodo0
+  indice
   async constancia(){
     this.codigoMateria = this.constanciaForm.value.materia
     this.codigoCarrera = this.constanciaForm.value.carrera
@@ -201,14 +218,20 @@ consForm = new FormGroup({
   this.carrera_real = carreras3[0]
   
   
+  this.periodo0 = this.constanciaForm.value.periodo
+  this.indice = this.periodo0.indexOf( ":" ); 
+  this.semana = this.periodo0.slice(this.indice+1,this.periodo0.length)
+  this.periodo0 = this.periodo0.slice(0,this.indice)
+
   
     this.consForm.value.ci_profesor = this.Ci_profe
     this.ArrayLabor =  this.constanciadesactualizada.labor
     this.nuevoLAbor={
-      periodo:this.constanciaForm.value.periodo,
+      periodo:this.periodo0,
       carrera:this.carrera_real.carrera,
       materia:this.materia_real.nombre_mat,
-      horasT:this.horasT    
+      horasT:this.horasT,
+      horasS:Number(this.horasT) * Math.round(Number(this.semana))
     }
 
     this.ArrayLabor.splice(this.data.info,1,this.nuevoLAbor)

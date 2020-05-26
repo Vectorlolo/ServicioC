@@ -3,7 +3,7 @@ const Periodo = require('../models/periodo');
 const periodoCtrl = {};
 
 periodoCtrl.getPeriodos = (req,res) =>{
-    Periodo.find({estado:true})
+    Periodo.find()
     .then((periodos)=>{
         //console.log(periodos)
 
@@ -33,13 +33,13 @@ periodoCtrl.createPeriodo = async(req,res) =>{
         periodo:req.body.periodo,
         inicio: req.body.inicio,
         final:req.body.final,
-        estado:req.body.estado
+        semana:req.body.semana
     })
 
     await periodo.save()
     .then(()=>{
-        console.log(materia)
-        res.json({status:'ok'})
+        
+        res.json({status:true})
         res.status(200)
     })
     .catch((err)=>{
@@ -53,7 +53,8 @@ periodoCtrl.updatePeriodo = (req,res)=>{
         periodo:req.body.periodo,
         inicio: req.body.inicio,
         final:req.body.final,
-        estado:true
+        semana:req.body.semana
+
     }
     Periodo.findOneAndUpdate({_id:req.params.id},{$set:periodo})
     .then((materia)=>{
@@ -66,14 +67,9 @@ periodoCtrl.updatePeriodo = (req,res)=>{
 }
 
 periodoCtrl.deletePeriodo = (req,res) =>{
-    let id = req.params.id
-    let cambiarEstado = {
-        estado:false
-    }
-    Periodo.findOneAndUpdate(id,cambiarEstado,{new:true})
-    .then((materia)=>{
-        res.json(materia)
-        res.status(200)
+    Periodo.findOneAndDelete({_id:req.params.id})
+    .then((ok)=>{
+        res.json({status:'ok'})
     })
     .catch((err)=>{
         res.json(err)

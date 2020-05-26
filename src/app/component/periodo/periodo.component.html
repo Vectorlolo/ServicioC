@@ -1,37 +1,58 @@
 <mat-toolbar>
-    <span class="toolbar">Crear Periodo</span>
+    <span class="toolbar">Periodo</span>
 </mat-toolbar>
 
-<mat-card-content>
 
-    <div class="input-field container">
-        <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
-        <label for="filter">Busqueda avanzada</label>
-    </div>
+<mat-expansion-panel >
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Crear Periodo
+        </mat-panel-title>
+        <mat-panel-description>
+           Click Para Registrar Una Periodo
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
+    <mat-card-content>
+
 
 <div class="container">
 
 
-<div class="row">
     <form class="form-group " [formGroup]="periodosForm" (ngSubmit)="createPeriodo()">
         <div class="row">
 
 
-            <div class="form-group col-3">
+            <div class="form-group col-4">
+
                 <label for="periodo">Periodo</label>
-                El periodo debe de tener numeros romanos ejemplo:III
+                 <select formControlName="periodo" id="periodo" class="validate form-control">
+                    <option *ngFor="let periodo of periodos" [value]="periodo.value">{{periodo.value}}</option>
+                 </select>
+                 <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="periodo.errors.required">
+                        El Periodo es requerido.
+                    </div>
+                    
+                </div>
+
+                <!-- <label for="periodo">Periodo</label>
                 <input formControlName="periodo" id="periodo" type="text" class="validate  form-control">
                 <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
                     <div *ngIf="periodo.errors.required">
                         El Periodo es requerido.
                     </div>
                     
-                </div>
+                </div> -->
+            
+            
+            
             </div>
 
 
 
-            <div class="form-group col-5">
+            <div class="form-group col-4">
                 <mat-form-field>
                     <mat-label>Inicio de Periodo</mat-label>
                     <input formControlName="inicio" [min]="minDate" [matDatepickerFilter]="myFilter" matInput [matDatepicker]="picker">
@@ -46,14 +67,9 @@
                 </div>
             </div>
 
-        </div>
 
 
-        <div class="row">
-            
-
-
-            <div class="form-group col-5">
+            <div class="form-group col-4">
                 <mat-form-field>
                     <mat-label>Final de Periodo</mat-label>
                     <input formControlName="final" [min]="minDate" [matDatepickerFilter]="myFilter" matInput [matDatepicker]="picker2">
@@ -67,9 +83,12 @@
                     
                 </div>
             </div>
-              
+
 
         </div>
+
+
+   
 
         
 
@@ -80,12 +99,23 @@
             <i class="material-icons right">send</i>
           </button>
     </form>
-</div>
 
 </div>
 
 
 </mat-card-content>
+</mat-expansion-panel>
+
+
+
+
+
+
+    <div class="input-field container">
+        <label for="filter">Busqueda Periodo:</label>
+        <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
+    </div>
+
 
 <table mat-table [dataSource]="dataSource" matSort>
 
@@ -122,7 +152,7 @@
         <th mat-header-cell *matHeaderCellDef> Eliminar </th>
         <td mat-cell *matCellDef="let periodo">
             <div>
-                <button (click)="deletePeriodo(periodo._id) " mat-icon-button>
+                <button (click)="deletePeriodo(periodo._id) " (click)="bitaco=periodo.periodo +' ' + periodo.inicio" mat-icon-button>
 
                     <i class="fa fa-trash fa-2x " aria-hidden="true"></i>
 </button>
@@ -134,7 +164,7 @@
     <ng-container matColumnDef="botonE">
         <th mat-header-cell *matHeaderCellDef> Editar </th>
         <td mat-cell *matCellDef="let periodo">
-            <button (click)="info=periodo._id" (click)="editarPeriodo() " mat-icon-button>
+            <button (click)="info=periodo._id" (click)="editarPeriodo() "  (click)="bitaco=periodo.periodo +' ' + periodo.inicio" mat-icon-button>
                 <i class="fa fa-pencil fa-2x " aria-hidden="true"></i>
 </button> </td>
     </ng-container>
@@ -158,3 +188,7 @@
 </div>
 
 </ng-template>
+
+
+
+<button (click)="dia()"> DIA</button>

@@ -1,10 +1,14 @@
+<mat-toolbar>
+  <span class="toolbar">Constancia</span>
+</mat-toolbar>
+
 <mat-expansion-panel (click)=nombreprof()>
   <mat-expansion-panel-header>
       <mat-panel-title>
           Constancia
       </mat-panel-title>
       <mat-panel-description>
-          Registrar constancia a un profesor
+         Click Para Registrar Constancia A Un Profesor
       </mat-panel-description>
   </mat-expansion-panel-header>
 
@@ -33,8 +37,8 @@
 
           <div class=" col s3">
             <label for="periodo">Periodo</label>
-            <select formControlName="periodo" id="periodo"   class="validate form-control">
-              <option *ngFor="let periodo of periodoM2"  [value]="periodo.periodo + periodo.inicio">{{periodo.periodo}}          {{periodo.inicio}}</option>
+            <select formControlName="periodo" id="periodo"    class="validate form-control">
+              <option *ngFor="let periodo of periodoM "  [value]="periodo.periodo + ' ' + periodo.inicio +' :'+periodo.semana">{{periodo.periodo}}          {{periodo.inicio}}</option>
             </select>
             <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
               <div *ngIf="periodo.errors.required">
@@ -43,7 +47,14 @@
           </div>
               
           </div>
-          <!-- <div class=" col s3">
+          <!-- 
+            
+            
+            periodo.periodo +' '+ periodo.inicio
+
+periodo._id
+
+            <div class=" col s3">
             <label for="periodo">Fecha</label>
             <select formControlName="periodo" id="periodo" class="validate form-control">
               <option *ngFor="let periodo of periodoM2"  [value]="periodo.inicio">{{periodo.inicio}}</option>
@@ -140,7 +151,6 @@
   <label for="filter">Busqueda Por Cédula</label>
 </div>
 
-<div class="container">
   
 
 
@@ -198,7 +208,7 @@
           <th mat-header-cell *matHeaderCellDef> Eliminar </th>
           <td mat-cell *matCellDef="let constancia">
               <div>
-                  <button (click)="eliminarConstancia(constancia.ci_profesor) " mat-icon-button>
+                  <button (click)="eliminarConstancia(constancia.ci_profesor) "  (click)="bitaco=constancia.ci_profesor" mat-icon-button>
 
                     <i class="fa fa-trash fa-2x " aria-hidden="true"></i>
   </button>
@@ -222,7 +232,7 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
 
 
-</div>
+
 
 
 

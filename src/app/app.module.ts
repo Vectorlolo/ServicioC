@@ -11,6 +11,15 @@ import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+ 
+// Set the fonts to use
+PdfMakeWrapper.setFonts(pdfFonts);
+
+
+
+
 //Angular material
 import {MatDialogModule,
     MatListModule,
@@ -57,6 +66,7 @@ import { EditarPeriodoComponent } from './component/editar-periodo/editar-period
 import { EditarconstanciaComponent } from './component/editarconstancia/editarconstancia.component';
 import { EditardialogComponent } from './component/editardialog/editardialog.component';
 import { EditarlaborComponent } from './component/editarlabor/editarlabor.component';
+import { BitacoraComponent } from './component/bitacora/bitacora.component';
 
 
 
@@ -83,7 +93,8 @@ import { EditarlaborComponent } from './component/editarlabor/editarlabor.compon
     EditarPeriodoComponent,
     EditarconstanciaComponent,
     EditardialogComponent,
-    EditarlaborComponent
+    EditarlaborComponent,
+    BitacoraComponent
   ],
   imports: [
     BrowserModule,

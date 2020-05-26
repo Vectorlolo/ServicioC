@@ -11,6 +11,10 @@ import { EditarestudianteComponent } from '../editarestudiante/editarestudiante.
 import { InfoestudianteComponent } from '../infoestudiante/infoestudiante.component';
 import { async } from '@angular/core/testing';
 
+//bitacora
+import { BitacoraService } from '../../services/bitacora.service'
+
+
 export interface DialogData {
   info:any;
 }
@@ -28,11 +32,21 @@ export class FindestudianteComponent implements OnInit {
   constructor(
     private router:Router,
     public estudianteServiceService:EstudianteServiceService,
-    public dialog:MatDialog
+    public dialog:MatDialog,
+
+    
+//bitacora
+private bitacoraService:BitacoraService
+
     ) { }
     profesorees= []
-
+//bitacora
+usuarioOK
   ngOnInit() {
+ //bitacora
+ this.usuarioOK = JSON.parse(localStorage.getItem('usuario'));
+
+    
     this.estudianteServiceService.getProfesores().subscribe((profesor:any)=>{
       this.dataSource = new MatTableDataSource(profesor);
       this.dataSource.paginator = this.paginator;
@@ -105,10 +119,15 @@ async borrarProfesor(id){
   await borrarDialog.afterClosed().subscribe((result)=>{
     if(result){
       this.estudianteServiceService.deleteProfesor(id).subscribe((estudiante:any)=>{
-        this.dataSource = new MatTableDataSource(estudiante);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.estudianteServiceService.getProfesores().subscribe((profesor:any)=>{
+          this.dataSource = new MatTableDataSource(profesor);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.profesorees.push(profesor)
+    
+        })
       })
+      this.BitacoraElimina()
     }
   })
 }
@@ -130,6 +149,7 @@ editar:any;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       })
+      this.BitacoraEdita()
      }
    })
 
@@ -184,6 +204,29 @@ editar:any;
   } */
 
 
+//Bitacora
+bitaco
+
+bitacoraForm = new FormGroup({
+  usuario: new FormControl('',[Validators.required]),
+  accion: new FormControl('',[Validators.required]),
+  fecha: new FormControl('',[Validators.required]),
+})
+
+  BitacoraElimina(){
+    this.bitacoraForm.value.usuario = this.usuarioOK.user
+    this.bitacoraForm.value.accion = 'Elimino Profesor: ' + this.bitaco
+    this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+      console.log(bitacora)
+    })
+  }
+  BitacoraEdita(){
+    this.bitacoraForm.value.usuario = this.usuarioOK.user
+    this.bitacoraForm.value.accion = 'Edito Profesor: ' + this.bitaco
+    this.bitacoraService.createBitacora(this.bitacoraForm.value).subscribe((bitacora)=>{
+      console.log(bitacora)
+    })
+  }
 
 
 }

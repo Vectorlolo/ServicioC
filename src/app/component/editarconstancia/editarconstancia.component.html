@@ -2,6 +2,19 @@
   <span class="toolbar">Constancia Profesor: {{nombre}} {{apellido}}  {{Ci_profe}} </span>
 </mat-toolbar>
 
+<mat-expansion-panel >
+  <mat-expansion-panel-header>
+      <mat-panel-title>
+          Agregar Labor
+      </mat-panel-title>
+      <mat-panel-description>
+         Click Para Registrar Una Labor
+      </mat-panel-description>
+  </mat-expansion-panel-header>
+
+
+
+
 <mat-card-content>
 
     <div class="container">
@@ -28,7 +41,7 @@
           <div class=" col s3">
             <label for="periodo">Periodo</label>
             <select formControlName="periodo" id="periodo"   class="validate form-control">
-              <option *ngFor="let periodo of periodoM2"  [value]="periodo.periodo + periodo.inicio">{{periodo.periodo}}          {{periodo.inicio}}</option>
+              <option *ngFor="let periodo of periodoM"  [value]="periodo.periodo + ' ' + periodo.inicio +' :'+periodo.semana">{{periodo.periodo}}          {{periodo.inicio}}</option>
             </select>
             <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
               <div *ngIf="periodo.errors.required">
@@ -122,6 +135,7 @@
 
 </mat-card-content>
 
+</mat-expansion-panel>
 
 
 
@@ -134,7 +148,6 @@
 
 
 
-<div class="container">
   
 
     <table mat-table [dataSource]="dataSource" matSort>
@@ -201,7 +214,7 @@
         <ng-container matColumnDef="botonE">
             <th mat-header-cell *matHeaderCellDef> Editar </th>
             <td mat-cell *matCellDef="let constancia">
-                <button (click)="info=dataSource.filteredData.indexOf(constancia)" (click)="editarConstancia(constancia) " mat-icon-button>
+                <button (click)="info=dataSource.filteredData.indexOf(constancia)"   (click)="editarConstancia(constancia) " mat-icon-button>
       <mat-icon>edit</mat-icon>
     </button> </td>
         </ng-container>
@@ -213,4 +226,9 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
   
   
-  </div>
+    
+  <button (click)="generatePdf()">
+    Generar PDF
+      </button>
+
+

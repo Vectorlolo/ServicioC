@@ -1,11 +1,22 @@
 <mat-toolbar>
-    <span class="toolbar">Crear Carrera</span>
+    <span class="toolbar"> Carrera</span>
 </mat-toolbar>
+  
+<mat-expansion-panel (click)=nombreprof()>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Crear Carrera
+        </mat-panel-title>
+        <mat-panel-description>
+           Click Para Registrar Una Carrera
+        </mat-panel-description>
+    </mat-expansion-panel-header>
 
-<div class="input-field container">
-    <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
-    <label for="filter">Busqueda avanzada</label>
-</div>
+
+
+
+
+
 
 <mat-card-content>
     <div class="container">
@@ -61,13 +72,19 @@
 
 </mat-card-content>
 
-
-<div class="container">
-  
+</mat-expansion-panel>
 
 
 
 
+
+
+
+<div class="input-field container">
+    <label for="filter"> Busqueda Carrera:  </label>
+    <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
+    
+</div>
 
     <table mat-table [dataSource]="dataSource" matSort>
 
@@ -103,7 +120,7 @@
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
             <td mat-cell *matCellDef="let carrera">
                 <div>
-                    <button (click)="eliminarCarrera(carrera.codigo_c) " mat-icon-button>
+                    <button (click)="eliminarCarrera(carrera.codigo_c) " (click)="bitaco=carrera.carrera" mat-icon-button>
 
                         <i class="fa fa-trash fa-2x " aria-hidden="true"></i>
     </button>
@@ -115,7 +132,7 @@
         <ng-container matColumnDef="botonE">
             <th mat-header-cell *matHeaderCellDef> Editar </th>
             <td mat-cell *matCellDef="let carrera">
-                <button (click)="info=carrera.codigo_c" (click)="editarCarrera(carrera.codigo_c) " mat-icon-button>
+                <button (click)="info=carrera.codigo_c" (click)="bitaco=carrera.carrera" (click)="editarCarrera(carrera.codigo_c) " mat-icon-button>
                     <i class="fa fa-pencil fa-2x " aria-hidden="true"></i>
     </button> </td>
         </ng-container>
@@ -127,4 +144,3 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
 
 
-</div>

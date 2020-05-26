@@ -1,6 +1,6 @@
 <mat-toolbar>
-    <span class="toolbar">Buscar Profesor</span>
-    <button class="btn btn-primary " id="boton" (click)="crear()">Crear Profesor</button>
+    <span class="toolbar"> Profesor</span>
+    <button class="btn btn-primary " id="boton" (click)="crear()" style="position: absolute; right: 0;">Crear Profesor</button>
 </mat-toolbar>
 
 
@@ -11,7 +11,6 @@
 </div>
 
 
-<div class="mat-elevation-z8 col-12">
     <table mat-table [dataSource]="dataSource" matSort >
 
         <ng-container class="col-2" matColumnDef="ci_profesor">
@@ -65,7 +64,7 @@
 
         <ng-container class="col-2" matColumnDef="boton">
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-            <td mat-cell *matCellDef="let profesor"> <button (click)="borrarProfesor(profesor.ci_profesor) " mat-icon-button>
+            <td mat-cell *matCellDef="let profesor"> <button (click)="borrarProfesor(profesor.ci_profesor) " (click)='bitaco=profesor.ci_profesor' mat-icon-button>
                 <i class="fa fa-trash fa-2x " aria-hidden="true"></i>
         </button> </td>
         </ng-container>
@@ -74,7 +73,7 @@
             <th mat-header-cell *matHeaderCellDef> Editar </th>
             <td mat-cell *matCellDef="let profesor">
 
-                <button (click)="info=profesor.ci_profesor" (click)="tomarProfesor(profesor.ci_profesor)" mat-icon-button>
+                <button (click)="info=profesor.ci_profesor" (click)="tomarProfesor(profesor.ci_profesor)" (click)='bitaco=profesor.ci_profesor' mat-icon-button>
                     <i class="fa fa-pencil fa-2x " aria-hidden="true"></i>
                 </button>
 
@@ -94,7 +93,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
-</div>
 
 
 

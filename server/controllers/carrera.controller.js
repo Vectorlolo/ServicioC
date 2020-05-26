@@ -3,7 +3,7 @@ const Carrera = require('../models/carrera');
 const carreraCtrl = {};
 
 carreraCtrl.getCarreras = async(req, res) => {
-    Carrera.find({ estado: true })
+    Carrera.find()
         .then((carreras) => {
             res.json(carreras);
             //console.log(carreras)
@@ -28,14 +28,13 @@ carreraCtrl.createCarrera = async(req, res) => {
         codigo_c:req.body.codigo_c,
         carrera: req.body.carrera,
         turno:req.body.turno,
-        estado:req.body.estado
     })
 
     await carrer.save()
         .then(() => {
             res.status(200);
             res.json({
-                'status': 'ok'
+                'status': true
             })
         })
         .catch((err) => {
@@ -52,7 +51,6 @@ carreraCtrl.updateCarrera = (req, res) => {
         codigo_c:req.body.codigo_c,
         carrera: req.body.carrera,
         turno:req.body.turno,
-        estado:true
     }
     Carrera.findOneAndUpdate({ codigo_c: req.params.id }, { $set: carrera }) //revisar
         .then((carrera) => {
@@ -65,24 +63,13 @@ carreraCtrl.updateCarrera = (req, res) => {
 
 carreraCtrl.deleteCarrera = async(req, res) => {
     
-
-    let id =req.params.id
-    let cambiarEstado = {
-        estado: false
-    }
-
-    let user = Carrera.findOneAndUpdate(id,cambiarEstado ,{new:true})
-        .then(() => {
-            res.json({
-                'status': true,
-                'carrera':req.params.id
-            })
-        })
-        .catch(() => {
-            res.json({
-                'status': false
-            })
-        })
+    Carrera.findOneAndDelete({codigo_c: req.params.id})
+    .then(()=>{
+        res.json({status:'ok'})
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
 }
 
 
