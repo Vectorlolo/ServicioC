@@ -1,0 +1,203 @@
+<mat-toolbar>
+    <span class="toolbar">Decano</span>
+</mat-toolbar>
+
+
+<mat-expansion-panel >
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Editar Decano
+        </mat-panel-title>
+        <mat-panel-description>
+           Click Para Editar Al Decano 
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
+    <mat-card-content>
+
+
+<div class="container">
+
+
+    <form class="form-group " [formGroup]="decanoForm" (ngSubmit)="editarDecano()" >
+        <div class="row">
+
+
+            <div class="form-group col-4">
+
+                <label for="nombramiento">Nombramiento</label>
+                <input type="text"  formControlName="nombramiento" required id="nombramiento" class="form-control validate">
+               <!--  <div *ngIf="nombramiento invalid && (nombramiento dirty || nombramiento touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="nombramiento errors.required">
+                        El Nombramiento es requerido
+                    </div>
+                    <div *ngIf="nombramiento errors.pattern">
+                        El formato del nombramiento es de cuatro dígitos numericos ej: 1234
+                    </div>
+                </div> -->
+
+                <!-- <label for="periodo">Periodo</label>(ngSubmit)="createPeriodo()
+                <input formControlName="periodo" id="periodo" type="text" class="validate  form-control">
+                <div *ngIf="periodo.invalid && (periodo.dirty || periodo.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="periodo.errors.required">
+                        El Periodo es requerido.
+                    </div>
+                    
+                </div> -->
+            
+            
+            
+            </div>
+
+
+            <div class="form-group col-4">
+                <mat-form-field>
+                    <mat-label>Fecha Nombramiento</mat-label>
+                    <input formControlName="fecha" [min]="minDate" [matDatepickerFilter]="myFilter" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class=" red-text  text-darken-4">
+                    <div *ngIf="fecha.errors.required">
+                        El Fecha Nombramiento es requerido.        
+                    </div>
+                    
+                </div>
+            </div>
+
+
+
+            <div class="form-group col-4">
+                <label for="nombre">Nombre</label>
+                <input type="text"  formControlName="nombre" required id="nombre" class="validate form-control">
+                
+              <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class=" red-text  text-darken-4">
+                <div *ngIf="nombre.errors.required">
+                    El nombre es requerido
+                </div>
+            </div>
+               </div>
+
+
+
+           
+
+
+        </div>
+
+        <div class="row">
+            
+            
+            <div class="form-group col-4">
+                <label for="apellido">apellido</label>
+                <input type="text"  formControlName="apellido" required id="apellido" class="validate form-control">
+                
+              <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class=" red-text  text-darken-4">
+                <div *ngIf="apellido.errors.required">
+                    El apellido es requerido
+                </div>
+            </div>
+               </div>
+
+               <div class="form-group col-4">
+                <label for="rango">Rango</label>
+                <input type="text"  formControlName="rango" required id="rango" class="validate form-control">
+                
+              <div *ngIf="rango.invalid && (rango.dirty || rango.touched)" class=" red-text  text-darken-4">
+                <div *ngIf="rango.errors.required">
+                    El rango es requerido
+                </div>
+            </div>
+               </div>
+
+        </div>
+
+
+   
+
+        
+
+
+
+  
+        <button (click)="opened = mymodal" class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!decanoForm.valid">Guardar
+            <i class="material-icons right">send</i>
+          </button>
+    </form>
+
+</div>
+
+
+</mat-card-content>
+</mat-expansion-panel>
+
+
+
+
+<table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="nombramiento">
+        <th mat-header-cell *matHeaderCellDef> Nombramiento </th>
+        <td mat-cell *matCellDef="let decano">
+
+            <span>{{decano.nombramiento}}</span>
+
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let decano">
+
+            <span>{{decano.fecha}}</span>
+
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let decano">
+
+            <span>{{decano.nombre}}</span>
+
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef> Apellido </th>
+        <td mat-cell *matCellDef="let decano">
+
+            <span>{{decano.apellido}}</span>
+
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rango">
+        <th mat-header-cell *matHeaderCellDef> Rango </th>
+        <td mat-cell *matCellDef="let decano">
+
+            <span>{{decano.rango}}</span>
+
+        </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+
+
+
+
+
+
+<ng-template #mymodal let-modal>
+
+<div class="modal-body text-center">
+<h3>Decano editado</h3>
+</div>
+
+</ng-template>

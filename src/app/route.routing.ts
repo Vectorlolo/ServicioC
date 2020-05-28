@@ -12,6 +12,7 @@ import { PeriodoComponent } from './component/periodo/periodo.component';
 import { EditarPeriodoComponent } from './component/editar-periodo/editar-periodo.component';
 import { EditarconstanciaComponent } from './component/editarconstancia/editarconstancia.component'
 import { BitacoraComponent } from './component/bitacora/bitacora.component';
+import { DecanoComponent } from './component/decano/decano.component';
 
 const routes: Routes = [
   { path:'',component: LoginComponent,pathMatch: 'full' },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path:'constancia',component:ConstanciaComponent,canActivate:[AuthGuard]},
   {path:'periodo',component:PeriodoComponent,canActivate:[AuthGuard]},
   {path:'editarconstancia',component:EditarconstanciaComponent,canActivate:[AuthGuard]},
-  {path:'bitacora',component:BitacoraComponent,canActivate:[AuthGuard]}
+  {path:'bitacora',component:BitacoraComponent,canActivate:[AuthGuard]},
+  {path:'decano',component:DecanoComponent,canActivate:[AuthGuard]}
 ];
 
 export const RouteRoutes = RouterModule.forRoot(routes);

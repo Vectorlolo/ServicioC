@@ -11,7 +11,7 @@ import {MatSort} from '@angular/material/sort';
 import { BorrardialogComponent } from '../borrardialog/borrardialog.component'
 import { EditardialogComponent } from '../editardialog/editardialog.component'
 import { EditarlaborComponent } from '../editarlabor/editarlabor.component'
-
+import { DecanoService } from '../../services/decano.service'
 
 //  pdfmake-wrapper 
 import { PdfMakeWrapper, Table,Txt,Img,Columns } from 'pdfmake-wrapper';
@@ -52,6 +52,7 @@ puta='PUTA'
 
     this.servicoEs()
     this.fecha()
+    this.fechanombramiento()
     pdf.pageSize('A4');
 
     
@@ -178,13 +179,13 @@ pdf.add(
 
 
   pdf.add(
-    new Txt('Cnel. Hildemaro José Márquez Chacuto' ).alignment('center').fontSize(12).bold().end
+    new Txt(this.Decano.rango + ' ' + this.Decano.nombre + ' ' + this.Decano.apellido  ).alignment('center').fontSize(12).bold().end
   );
   pdf.add(
     new Txt('Decano Núcleo Miranda' ).alignment('center').fontSize(12).bold().end
   );
   pdf.add(
-    new Txt('  Según nombramiento 0053 de fecha 19 de enero de 2018' ).alignment('center').fontSize(8).bold().end
+    new Txt('  Según nombramiento ' + this.Decano.nombramiento + ' de fecha ' + this.diaN + ' de ' + this.mesN +' de ' + this.añoN ).alignment('center').fontSize(8).bold().end
   );
   pdf.add(
     new Txt('  “Excelencia Educativa Abierta al pueblo”' ).alignment('center').fontSize(9).bold().end
@@ -298,6 +299,7 @@ servicoEs(){
     private profesorService:EstudianteServiceService,
     private constanciaService:ConstanciaService,
     public dialog:MatDialog,
+    private decanoService:DecanoService,
 
     //bitacora
     private bitacoraService:BitacoraService
@@ -356,6 +358,15 @@ this.profesorService.getProfesor(this.Ci_profe).subscribe((profesor:any)=>{
         this.materias = materias
       })
 
+      this.decanoService.getDecanos().subscribe((decano:any)=>{
+        delete(decano.__v)
+        delete(decano._id)
+  
+        this.Decano = decano[0]
+        
+  
+       })
+
 
 
   }
@@ -363,6 +374,60 @@ this.profesorService.getProfesor(this.Ci_profe).subscribe((profesor:any)=>{
   displayedColumns: string[] = ['periodo','carrera','materia','horasT','boton','botonE'];
   dataSource
 
+
+  diaN
+  mesN
+  añoN
+  fechaN
+  Decano
+  fechanombramiento(){
+    this.fechaN = new Date(this.Decano.fecha )
+    this.mesN = this.fechaN.getMonth()+1
+    this.diaN = this.fechaN.getDate()
+    this.añoN = this.fechaN.getFullYear()
+    
+    switch (this.mesN) {
+      case 1:
+        this.mesN = 'enero'
+        break;
+        case 2:
+          this.mesN = 'febrero'
+          break;
+          case 3:
+            this.mesN = 'marzo'
+            break;
+            case 4:
+              this.mesN = 'abril'
+              break;
+              case 5:
+                this.mesN = 'mayo'
+                break;
+                case 6:
+                  this.mesN = 'junio'
+                  break;
+                  case 7:
+                    this.mesN = 'julio'
+                    break;
+                    case 8:
+                      this.mesN = 'agosto'
+                      break;
+                      case 9:
+                      this.mesN = 'septiembre'
+                      break;
+                      case 10:
+                      this.mesN = 'octubre'
+                      break;
+                      case 11:
+                      this.mesN = 'noviembre'
+                      break;
+                      case 10:
+                      this.mesN = 'diciembre'
+                      break;
+    
+      default:
+        break;
+    }
+  }
 
   periodoM:[]
   /* periodoM2:any

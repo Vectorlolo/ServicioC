@@ -22,7 +22,8 @@ this.links=[
     {url:'/materia',nombre:'Materia'},
     {url:'/periodo',nombre:'Periodo'},
     {url:'/constancia',nombre:'Constancia'},
-    {url:'/bitacora',nombre:'Bitacora'}
+    {url:'/bitacora',nombre:'Bitacora'},
+    {url:'/decano',nombre:'Decano'}
     
   ]
 

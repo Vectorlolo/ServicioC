@@ -67,6 +67,7 @@ import { EditarconstanciaComponent } from './component/editarconstancia/editarco
 import { EditardialogComponent } from './component/editardialog/editardialog.component';
 import { EditarlaborComponent } from './component/editarlabor/editarlabor.component';
 import { BitacoraComponent } from './component/bitacora/bitacora.component';
+import { DecanoComponent } from './component/decano/decano.component';
 
 
 
@@ -94,7 +95,8 @@ import { BitacoraComponent } from './component/bitacora/bitacora.component';
     EditarconstanciaComponent,
     EditardialogComponent,
     EditarlaborComponent,
-    BitacoraComponent
+    BitacoraComponent,
+    DecanoComponent
   ],
   imports: [
     BrowserModule,

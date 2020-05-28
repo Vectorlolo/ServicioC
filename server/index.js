@@ -22,7 +22,7 @@ app.use('/api/materia', require('./routes/materia.routes'))
 app.use('/api/periodo',require('./routes/periodo.routes'))
 app.use('/api/constancia',require('./routes/constancia.routes'))
 app.use('/api/bitacora',require('./routes/bitacora.routes'))
-
+app.use('/api/decano',require('./routes/decano.routes'))
 //inicio server
 app.listen(app.get('port'), () => {
     console.log("Server en el puerto ", app.get('port'));
