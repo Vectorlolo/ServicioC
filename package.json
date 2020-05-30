@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node index.js",
-    "nodemon":"nodemon index.js",
+    "nodemon": "nodemon index.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -33,6 +33,7 @@
     "mongoose": "^5.9.3",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.2",
+    "path": "^0.12.7",
     "pdfmake": "^0.1.65",
     "pdfmake-wrapper": "^2.0.0",
     "rxjs": "^6.4.0",
@@ -59,5 +60,9 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
+  },
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.14.2"
   }
 }
