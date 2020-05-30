@@ -14,7 +14,10 @@
 <!--             <i id="user" class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i><br>
  -->            <input class="form-control " placeholder="Username" [(ngModel)]="username" #ctrl="ngModel" required> <br>
             <input class="form-control " type="password" placeholder="Password" [(ngModel)]="password" #ctrl="ngModel" required> <br>
-            <button class="btn btn-primary  " (click)="auth(username,password) ">Login</button>
+            <button class="btn btn-primary  "  (click)="singIn() ">Login</button>
+
+<div *ngIf="mal==true">Contraseña o Usuario Incorrectos</div>
+
           </div>            
         </div>
       

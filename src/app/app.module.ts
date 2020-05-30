@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule ,HttpInterceptor, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -69,8 +69,9 @@ import { EditarlaborComponent } from './component/editarlabor/editarlabor.compon
 import { BitacoraComponent } from './component/bitacora/bitacora.component';
 import { DecanoComponent } from './component/decano/decano.component';
 
+import { TokenInterceptorService } from '../app/services/token-interceptor.service'
 
-
+import { AuthGuard } from '../guards/auth.guard'
 
 
 
@@ -132,7 +133,14 @@ import { DecanoComponent } from './component/decano/decano.component';
     
 
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:TokenInterceptorService,
+      multi: true
+    }
+  ],
   entryComponents:[
     BorrardialogComponent,
     EditarcarreraComponent,

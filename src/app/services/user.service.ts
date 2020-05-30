@@ -17,33 +17,24 @@ export class UserService {
 
 elman:boolean
 
-  authUser(user,password){
+private URL = 'http://localhost:3000/api/usuario/'
+
+singin(user){
+  return this.http.post<any>(this.URL+'singin',user)
+ }
+
+loggedIn(){
+  return !!(localStorage.getItem('token'))
+}
+
+getToken(){
+  return localStorage.getItem('token')
+}
 
 
-    this.loginService.getUser(user).subscribe((usuario:any)=>{
-      if(usuario.password === password){
-        
-        localStorage.setItem('usuario', JSON.stringify(usuario));
-        this.router.navigateByUrl('/inicio', {skipLocationChange: true}).then(()=>{
-          this.router.navigate(['/inicio'])
-          return true
-         })
-      }else{
-        console.log('contraseña erronea')
-        return false
-      }
-    })
-  }
-  datoUsuario:any
-  auth(){
-    this.datoUsuario = JSON.parse(localStorage.getItem('usuario'));
-    if(this.datoUsuario != null ||this.datoUsuario != ''||this.datoUsuario != undefined){
-      this.elman = true
-    }else{
-      this.elman = false
-    }
-  }
-  
+
+
+ 
 /* 
 
   usuarios = [{

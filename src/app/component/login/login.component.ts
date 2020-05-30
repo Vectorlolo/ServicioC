@@ -15,14 +15,33 @@ export class LoginComponent implements OnInit {
      private router:Router,
      private userService:UserService) { }
 
-  usuarios:[]
   ngOnInit() {
-  this.loginService.getUsers().subscribe((usuarios:any)=>{
-    this.usuarios = usuarios
-  })
+ 
   }
 
 
+mal=false
+ singIn(){
+  this.usuario = {user:this.username,password:this.password} 
+
+ // console.log(this.usuario)
+  this.userService.singin(this.usuario)
+  .subscribe(
+    res=>{
+       localStorage.setItem('token',res.jwt)
+      console.log(res)
+      this.router.navigateByUrl('/inicio', {skipLocationChange: true}).then(()=>{
+        this.router.navigate(['/inicio'])
+       })
+
+      },
+    err=> {
+      console.log(err) 
+      this.mal=true
+    }
+
+  )
+}
 
 
 login:boolean
@@ -30,7 +49,7 @@ login:boolean
 username: string = '';
 password: string = '';
 
-usuario:any
+usuario
 
 /* UserForm = new FormGroup({
   user: new FormControl('',[Validators.required]),
@@ -43,11 +62,6 @@ get password(){return this.UserForm.get('password')}
 
 
 
- auth(username,password){
-    this.userService.authUser(username,password)
-  
-
-}
 
 
 /*  authUser(user,password){

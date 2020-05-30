@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { UserService } from '../../services/user.service'
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -15,6 +15,7 @@ export class NavComponent {
   esfalse=false
 
   ngOnInit(){
+    //if(this.userService.loggedIn()){
 this.links=[
     {url:'/inicio',nombre:'inicio'},
     {url:'/carrera',nombre:'Carrera'},
@@ -27,7 +28,9 @@ this.links=[
     
   ]
 
-  this.datoUsuario = JSON.parse(localStorage.getItem('usuario'));
+    //}
+
+  this.datoUsuario = JSON.parse(localStorage.getItem('token'));
 
 if(this.datoUsuario == null ||this.datoUsuario == undefined  ||this.datoUsuario == ''){
  this.esfalse=false
@@ -38,10 +41,27 @@ if(this.datoUsuario == null ||this.datoUsuario == undefined  ||this.datoUsuario 
 
   }
 
- 
+ ok(){
+ /*  if(this.userService.loggedIn()){
+    this.links=[
+        {url:'/inicio',nombre:'inicio'},
+        {url:'/carrera',nombre:'Carrera'},
+        {url:'/festudiante',nombre:'Profesor'},
+        {url:'/materia',nombre:'Materia'},
+        {url:'/periodo',nombre:'Periodo'},
+        {url:'/constancia',nombre:'Constancia'},
+        {url:'/bitacora',nombre:'Bitacora'},
+        {url:'/decano',nombre:'Decano'}
+        
+      ]
+    
+        } */
+
+ }
   
   cerrar(){
-    localStorage.removeItem('usuario');
+    //localStorage.removeItem('usuario');
+    localStorage.removeItem('token');
    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>{
      this.router.navigate(['/'])
 
@@ -54,6 +74,6 @@ if(this.datoUsuario == null ||this.datoUsuario == undefined  ||this.datoUsuario 
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver,private router:Router) {}
+  constructor(private breakpointObserver: BreakpointObserver,private router:Router , private userService:UserService) {}
 
 }

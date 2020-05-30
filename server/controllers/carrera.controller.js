@@ -1,8 +1,8 @@
 const Carrera = require('../models/carrera');
-
+const jwt = require('jsonwebtoken')
 const carreraCtrl = {};
 
-carreraCtrl.getCarreras = async(req, res) => {
+carreraCtrl.getCarreras =  (req, res) => {
     Carrera.find()
         .then((carreras) => {
             res.json(carreras);
@@ -10,6 +10,7 @@ carreraCtrl.getCarreras = async(req, res) => {
         })
         .catch((err) => {
             res.json(err);
+            console.log(err)
         })
 }
 
@@ -74,3 +75,19 @@ carreraCtrl.deleteCarrera = async(req, res) => {
 
 
 module.exports = carreraCtrl
+
+function verifyToken(req,res,next){
+    if(!req.headers.authorization){
+        return res.status(401).send('Unauthorization request')
+    }
+
+    const token = req.headers.authorization.split(' ')[1]
+
+    if(token === 'null'){
+        return res.status(401).send('Autorizacion request')
+    }
+
+   const payload = jwt.verify(token,'secretkey')
+    req.userId = payload._id
+    next()
+}

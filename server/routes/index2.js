@@ -1,16 +1,14 @@
-const express = require('express');
-const router = express.Router();
+const { Router } =  require('express')
+const router = Router()
 const jwt = require('jsonwebtoken')
 
 
-const usuario = require('../controllers/user.controller')
+router.get('/datos', verifyToken,(req,res) => res.json([
+    {dato1:1},
+    {dato2:2},
+    {dato3:3},
+]))
 
-router.get('/',verifyToken,usuario.getUsuarios)
-router.get('/:id',verifyToken,usuario.getUsuario);
-router.put('/:id',verifyToken,usuario.updateUsuario);
-router.post('/create',verifyToken,usuario.createUser)
-router.delete('/:id',verifyToken,usuario.deleteUsuario)
-router.post('/singin',usuario.singin);
 module.exports = router
 
 

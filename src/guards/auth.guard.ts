@@ -2,6 +2,7 @@ import { Injectable ,OnInit} from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '../app/services/user.service'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,11 +17,11 @@ export class AuthGuard implements CanActivate , OnInit{
     }
   } */
   ngOnInit(){
-    this.auth()
+   // this.auth()
   }
   elman:boolean
   datoUsuario:any
-   auth(){
+  /*  auth(){
      this.datoUsuario = JSON.parse(localStorage.getItem('usuario'));
      if(this.datoUsuario.role == 'ADMIN_ROLE' ){//el esta reconociendo el datousuario como objeto , tienes 
         //que decirle que es un objeto para que no de false
@@ -28,8 +29,20 @@ export class AuthGuard implements CanActivate , OnInit{
     }else{
       return false
     }
+  } */
+
+  canActivate(): boolean{
+if (this.userService.loggedIn()){
+  return true
+}
+
+this.router.navigate(['/inicio'])
+return false
   }
-  canActivate(
+
+
+
+  /* canActivate(
 
     next: ActivatedRouteSnapshot,
 
@@ -50,6 +63,6 @@ export class AuthGuard implements CanActivate , OnInit{
       return true ;
 
   }
-
-}
+*/
+} 
 
